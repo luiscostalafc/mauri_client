@@ -11,12 +11,12 @@ const customTheme: DefaultTheme = {
     ...theme.fontWeights,
     normal: 400,
     medium: 600,
-    bold: 700,
+    bold: 700
   },
   radii: {
     ...theme.radii,
     sm: '5px',
-    md: '8px',
+    md: '8px'
   },
   fontSizes: {
     ...theme.fontSizes
@@ -25,7 +25,7 @@ const customTheme: DefaultTheme = {
     ...theme.colors,
     purple: {
       ...theme.colors.purple,
-      500: '#8257e5',
+      500: '#8257e5'
     },
     gray: {
       ...theme.colors.gray,
@@ -33,8 +33,8 @@ const customTheme: DefaultTheme = {
       600: '#29292e',
       700: '#202024',
       800: '#121214'
-    },
-  },
+    }
+  }
 }
 
-export default customTheme;
+export default customTheme

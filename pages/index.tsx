@@ -1,65 +1,62 @@
-import Head from 'next/head'
+import React from 'react'
 
-import Divider from '../components/Divider'
+import Slider from '../components/Slider'
+import Header from '../components/Header'
+import Group from '../components/Groups'
+import LeftMenu from '../components/LeftMenu'
+import RightMenu from '../components/RightMenu'
 
-import {
-  Grid,
-  Flex,
-  Heading,
-  Input,
-  Link,
-  Button,
-  Text,
-  Box,
-  Accordion,
-  AccordionIcon,
-  AccordionHeader,
-  AccordionPanel,
-  AccordionItem
-} from '@chakra-ui/core'
+import { Grid, Heading, Flex } from '@chakra-ui/core'
 
-export default function Home() {
+export default function Index() {
   return (
     <Grid
       as="main"
       height="100vh"
-      templateColumns="200px 720px 200px"
-      templateRows="240px 720px 240px"
+      templateColumns=" 0px 260px 740px 260px 0px"
+      templateRows="100px 50px 860px 100px"
+      templateAreas="
+    '. . header .'
+    '. menuL . menuR'
+    '. slider products group'
+    '. . . .'
+    "
       justifyContent="center"
       justifyItems="center"
     >
-      <Flex gridArea="slider" flexDir="column" alignItems="flex-start">
-        <Accordion defaultIndex={[0]} allowMultiple>
-          <AccordionItem>
-            <AccordionHeader>
-              <Box flex="1" textAlign="left">
-                Section 1 title
-              </Box>
-              <AccordionIcon />
-            </AccordionHeader>
-            <AccordionPanel pb={4}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </AccordionPanel>
-          </AccordionItem>
+      <Flex
+        gridArea="header"
+        flexDir="row"
+        alignItems="flex-start"
+        width={{ sm: '68%', md: 1260 }}
+      >
+        <Header />
+      </Flex>
 
-          <AccordionItem>
-            <AccordionHeader>
-              <Box flex="1" textAlign="left">
-                Section 2 title
-              </Box>
-              <AccordionIcon />
-            </AccordionHeader>
-            <AccordionPanel pb={4}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
+      <Flex gridArea="products" flexDir="column" alignItems="flex-start">
+        <Heading>Aqui são os produtos</Heading>
+      </Flex>
+      <Flex
+        gridArea="menuL"
+        flexDir="row"
+        alignItems="flex-start"
+        justifyContent="flex-start"
+      >
+        <LeftMenu />
+      </Flex>
+      <Flex
+        gridArea="menuR"
+        flexDir="row"
+        alignItems="flex-start"
+        justifyContent="flex-start"
+      >
+        <RightMenu />
+      </Flex>
+      <Flex gridArea="slider" flexDir="column" alignItems="flex-start">
+        <Slider />
+      </Flex>
+      <Flex gridArea="group" flexDir="column" alignItems="flex-start">
+        <Group />
       </Flex>
     </Grid>
   )
