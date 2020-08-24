@@ -9,7 +9,7 @@ const Wrapper = styled('th')`
   text-align: center;
   text-transform: uppercase;
   font-size: ${({ theme }: any) => theme.fontSizes.sm};
-  color: ${({ theme }: any) => theme.colors.gray[500]};
+  color: ${({ theme }: any) => theme.colors.gray[800]};
 `
 
 const THeadTH: React.FC = ({ children }) => {
@@ -22,7 +22,7 @@ const THeadTH: React.FC = ({ children }) => {
 
   return (
     <Wrapper>
-      <Text color={color}>{children}</Text>
+      <Text color="#000">{children}</Text>
     </Wrapper>
   )
 }

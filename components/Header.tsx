@@ -29,10 +29,16 @@ const Header = (props) => {
       </Box> */}
 
       <Box>
-        <Input placeholder="Buscar" size="lg"></Input>
+        <Input
+          color="gray.600"
+          placeholder="Produto desejado"
+          size="lg"
+        ></Input>
       </Box>
       <Box>
-        <Icon marginLeft={5} name="search" />
+        <Button marginLeft={2} backgroundColor="gray.500" size="sm">
+          <Icon marginLeft={5} name="search" />
+        </Button>
       </Box>
 
       <Box display={{ sm: 'block', md: 'none' }} onClick={handleToggle}>

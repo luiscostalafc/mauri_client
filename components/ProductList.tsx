@@ -2,7 +2,7 @@ import React from 'react'
 
 import Table from '../components/Table/Table'
 import Card from '../components/Card/Card'
-import { Input } from '@chakra-ui/core'
+import { Input, Select } from '@chakra-ui/core'
 
 const ProductList: React.FC = () => (
   <Card>
@@ -22,25 +22,30 @@ const ProductList: React.FC = () => (
       <Table.TBody>
         <Table.TBody.TR>
           <Table.TBody.TD>
-            <Input size="sm" />
+            <Select maxWidth={20} size="sm" placeholder="filtrar">
+              <option value="Renault">Renault</option>
+              <option value="Renault">Mercedes-Benz</option>
+              <option value="Renault">BMW</option>
+              <option value="Renault">Peugeot</option>
+            </Select>
           </Table.TBody.TD>
           <Table.TBody.TD>
-            <Input size="sm" />
+            <Select maxWidth={20} size="sm" placeholder="filtrar"></Select>
           </Table.TBody.TD>
           <Table.TBody.TD>
-            <Input size="sm" />
+            <Select maxWidth={20} size="sm" placeholder="filtrar"></Select>
           </Table.TBody.TD>
           <Table.TBody.TD>
-            <Input size="sm" />
+            <Select maxWidth={20} size="sm" placeholder="filtrar"></Select>
           </Table.TBody.TD>
           <Table.TBody.TD>
-            <Input size="sm" />
+            <Select maxWidth={20} size="sm" placeholder="filtrar"></Select>
           </Table.TBody.TD>
           <Table.TBody.TD>
-            <Input size="sm" />
+            <Select maxWidth={20} size="sm" placeholder="filtrar"></Select>
           </Table.TBody.TD>
           <Table.TBody.TD>
-            <Input size="sm" />
+            <Select maxWidth={20} size="sm" placeholder="filtrar"></Select>
           </Table.TBody.TD>
         </Table.TBody.TR>
       </Table.TBody>
