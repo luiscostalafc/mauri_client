@@ -2,11 +2,14 @@ import React from 'react'
 
 import Slider from '../components/Slider'
 import Header from '../components/Header'
-import Group from '../components/Groups'
+import Group from '../components/Group'
 import LeftMenu from '../components/LeftMenu'
 import RightMenu from '../components/RightMenu'
+import Product from '../components/Product'
+import ProductList from '../components/ProductList'
+import Footer from '../components/Footer'
 
-import { Grid, Heading, Flex } from '@chakra-ui/core'
+import { Grid, Flex } from '@chakra-ui/core'
 
 export default function Index() {
   return (
@@ -14,12 +17,12 @@ export default function Index() {
       as="main"
       height="100vh"
       templateColumns=" 0px 260px 740px 260px 0px"
-      templateRows="100px 50px 860px 100px"
+      templateRows="100px 50px 740px 100px"
       templateAreas="
     '. . header .'
-    '. menuL . menuR'
+    '. menuL search menuR'
     '. slider products group'
-    '. . . .'
+    '. . footer .'
     "
       justifyContent="center"
       justifyItems="center"
@@ -32,9 +35,19 @@ export default function Index() {
       >
         <Header />
       </Flex>
+      <Flex gridArea="search" flexDir="row" alignItems="flex-start">
+        <ProductList />
+      </Flex>
 
-      <Flex gridArea="products" flexDir="column" alignItems="flex-start">
-        <Heading>Aqui são os produtos</Heading>
+      <Flex
+        gridArea="products"
+        flexDir="row"
+        alignItems="flex-start"
+        marginTop={20}
+      >
+        <Product />
+        <Product />
+        <Product />
       </Flex>
       <Flex
         gridArea="menuL"
@@ -57,6 +70,9 @@ export default function Index() {
       </Flex>
       <Flex gridArea="group" flexDir="column" alignItems="flex-start">
         <Group />
+      </Flex>
+      <Flex gridArea="footer" flexDir="row" alignItems="flex-start">
+        <Footer />
       </Flex>
     </Grid>
   )

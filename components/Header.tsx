@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Flex, Text, Button } from '@chakra-ui/core'
-import Logo from './Logo'
+import { Box, Flex, Text, Button, Input, Icon } from '@chakra-ui/core'
+//import Logo from './Logo'
 
 const MenuItems = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
@@ -17,16 +17,24 @@ const Header = (props) => {
       as="nav"
       width={{ sm: 'full', md: 1260 }}
       align="center"
-      justify="flex-start"
+      justify="flex-end"
       wrap="wrap"
       padding="1.5rem"
       bg="gray.500"
       color="white"
       {...props}
     >
-      <Box alignContent="center" paddingRight={1090}>
+      {/* <Box alignContent="center" paddingRight={1090}>
         <Logo />
+      </Box> */}
+
+      <Box>
+        <Input placeholder="Buscar" size="lg"></Input>
       </Box>
+      <Box>
+        <Icon marginLeft={5} name="search" />
+      </Box>
+
       <Box display={{ sm: 'block', md: 'none' }} onClick={handleToggle}>
         <svg
           fill="white"
@@ -59,7 +67,7 @@ const Header = (props) => {
         display={{ sm: show ? 'block' : 'none', md: 'block' }}
         mt={{ base: 4, md: 0 }}
       >
-        <Button bg="transparent" border="1px">
+        <Button bg="transparent" border="1px" marginLeft={20}>
           Perfil
         </Button>
       </Box>
