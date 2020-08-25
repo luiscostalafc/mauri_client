@@ -2,7 +2,7 @@ import React from 'react'
 
 import Table from '../components/Table/Table'
 import Card from '../components/Card/Card'
-import { Input, Select } from '@chakra-ui/core'
+import { Select } from '@chakra-ui/core'
 
 const ProductList: React.FC = () => (
   <Card>

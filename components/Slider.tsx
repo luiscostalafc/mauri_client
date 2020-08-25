@@ -7,7 +7,7 @@ import { FaMotorcycle } from 'react-icons/fa'
 import { GoTools } from 'react-icons/go'
 import { GiScissors } from 'react-icons/gi'
 
-const Slider: React.FC = () => {
+const Slider: React.FC = (props) => {
   return (
     <>
       <Box flex="1" textAlign="left">

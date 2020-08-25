@@ -6,7 +6,7 @@ import Header from '../components/Header'
 import Group from '../components/Group'
 import LeftMenu from '../components/LeftMenu'
 import RightMenu from '../components/RightMenu'
-import Product from '../components/Product'
+import Product from '../components/Product/ProductAuto'
 import ProductList from '../components/ProductList'
 import Footer from '../components/Footer'
 
@@ -48,8 +48,6 @@ export default function Index() {
         marginTop={20}
         wrap="wrap"
       >
-        <Product />
-        <Product />
         <Product />
       </Flex>
       <Flex

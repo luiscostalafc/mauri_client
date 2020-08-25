@@ -17,18 +17,18 @@ import {
   AccordionPanel
 } from '@chakra-ui/core'
 
+interface ProductAuto {
+  imageUrl: string
+  imageAlt: string
+  segment: string
+  title: string
+  description: string
+  formattedPrice: number
+}
+
 import { FaCartArrowDown } from 'react-icons/fa'
 
-const Product = () => {
-  const property = {
-    imageUrl: 'https://i.imgur.com/OWbHGXO.jpg',
-    imageAlt: 'Exemplo de produto',
-    title: 'Motor X',
-    formattedPrice: 'R$5.000',
-    reviewCount: 34,
-    rating: 4
-  }
-
+const ProductAuto = (props: ProductAuto) => {
   return (
     <Box
       maxH={800}
@@ -39,14 +39,14 @@ const Product = () => {
       overflow="hidden"
     >
       <Link href="#">
-        <Image src={property.imageUrl} alt={property.imageAlt} />
+        <Image src={props.imageUrl} alt={props.imageAlt} />
       </Link>
 
       <Box p="6">
         <Flex align="center" justify="center" marginBottom={5}>
           <Box d="flex" alignItems="baseline">
             <Badge rounded="full" px="2" variantColor="orange">
-              Auto Peças
+              {props.segment}
             </Badge>
           </Box>
         </Flex>
@@ -60,7 +60,7 @@ const Product = () => {
           isTruncated
         >
           <Link color="blue.500" href="#">
-            {property.title}
+            {props.title}
           </Link>
         </Box>
 
@@ -72,10 +72,7 @@ const Product = () => {
               </Box>
               <AccordionIcon />
             </AccordionHeader>
-            <AccordionPanel>
-              Esse produto é muito bom e tem muita qualidade. Tudo isso com o
-              melhor valor do mercado e etc..
-            </AccordionPanel>
+            <AccordionPanel>{props.description}</AccordionPanel>
           </AccordionItem>
         </Box>
 
@@ -88,7 +85,7 @@ const Product = () => {
             </NumberInputStepper>
           </NumberInput>
         </Box>
-        <Box marginTop={3}>{property.formattedPrice}</Box>
+        <Box marginTop={3}>{props.formattedPrice}</Box>
         <Box marginTop={5}>
           <Button
             size="md"
@@ -104,4 +101,4 @@ const Product = () => {
   )
 }
 
-export default Product
+export default ProductAuto

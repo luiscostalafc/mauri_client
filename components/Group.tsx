@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tabs, TabPanel, Image, TabList, Tab, TabPanels } from '@chakra-ui/core'
 
-const Group: React.FC = () => {
+const Group: React.FC = (props) => {
   return (
     <Tabs defaultIndex={1}>
       <TabList>
