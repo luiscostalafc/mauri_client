@@ -1,16 +1,13 @@
 import React from 'react'
 
 import Slider from '../components/Slider'
-import Filter from '../components/Filter'
 import Header from '../components/Header'
-import Group from '../components/Group'
 import LeftMenu from '../components/LeftMenu'
 import RightMenu from '../components/RightMenu'
-import Product from '../components/Product/ProductAuto'
-import ProductList from '../components/ProductList'
+import ProductAuto from '../components/Product/ProductAuto'
 import Footer from '../components/Footer'
 
-import { Grid, Flex, Box, Heading } from '@chakra-ui/core'
+import { Grid, Flex, Image } from '@chakra-ui/core'
 
 export default function Index() {
   return (
@@ -18,11 +15,11 @@ export default function Index() {
       as="main"
       height="100vh"
       templateColumns=" 0px 260px 740px 260px 0px"
-      templateRows="100px 50px 740px 100px 100px"
+      templateRows="100px 50px 740px 100px 80px"
       templateAreas="
-    '. . header .'
-    '. menuL search menuR'
-    '. slider products group'
+    '. logo header logoR'
+    '. menuL . menuR'
+    '. slider products .'
     '. . . .'
     '. . footer .'
     "
@@ -33,12 +30,9 @@ export default function Index() {
         gridArea="header"
         flexDir="row"
         alignItems="flex-start"
-        width={{ sm: '68%', md: 1260 }}
+        width={{ sm: '68%', md: '100%' }}
       >
         <Header />
-      </Flex>
-      <Flex gridArea="search" flexDir="row" alignItems="flex-start">
-        <ProductList />
       </Flex>
 
       <Flex
@@ -48,9 +42,10 @@ export default function Index() {
         marginTop={20}
         wrap="wrap"
       >
-        <Product />
+        <ProductAuto />
       </Flex>
       <Flex
+        marginTop={-8}
         gridArea="menuL"
         flexDir="row"
         alignItems="flex-start"
@@ -58,7 +53,22 @@ export default function Index() {
       >
         <LeftMenu />
       </Flex>
+      <Flex gridArea="logo" alignItems="flex-start" justify="center">
+        <Image
+          size="70%"
+          src="https://i.imgur.com/y7zANKQ.jpg"
+          alt="Liconnection"
+        />
+      </Flex>
+      <Flex gridArea="logoR" alignItems="flex-start" justify="center">
+        <Image
+          size="85%"
+          src="https://i.imgur.com/2o426TW.jpg"
+          alt="Liconnection"
+        />
+      </Flex>
       <Flex
+        marginTop={-8}
         gridArea="menuR"
         flexDir="row"
         alignItems="flex-start"
@@ -66,16 +76,15 @@ export default function Index() {
       >
         <RightMenu />
       </Flex>
-      <Flex gridArea="slider" flexDir="column" alignItems="flex-start">
+      <Flex
+        marginTop={-12}
+        gridArea="slider"
+        flexDir="column"
+        alignItems="flex-start"
+      >
         <Slider />
       </Flex>
-      <Flex gridArea="group" flexDir="column" alignItems="flex-start">
-        <Group />
-        <Box marginTop={5}>
-          <Heading size="md">Filtro Avançado</Heading>
-          <Filter />
-        </Box>
-      </Flex>
+
       <Flex gridArea="footer" flexDir="row" alignItems="flex-start">
         <Footer />
       </Flex>

@@ -15,7 +15,6 @@ const Slider: React.FC = (props) => {
           <Button
             width="100%"
             height={12}
-            marginTop={-2}
             size="lg"
             bg="#ED8936"
             leftIcon={AiFillCar}

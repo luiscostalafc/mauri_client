@@ -17,12 +17,22 @@ import {
   AccordionPanel
 } from '@chakra-ui/core'
 
+import Filter from '../Filter'
+
 interface ProductAuto {
   imageUrl: string
   imageAlt: string
   segment: string
   title: string
   description: string
+  motor: string
+  position: string
+  system: string
+  material: string
+  color: string
+  measure: number
+  unity: string
+  quantity: number
   formattedPrice: number
 }
 
@@ -73,6 +83,20 @@ const ProductAuto = (props: ProductAuto) => {
               <AccordionIcon />
             </AccordionHeader>
             <AccordionPanel>{props.description}</AccordionPanel>
+          </AccordionItem>
+        </Box>
+
+        <Box marginTop={2}>
+          <AccordionItem>
+            <AccordionHeader _expanded={{ bg: 'tomato', color: 'white' }}>
+              <Box flex="1" textAlign="left">
+                Filtro Avançado
+              </Box>
+              <AccordionIcon />
+            </AccordionHeader>
+            <AccordionPanel>
+              <Filter />
+            </AccordionPanel>
           </AccordionItem>
         </Box>
 
