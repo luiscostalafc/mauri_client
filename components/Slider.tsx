@@ -21,6 +21,7 @@ const Slider: React.FC = (props) => {
             variant="solid"
             color="#2D3748"
             justifyContent="left"
+            onClick={props.children}
           >
             Auto Peças
           </Button>

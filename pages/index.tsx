@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Slider from '../components/Slider'
 import Header from '../components/Header'
 import LeftMenu from '../components/LeftMenu'
 import RightMenu from '../components/RightMenu'
 import ProductAuto from '../components/Product/ProductAuto'
+import AutoExpandMenu from '../components/ExpandMenu/AutoExpandMenu'
 import Footer from '../components/Footer'
 
 import { Grid, Flex, Image } from '@chakra-ui/core'
 
 export default function Index() {
+  const [auto, setAuto] = useState(false)
+  const transform = 'scaleX(0)'
+
   return (
     <Grid
       as="main"
@@ -18,7 +22,7 @@ export default function Index() {
       templateRows="100px 50px 740px 100px 80px"
       templateAreas="
     '. logo header logoR'
-    '. menuL . menuR'
+    '. menuL filter menuR'
     '. slider products .'
     '. . . .'
     '. . footer .'
@@ -62,7 +66,7 @@ export default function Index() {
       </Flex>
       <Flex gridArea="logoR" alignItems="flex-start" justify="center">
         <Image
-          size="85%"
+          size="70%"
           src="https://i.imgur.com/2o426TW.jpg"
           alt="Liconnection"
         />
@@ -83,6 +87,10 @@ export default function Index() {
         alignItems="flex-start"
       >
         <Slider />
+      </Flex>
+
+      <Flex gridArea="filter" flexDirection="row" position="relative">
+        <AutoExpandMenu />
       </Flex>
 
       <Flex gridArea="footer" flexDir="row" alignItems="flex-start">
