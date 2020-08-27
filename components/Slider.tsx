@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Box, ButtonGroup } from '@chakra-ui/core'
 
 import { AiFillCar } from 'react-icons/ai'
@@ -21,7 +21,6 @@ const Slider: React.FC = (props) => {
             variant="solid"
             color="#2D3748"
             justifyContent="left"
-            onClick={props.children}
           >
             Auto Peças
           </Button>

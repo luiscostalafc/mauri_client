@@ -11,8 +11,11 @@ import Footer from '../components/Footer'
 import { Grid, Flex, Image } from '@chakra-ui/core'
 
 export default function Index() {
-  const [auto, setAuto] = useState(false)
-  const transform = 'scaleX(0)'
+  const [expand, setExpand] = useState(false)
+
+  const handleClick = () => {
+    setExpand(true)
+  }
 
   return (
     <Grid
@@ -80,13 +83,14 @@ export default function Index() {
       >
         <RightMenu />
       </Flex>
+
       <Flex
         marginTop={-12}
         gridArea="slider"
         flexDir="column"
         alignItems="flex-start"
       >
-        <Slider />
+        <Slider></Slider>
       </Flex>
 
       <Flex gridArea="filter" flexDirection="row" position="relative">

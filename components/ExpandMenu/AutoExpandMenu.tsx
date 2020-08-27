@@ -3,7 +3,7 @@ import { Input, Flex, Box, Select, Button } from '@chakra-ui/core'
 
 import { FaSearch } from 'react-icons/fa'
 
-const AutoExpandMenu: React.FC = (props) => {
+const AutoExpandMenu: React.FC = () => {
   return (
     <Flex flexDirection="row" position="relative">
       <Box
