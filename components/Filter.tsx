@@ -4,24 +4,49 @@ import { Select } from '@chakra-ui/core'
 const Filter: React.FC = () => {
   return (
     <>
-      <Select variant="outline" placeholder="Posição">
+      <Select
+        color="gray.500"
+        marginBottom={1}
+        variant="filled"
+        placeholder="Posição"
+      >
         <option value="super">superior</option>
         <option value="bottom">inferior</option>
       </Select>
-      <Select placeholder="Sistema">
+      <Select
+        color="gray.500"
+        marginBottom={1}
+        variant="filled"
+        placeholder="Sistema"
+      >
         <option value="alarm">alarme</option>
       </Select>
-      <Select placeholder="Material">
+      <Select
+        color="gray.500"
+        marginBottom={1}
+        variant="filled"
+        placeholder="Material"
+      >
         <option value="acrylic">Acrílico</option>
       </Select>
-      <Select placeholder="Cor">
+      <Select
+        color="gray.500"
+        marginBottom={1}
+        variant="filled"
+        placeholder="Cor"
+      >
         <option value="red">vermelho</option>
         <option value="blue">azul</option>
         <option value="white">branco</option>
         <option value="green">verde</option>
         <option value="yellow">amarelo</option>
       </Select>
-      <Select placeholder="Medida">
+      <Select
+        color="gray.500"
+        marginBottom={1}
+        variant="filled"
+        placeholder="Medida"
+      >
         <option value="25mm">0,25mm</option>
         <option value="50mm">0,50mm</option>
         <option value="75mm">0,75mm</option>
@@ -31,7 +56,7 @@ const Filter: React.FC = () => {
         <option value="175mm">1,75mm</option>
         <option value="200mm">2,00mm</option>
       </Select>
-      <Select placeholder="Qualidade">
+      <Select color="gray.500" variant="filled" placeholder="Qualidade">
         <option value="similar">Similar</option>
         <option value="original">Original</option>
       </Select>

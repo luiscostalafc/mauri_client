@@ -8,77 +8,84 @@ const AutoExpandMenu: React.FC = (props) => {
     <Flex flexDirection="row" position="relative">
       <Box
         display="flex"
-        marginLeft={175}
+        marginLeft={185}
         flexDirection="row"
         transformOrigin="left"
         transition="0.5s"
         {...props}
       >
         <Select
+          variant="filled"
           placeholder="Montad."
           display="flex"
           height="40px"
-          width="120px"
-          color="#b2b2b2"
+          width="122px"
+          color="gray.500"
           alignItems="center"
           justifyContent="center"
         ></Select>
 
         <Select
+          variant="filled"
           placeholder="Modelo"
           display="flex"
           height="40px"
-          width="115px"
-          color="#b2b2b2"
+          width="117px"
+          color="gray.500"
           alignItems="center"
           justifyContent="center"
         ></Select>
 
         <Select
+          variant="filled"
           placeholder="Ano-Fab"
           display="flex"
           height="40px"
-          width="120px"
-          color="#b2b2b2"
+          width="125px"
+          color="gray.500"
           alignItems="center"
           justifyContent="center"
         ></Select>
 
         <Select
+          variant="filled"
           placeholder="Ano-Mod"
           display="flex"
           height="40px"
           width="130px"
-          color="#b2b2b2"
+          color="gray.500"
           alignItems="center"
           justifyContent="center"
         ></Select>
 
         <Select
+          variant="filled"
           placeholder="Motor"
           display="flex"
           height="40px"
           width="105px"
-          color="#b2b2b2"
+          color="gray.500"
           alignItems="center"
           justifyContent="center"
         ></Select>
 
         <Select
+          variant="filled"
           placeholder="Combust."
           display="flex"
           height="40px"
-          width="130px"
-          color="#b2b2b2"
+          width="132px"
+          color="gray.500"
           alignItems="center"
           justifyContent="center"
         ></Select>
         <Select
+          variant="filled"
           placeholder="Chassi"
           display="flex"
           height="40px"
           width="110px"
-          color="#b2b2b2"
+          color="gray.500"
           alignItems="center"
           justifyContent="center"
         ></Select>
