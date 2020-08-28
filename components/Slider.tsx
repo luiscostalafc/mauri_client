@@ -7,7 +7,7 @@ import { FaMotorcycle } from 'react-icons/fa'
 import { GoTools } from 'react-icons/go'
 import { GiScissors } from 'react-icons/gi'
 
-const Slider: React.FC = (props) => {
+const Slider: React.FC = ({ children }) => {
   return (
     <>
       <Box flex="1" textAlign="left">
@@ -21,6 +21,9 @@ const Slider: React.FC = (props) => {
             variant="solid"
             color="#2D3748"
             justifyContent="left"
+            onClick={() => {
+              children
+            }}
           >
             Auto Peças
           </Button>
