@@ -7,7 +7,7 @@ import { FaMotorcycle } from 'react-icons/fa'
 import { GoTools } from 'react-icons/go'
 import { GiScissors } from 'react-icons/gi'
 
-const Slider: React.FC = ({ children }) => {
+const Slider: React.FC = (props) => {
   return (
     <>
       <Box flex="1" textAlign="left">
@@ -21,9 +21,7 @@ const Slider: React.FC = ({ children }) => {
             variant="solid"
             color="#2D3748"
             justifyContent="left"
-            onClick={() => {
-              children
-            }}
+            {...props}
           >
             Auto Peças
           </Button>
@@ -37,6 +35,7 @@ const Slider: React.FC = ({ children }) => {
             variant="solid"
             color="#2D3748"
             justifyContent="left"
+            {...props}
           >
             Moto Peças
           </Button>
@@ -50,6 +49,7 @@ const Slider: React.FC = ({ children }) => {
             variant="solid"
             color="#2D3748"
             justifyContent="left"
+            {...props}
           >
             Bicicletas
           </Button>
@@ -63,6 +63,7 @@ const Slider: React.FC = ({ children }) => {
             variant="solid"
             color="#2D3748"
             justifyContent="left"
+            {...props}
           >
             Ferramentas
           </Button>
@@ -76,6 +77,7 @@ const Slider: React.FC = ({ children }) => {
             variant="solid"
             color="#2D3748"
             justifyContent="left"
+            {...props}
           >
             Livraria
           </Button>
@@ -89,6 +91,7 @@ const Slider: React.FC = ({ children }) => {
             variant="solid"
             color="#2D3748"
             justifyContent="left"
+            {...props}
           >
             Papelaria
           </Button>
