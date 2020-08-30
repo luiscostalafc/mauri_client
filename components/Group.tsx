@@ -5,20 +5,20 @@ const Group: React.FC = (props) => {
   return (
     <Tabs defaultIndex={1}>
       <TabList>
-        <Tab>Sub Grupo</Tab>
+        {/* <Tab>Sub Grupo</Tab> */}
         <Tab>Grupo</Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
           <Image
-            size="280px"
+            size="100vh"
             objectFit="cover"
             src="https://i.imgur.com/wok6TAf.jpg"
           />
         </TabPanel>
         <TabPanel>
           <Image
-            size="280px"
+            size="100vh"
             objectFit="cover"
             src="https://i.imgur.com/9fdAFwV.jpg"
           />

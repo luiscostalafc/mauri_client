@@ -42,7 +42,7 @@ const ProductAuto = (props: ProductAuto) => {
   return (
     <Box
       maxH={800}
-      maxW={220}
+      maxW={205}
       marginLeft={3}
       borderWidth="1px"
       rounded="lg"

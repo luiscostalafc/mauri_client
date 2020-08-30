@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import Slider from '../components/Slider'
+import Group from '../components/Group'
 import Header from '../components/Header'
 import LeftMenu from '../components/LeftMenu'
 import RightMenu from '../components/RightMenu'
@@ -25,11 +26,11 @@ export default function Index() {
       as="main"
       height="100vh"
       templateColumns=" 0px 260px 740px 260px 0px"
-      templateRows="100px 50px 740px 100px 80px"
+      templateRows="100px 50px auto 0px 80px"
       templateAreas="
     '. logo header logoR'
     '. menuL filter menuR'
-    '. slider products .'
+    '. slider products group'
     '. . . .'
     '. . footer .'
     "
@@ -48,11 +49,20 @@ export default function Index() {
       <Flex
         gridArea="products"
         flexDir="row"
-        alignItems="flex-start"
-        marginTop={20}
+        alignItems="flex-center"
+        maxWidth="100vh"
         wrap="wrap"
       >
-        <ProductAuto />
+        <ProductAuto></ProductAuto>
+      </Flex>
+      <Flex
+        maxHeight="100vh"
+        gridArea="group"
+        flexDir="row"
+        alignItems="flex-start"
+        justifyContent="flex-start"
+      >
+        <Group />
       </Flex>
       <Flex
         marginTop={-8}
