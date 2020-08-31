@@ -1,4 +1,4 @@
-import ThemeContainer from '../contexts/theme/ThemeContainer'
+import ThemeContainer from '../../src/contexts/theme/ThemeContainer'
 
 function MyApp({ Component, pageProps }) {
   return (

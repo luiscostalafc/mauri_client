@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import { Input, Flex, Box, Select, Button } from '@chakra-ui/core'
 
 import { FaSearch } from 'react-icons/fa'
 
-const AutoExpandMenu: React.FC = (props) => {
+type transformProps = CSSProperties
+
+const AutoExpandMenu: React.FC<transformProps> = (props: transformProps) => {
   return (
     <Flex flexDirection="row" position="relative">
       <Box

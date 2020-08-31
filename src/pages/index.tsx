@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
-import Slider from '../components/Slider'
-import Group from '../components/Group'
-import Header from '../components/Header'
-import LeftMenu from '../components/LeftMenu'
-import RightMenu from '../components/RightMenu'
-import ProductAuto from '../components/Product/ProductAuto'
-import AutoExpandMenu from '../components/ExpandMenu/AutoExpandMenu'
-import Footer from '../components/Footer'
+import Slider from '../../src/components/Slider'
+import Group from '../../src/components/Group'
+import Header from '../../src/components/Header'
+import LeftMenu from '../../src/components/LeftMenu'
+import RightMenu from '../../src/components/RightMenu'
+import ProductAuto from '../../src/components/Product/ProductAuto'
+import AutoExpandMenu from '../../src/components/ExpandMenu/AutoExpandMenu'
+import Footer from '../../src/components/Footer'
 import { Flex, Image, Grid } from '@chakra-ui/core'
 
 export default function Index() {
@@ -53,7 +53,7 @@ export default function Index() {
         maxWidth="100vh"
         wrap="wrap"
       >
-        <ProductAuto></ProductAuto>
+        {/* <ProductAuto></ProductAuto> */}
       </Flex>
       <Flex
         maxHeight="100vh"

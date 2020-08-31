@@ -8,7 +8,7 @@ import {
 
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming'
 
-import theme from '../../styles/theme'
+import theme from '../../../src/styles/theme'
 
 const ThemeContainer: React.FC = ({ children }) => {
   return (
