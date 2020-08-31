@@ -18,7 +18,7 @@ export function* singIn({ payload }) {
     const { token, user } = response.data
 
     if (!user.provider) {
-      toast.error('Usuário não é prestador')
+      toast.error('Usuário não é administrador')
       return
     }
 
