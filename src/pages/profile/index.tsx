@@ -6,16 +6,16 @@ import * as Yup from 'yup'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import api from '../../../services/api'
-import getValidationErrors from '../../../utils/getValidationErrors'
+import api from '../../services/api'
+import getValidationErrors from '../../utils/getValidationErrors'
 
-import Input from '../../../components/Input'
-import Button from '../../../components/Button'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
 
-import { useToast } from '../../../hooks/toast'
+import { useToast } from '../../hooks/toast'
 
 import { Container, Content, AvatarInput } from './styles'
-import { useAuth } from '../../../hooks/auth'
+import { useAuth } from '../../hooks/auth'
 
 interface ProfileFormData {
   name: string

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, CSSProperties } from 'react'
 import { FiAlertCircle, FiCheckCircle, FiInfo, FiXCircle } from 'react-icons/fi'
 
 import { ToastMessage, useToast } from '../../../hooks/toast'
@@ -6,7 +6,7 @@ import { Container } from './styles'
 
 interface ToastProps {
   message: ToastMessage
-  style: object
+  style: CSSProperties
 }
 
 const icons = {

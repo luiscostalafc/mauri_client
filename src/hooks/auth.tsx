@@ -42,9 +42,9 @@ const AuthProvider: React.FC = ({ children }) => {
   })
 
   const signIn = useCallback(async ({ email, password }) => {
-    const reseponse = await api.post('sessions', { email, password })
+    const response = await api.post('login', { email, password })
 
-    const { token, user } = reseponse.data
+    const { token, user } = response.data
 
     localStorage.setItem('@Liconnection:token', token)
     localStorage.setItem('@Liconnection:user', JSON.stringify(user))
