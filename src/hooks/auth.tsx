@@ -1,4 +1,5 @@
-import React, { createContext, useCallback, useState, useContext } from 'react'
+import React, { createContext, useCallback, useState, useContext, useEffect } from 'react'
+import Cookies from 'js-cookie'
 
 import api from '../services/api'
 
@@ -29,25 +30,28 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 const AuthProvider: React.FC = ({ children }) => {
+
+
   const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('@Liconnection:token')
-    const user = localStorage.getItem('@Liconnnection:user')
+    const token = Cookies.get('@Liconnection:token')
+    const user = Cookies.get('@Liconnnection:user')
 
     if (token && user) {
       api.defaults.headers.authorization = `Bearer ${token}`
       return { token, user: JSON.parse(user) }
     }
-
     return {} as AuthState
+
   })
+
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('login', { email, password })
 
     const { token, user } = response.data
 
-    localStorage.setItem('@Liconnection:token', token)
-    localStorage.setItem('@Liconnection:user', JSON.stringify(user))
+      Cookies.set('@Liconnection:token', token)
+      Cookies.set('@Liconnection:user', JSON.stringify(user))
 
     api.defaults.headers.authorization = `Bearer ${token}`
 
@@ -55,22 +59,23 @@ const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   const signOut = useCallback(() => {
-    localStorage.removeItem('@Liconnection:token')
-    localStorage.removeItem('@Liconnection:user')
+
+      Cookies.remove('@Liconnection:token')
+      Cookies.remove('@Liconnection:user')
 
     setData({} as AuthState)
   }, [])
 
   const updateUser = useCallback(
     (user: User) => {
-      localStorage.setItem('@Liconnection:user', JSON.stringify(user))
 
+        Cookies.set('@Liconnection:user', JSON.stringify(user))
       setData({
         token: data.token,
         user
       })
     },
-    [setData, data.token]
+    [setData]
   )
 
   return (

@@ -1,12 +1,12 @@
 import ThemeContainer from '../../src/contexts/theme/ThemeContainer'
-//import AppProvider from '../hooks'
+import AppProvider from '../hooks'
 
 function MyApp({ Component, pageProps }) {
   return (
     <ThemeContainer>
-      {/* <AppProvider> */}
+       <AppProvider>
       <Component {...pageProps} />
-      {/* </AppProvider> */}
+       </AppProvider>
     </ThemeContainer>
   )
 }

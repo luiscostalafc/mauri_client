@@ -1,41 +1,60 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { FiArrowLeft, FiMail, FiUser, FiLock, } from 'react-icons/fi'
+import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello } from 'react-icons/fi'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 
-import api from '../../../services/api'
+import { Checkbox } from "@chakra-ui/core";
 
-import { useToast } from '../../../hooks/toast'
 
-import getValidationErrors from '../../../utils/getValidationErrors'
+import api from '../../services/api'
 
-import logoImg from '../../assets/liconnection.svg'
-import signUpBackgroundImg from '../../assets/liconnection_logo.jpeg'
+import { useToast } from '../../hooks/toast'
 
-import Button from '../../../components/Button'
-import Input from '../../../components/Input'
+import getValidationErrors from '../../utils/getValidationErrors'
+
+import Button from '../../components/Button'
+import Input from '../../components/Input'
 
 import {
   Container,
   Content,
-  Background,
-  Image,
   AnimationContainer
 } from './styles'
 
 interface SignUpFormData {
   name: string
+  username: string
+  completeName: string
+  rg: string
+  cpfCnpj: string
+  nick: string
   email: string
   password: string
 }
 
 const SignUp: React.FC = () => {
+  const [cpfNumber, setCpfNumber] = useState(true)
+  const [check, setChecked] = useState(false)
   const formRef = useRef<FormHandles>(null)
   const { addToast } = useToast()
   const router = useRouter()
+
+  const handleOptionDocument = useCallback(() => {
+    if (cpfNumber === true) {
+      setCpfNumber(false)
+      setChecked(true)
+    }else {
+      setCpfNumber(true)
+      setChecked(false)
+    }
+
+
+  }, [cpfNumber, check])
+
+
 
   const handleSubmit = useCallback(
     async (data: SignUpFormData) => {
@@ -43,12 +62,12 @@ const SignUp: React.FC = () => {
         formRef.current?.setErrors({})
 
         const schema = Yup.object().shape({
-          name: Yup.string().required('Apelido'),
+          name: Yup.string().required('Nome completo'),
           username: Yup.string().required('Nome de usuário obrigatório'),
-          completeName: Yup.string().required('Nome Completo'),
+          completeName: '' || name,
           rg: Yup.string().required('Preencha seu RG'),
           cpfCnpj: Yup.string().required('Preencha o CNPJ OU RG'),
-          nick: Yup.string().required('Preencha um apelido'),
+          nick: '' || name,
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
@@ -88,22 +107,27 @@ const SignUp: React.FC = () => {
 
   return (
     <Container>
-      <Background>
-        <Image src={signUpBackgroundImg} />
-      </Background>
       <Content>
         <AnimationContainer>
-          <img src={logoImg} alt="Liconnection" />
+
 
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu cadastro</h1>
 
-            <Input name="name" icon={FiUser} placeholder="Nome" />
-            <Input name="email" icon={FiMail} placeholder="E-mail" />
-            <Input name="email" icon={FiMail} placeholder="E-mail" />
-            <Input name="email" icon={FiMail} placeholder="E-mail" />
-            <Input name="email" icon={FiMail} placeholder="E-mail" />
+            <Input name="name" icon={FiUser} placeholder="Nome completo" />
+            <Input name="username" icon={FiUser} placeholder="Usuário" />
+            <Input name="rg" icon={FiTrello} placeholder="RG" />
+            <Checkbox size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
+            {
+             cpfNumber ? (
+                   <Input mask="999.999.999-99" name="cpfCnpj" icon={FiTrello} placeholder="CPF" />
+             ):(
+              <Input mask="99.999.999/9999-99" name="cpfCnpj" icon={FiTrello} placeholder="CNPJ" />
+             )
 
+            }
+
+            <Input name="email" icon={FiMail} placeholder="E-mail" />
             <Input
               name="password"
               icon={FiLock}

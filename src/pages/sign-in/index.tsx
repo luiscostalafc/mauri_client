@@ -10,8 +10,6 @@ import { useAuth } from '../../hooks/auth'
 import { useToast } from '../../hooks/toast'
 import getValidationErrors from '../../utils/getValidationErrors'
 
-import logoImg from '../../assets/liconnection.svg'
-import signInBackgroundImg from '../../assets/liconnection_logo.jpeg'
 
 import Button from '../../components/Button'
 import Input from '../../components/Input'
@@ -80,7 +78,7 @@ const SignIn: React.FC = () => {
     <Container>
       <Content>
         <AnimationContainer>
-          <img src={logoImg} alt="Liconnection" />
+          <img src="/liconnection.svg" alt="Logo do site" />
 
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu login</h1>
@@ -110,7 +108,7 @@ const SignIn: React.FC = () => {
       </Content>
 
       <Background>
-        <Image src={signInBackgroundImg} />
+        <Image src="liconnection_logo.jpeg" />
       </Background>
     </Container>
   )

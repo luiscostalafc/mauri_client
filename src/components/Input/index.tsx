@@ -5,6 +5,7 @@ import React, {
   useState,
   useCallback
 } from 'react'
+import ReactInputMask, { Props as InputProps } from 'react-input-mask'
 import { IconBaseProps } from 'react-icons'
 import { FiAlertCircle } from 'react-icons/fi'
 import { useField } from '@unform/core'
@@ -45,7 +46,7 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
   return (
     <Container isErrored={!!error} isFilled={isFilled} isFocused={isFocused}>
       {Icon && <Icon size={20} />}
-      <input
+      <ReactInputMask
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         defaultValue={defaultValue}
