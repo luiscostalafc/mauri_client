@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useState, useContext, useEffect } from 'react'
+import React, { createContext, useCallback, useState, useContext } from 'react'
 import Cookies from 'js-cookie'
 
 import api from '../services/api'

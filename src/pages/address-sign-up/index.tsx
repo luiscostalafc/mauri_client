@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello, FiPhone, FiPhoneCall, FiSmartphone } from 'react-icons/fi'
+import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello } from 'react-icons/fi'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
@@ -17,6 +17,7 @@ import getValidationErrors from '../../utils/getValidationErrors'
 
 import Button from '../../components/Button'
 import Input from '../../components/Input'
+import InputMask from '../../components/InputMask'
 
 import {
   Container,
@@ -112,18 +113,17 @@ const SignUp: React.FC = () => {
 
 
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Dados do usuário</h1>
+            <h1>Endereço</h1>
 
             <Input name="name" icon={FiUser} placeholder="Nome completo" />
             <Input name="username" icon={FiUser} placeholder="Usuário" />
             <Input name="rg" icon={FiTrello} placeholder="RG" />
-            <Input mask="(99) 99999-9999" name="phone" icon={FiPhone} placeholder="Fone" />
             <Checkbox size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
             {
              cpfNumber ? (
-               <Input mask="999.999.999-99" name="cpfCnpj" icon={FiTrello} placeholder="CPF" />
+                   <InputMask mask="999.999.999-99" name="cpfCnpj" icon={FiTrello} placeholder="CPF" />
              ):(
-              <Input mask="99.999.999/9999-99" name="cpfCnpj" icon={FiTrello} placeholder="CNPJ" />
+              <InputMask mask="99.999.999/9999-99" name="cpfCnpj" icon={FiTrello} placeholder="CNPJ" />
              )
 
             }
@@ -138,7 +138,7 @@ const SignUp: React.FC = () => {
 
             <Button type="submit">Cadastrar</Button>
           </Form>
-          <Link href="address-sign-up">
+          <Link href="sign-in">
             <a>
               <FiArrowLeft />
               Voltar ao login
