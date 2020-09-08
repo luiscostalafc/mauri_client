@@ -1,20 +1,28 @@
 import React, { useRef, useCallback } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 
 import { useAuth } from '../../hooks/auth'
+import { useToast } from '../../hooks/toast'
 import getValidationErrors from '../../utils/getValidationErrors'
 
-import logoImg from '../../assets/logo.svg'
-import signInBackgroundImg from '../../assets/cart.jpg'
+import logoImg from '../../assets/liconnection.svg'
+import signInBackgroundImg from '../../assets/liconnection_logo.jpeg'
 
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 
-import { Container, Content, Background, Image } from './styles'
+import {
+  Container,
+  Content,
+  Background,
+  Image,
+  AnimationContainer
+} from './styles'
 
 interface SignInFormData {
   email: string
@@ -25,6 +33,9 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
   const { signIn } = useAuth()
+  const { addToast } = useToast()
+
+  const router = useRouter()
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
@@ -45,42 +56,57 @@ const SignIn: React.FC = () => {
           email: data.email,
           password: data.password
         })
+        router.push('/')
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err)
 
           formRef.current?.setErrors(errors)
+
+          return
         }
+
+        addToast({
+          type: 'info',
+          title: 'Erro na autenticação',
+          description: 'Ocorreu um erro ao fazer login, verifique seus dados'
+        })
       }
     },
-    [signIn]
+    [signIn, router, addToast]
   )
 
   return (
     <Container>
       <Content>
-        <img src={logoImg} alt="GoBarber" />
+        <AnimationContainer>
+          <img src={logoImg} alt="Liconnection" />
 
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça seu login</h1>
-          <Input name="email" icon={FiMail} placeholder="E-mail" />
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <h1>Faça seu login</h1>
+            <Input name="email" icon={FiMail} placeholder="E-mail" />
 
-          <Input
-            name="password"
-            icon={FiLock}
-            type="password"
-            placeholder="Senha"
-          />
+            <Input
+              name="password"
+              icon={FiLock}
+              type="password"
+              placeholder="Senha"
+            />
 
-          <Button type="submit">Entrar</Button>
+            <Button type="submit">Entrar</Button>
 
-          <a href="forgot-password">Esqueci minha senha</a>
-        </Form>
+            <Link href="forgot-password">
+              <a>Esqueci minha senha</a>
+            </Link>
+          </Form>
 
-        <a href="sign-up">
-          <FiLogIn />
-          Criar conta
-        </a>
+          <Link href="sign-up">
+            <a>
+              <FiLogIn />
+              Criar conta
+            </a>
+          </Link>
+        </AnimationContainer>
       </Content>
 
       <Background>
