@@ -17,6 +17,7 @@ import getValidationErrors from '../../utils/getValidationErrors'
 
 import Button from '../../components/Button'
 import Input from '../../components/Input'
+import InputMask from '../../components/InputMask'
 
 import {
   Container,
@@ -35,7 +36,7 @@ interface SignUpFormData {
   password: string
 }
 
-const SignUp: React.FC = () => {
+export const SignUp: React.FC = () => {
   const [cpfNumber, setCpfNumber] = useState(true)
   const [check, setChecked] = useState(false)
   const formRef = useRef<FormHandles>(null)
@@ -64,10 +65,9 @@ const SignUp: React.FC = () => {
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome completo'),
           username: Yup.string().required('Nome de usuário obrigatório'),
-          completeName: '' || name,
           rg: Yup.string().required('Preencha seu RG'),
           cpfCnpj: Yup.string().required('Preencha o CNPJ OU RG'),
-          nick: '' || name,
+          activity: Yup.string().required('Ocupação profissional'),
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
@@ -76,7 +76,7 @@ const SignUp: React.FC = () => {
         await schema.validate(data, {
           abortEarly: false
         })
-        await api.post('v1/users', data)
+        await api.post('/users', data)
 
         router.push('v1/sign-in')
 
@@ -117,13 +117,13 @@ const SignUp: React.FC = () => {
             <Input name="name" icon={FiUser} placeholder="Nome completo" />
             <Input name="username" icon={FiUser} placeholder="Usuário" />
             <Input name="rg" icon={FiTrello} placeholder="RG" />
-            <Input mask="(99) 99999-9999" name="phone" icon={FiPhone} placeholder="Fone" />
+            <InputMask mask="(99) 99999-9999" name="phone" icon={FiPhone}  placeholder="Fone" />
             <Checkbox size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
             {
              cpfNumber ? (
-               <Input mask="999.999.999-99" name="cpfCnpj" icon={FiTrello} placeholder="CPF" />
+               <InputMask mask="999.999.999-99" name="cpfCnpj" icon={FiTrello} placeholder="CPF" />
              ):(
-              <Input mask="99.999.999/9999-99" name="cpfCnpj" icon={FiTrello} placeholder="CNPJ" />
+              <InputMask mask="99.999.999/9999-99" name="cpfCnpj" icon={FiTrello} placeholder="CNPJ" />
              )
 
             }
@@ -150,4 +150,4 @@ const SignUp: React.FC = () => {
   )
 }
 
-export default SignUp
+

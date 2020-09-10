@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactNode } from 'react'
 import { Button, Box, ButtonGroup } from '@chakra-ui/core'
 
 import { AiFillCar } from 'react-icons/ai'
@@ -7,7 +7,10 @@ import { FaMotorcycle } from 'react-icons/fa'
 import { GoTools } from 'react-icons/go'
 import { GiScissors } from 'react-icons/gi'
 
-const Slider: React.FC = (props) => {
+
+
+
+const Slider = (props:any) => {
   return (
     <>
       <Box flex="1" textAlign="left">

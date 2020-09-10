@@ -1,13 +1,15 @@
-import React from 'react'
+import React, {CSSProperties} from 'react'
 import { Box, Flex, Text, Button } from '@chakra-ui/core'
 
-const MenuItems = ({ children }) => (
+
+
+const MenuItems: React.FC<CSSProperties> = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
     {children}
   </Text>
 )
 
-const Header = (props) => {
+const Header = (props: string) => {
   const [show, setShow] = React.useState(false)
   const handleToggle = () => setShow(!show)
 
