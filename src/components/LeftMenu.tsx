@@ -8,7 +8,7 @@ const LeftMenu: React.FC = () => {
     <Flex>
       <ButtonGroup spacing={4}>
         <Button
-          size="xs"
+          size="sm"
           leftIcon={FaCartArrowDown}
           variantColor="green"
           variant="solid"
@@ -16,7 +16,7 @@ const LeftMenu: React.FC = () => {
           Garantia
         </Button>
         <Button
-          size="xs"
+          size="sm"
           leftIcon={FaCartArrowDown}
           variantColor="yellow"
           variant="solid"
@@ -25,7 +25,7 @@ const LeftMenu: React.FC = () => {
           Devolução
         </Button>
         <Button
-          size="xs"
+          size="sm"
           leftIcon={FaCartArrowDown}
           variantColor="blue"
           variant="solid"

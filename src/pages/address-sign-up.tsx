@@ -23,7 +23,7 @@ import {
   Container,
   Content,
   AnimationContainer
-} from '../styles/pages/address-signup'
+} from '../styles/pages/address-sign-up'
 
 interface SignUpFormData {
   name: string

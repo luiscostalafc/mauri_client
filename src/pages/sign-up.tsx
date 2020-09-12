@@ -36,7 +36,7 @@ interface SignUpFormData {
   password: string
 }
 
-export const SignUp: React.FC = () => {
+  const SignUp: React.FC = () => {
   const [cpfNumber, setCpfNumber] = useState(true)
   const [check, setChecked] = useState(false)
   const formRef = useRef<FormHandles>(null)
@@ -150,4 +150,5 @@ export const SignUp: React.FC = () => {
   )
 }
 
+export default SignUp
 

@@ -6,7 +6,7 @@ const Logo = () => {
     <Flex justify="flex-start">
       <Image
         rounded="full"
-        size="45px"
+        size="100%"
         src="https://bit.ly/sage-adebayo"
         alt="Liconnection"
       />

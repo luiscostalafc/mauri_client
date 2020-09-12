@@ -27,7 +27,7 @@ interface SignInFormData {
   password: string
 }
 
-export const SignIn: React.FC = () => {
+  const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
   const { signIn } = useAuth()
@@ -113,5 +113,7 @@ export const SignIn: React.FC = () => {
     </Container>
   )
 }
+
+export default SignIn
 
 

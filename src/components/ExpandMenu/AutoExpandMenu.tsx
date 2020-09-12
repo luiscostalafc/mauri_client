@@ -1,6 +1,5 @@
-import React, { CSSProperties ,ButtonHTMLAttributes  } from 'react'
+import React from 'react'
 import { Input, Flex, Box, Select, Button } from '@chakra-ui/core'
-import { IconBaseProps } from 'react-icons'
 
 import { FaSearch } from 'react-icons/fa'
 
@@ -12,7 +11,7 @@ const AutoExpandMenu = ( props: any) => {
     <Flex flexDirection="row" position="relative">
       <Box
         display="flex"
-        marginLeft={185}
+        marginLeft={100}
         flexDirection="row"
         transformOrigin="left"
         transition="0.5s"

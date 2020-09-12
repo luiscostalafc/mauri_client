@@ -22,7 +22,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "src/config/ReactotronConfig.js", "src/store/createStore.js", "src/store/index.js", "src/store/persistReducers.js"
+    "**/*.tsx", "src/config/ReactotronConfig.js", "src/store/createStore.js", "src/store/index.js", "src/store/persistReducers.js", "src/utils/px2vw.js"
   ],
   "exclude": [
     "node_modules"
