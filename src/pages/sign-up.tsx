@@ -9,21 +9,21 @@ import * as Yup from 'yup'
 import { Checkbox } from "@chakra-ui/core";
 
 
-import api from '../../services/api'
+import api from '../services/api'
 
-import { useToast } from '../../hooks/toast'
+import { useToast } from '../hooks/toast'
 
-import getValidationErrors from '../../utils/getValidationErrors'
+import getValidationErrors from '../utils/getValidationErrors'
 
-import Button from '../../components/Button'
-import Input from '../../components/Input'
-import InputMask from '../../components/InputMask'
+import Button from '../components/Button'
+import Input from '../components/Input'
+import InputMask from '../components/InputMask'
 
 import {
   Container,
   Content,
   AnimationContainer
-} from './styles'
+} from '../styles/pages/sign-up'
 
 interface SignUpFormData {
   name: string
