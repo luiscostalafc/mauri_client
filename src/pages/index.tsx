@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 
 import Slider from '../../src/components/Slider'
 import Group from '../../src/components/Group'
-import Header from '../../src/components/Header'
+//import Header from '../../src/components/Header'
 import LeftMenu from '../../src/components/LeftMenu'
 import RightMenu from '../../src/components/RightMenu'
-import ProductAuto from '../../src/components/Product/ProductAuto'
+//import ProductAuto from '../../src/components/Product/ProductAuto'
 import AutoExpandMenu from '../../src/components/ExpandMenu/AutoExpandMenu'
 import Footer from '../../src/components/Footer'
 import { Flex, Image, Grid } from '@chakra-ui/core'
@@ -44,7 +44,7 @@ export default function Index() {
         alignItems="flex-start"
         width={{ sm: '68%', md: '100%' }}
       >
-         <Header />
+         {/* <Header /> */}
       </Flex>
 
       <Flex
@@ -54,7 +54,7 @@ export default function Index() {
         maxWidth="100vh"
         wrap="wrap"
       >
-         <ProductAuto></ProductAuto>
+         {/* <ProductAuto></ProductAuto> */}
       </Flex>
       <Flex
         maxHeight="100vh"

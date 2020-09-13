@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello, FiPhone, FiPhoneCall, FiSmartphone } from 'react-icons/fi'
+import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello, FiPhone} from 'react-icons/fi'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
@@ -28,11 +28,10 @@ import {
 interface SignUpFormData {
   name: string
   username: string
-  completeName: string
-  rg: string
-  cpfCnpj: string
-  nick: string
+  activity: string
   email: string
+  rg: string
+  cpf_cnpj: string
   password: string
 }
 
@@ -65,9 +64,9 @@ interface SignUpFormData {
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome completo'),
           username: Yup.string().required('Nome de usuário obrigatório'),
+          activity: Yup.string().required('Preencha sua ocupação profissional'),
           rg: Yup.string().required('Preencha seu RG'),
-          cpfCnpj: Yup.string().required('Preencha o CNPJ OU RG'),
-          activity: Yup.string().required('Ocupação profissional'),
+          cpf_cnpj: Yup.string().required('Preencha o CNPJ ou RG'),
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
@@ -76,9 +75,9 @@ interface SignUpFormData {
         await schema.validate(data, {
           abortEarly: false
         })
-        await api.post('/users', data)
+        await api.post('users', data)
 
-        router.push('v1/sign-in')
+        router.push('sign-in')
 
         addToast({
           type: 'success',
@@ -116,14 +115,14 @@ interface SignUpFormData {
 
             <Input name="name" icon={FiUser} placeholder="Nome completo" />
             <Input name="username" icon={FiUser} placeholder="Usuário" />
+            <Input name="activity" icon={FiUser} placeholder="Ocupação Profissional" />
             <Input name="rg" icon={FiTrello} placeholder="RG" />
-            <InputMask mask="(99) 99999-9999" name="phone" icon={FiPhone}  placeholder="Fone" />
             <Checkbox size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
             {
              cpfNumber ? (
-               <InputMask mask="999.999.999-99" name="cpfCnpj" icon={FiTrello} placeholder="CPF" />
+               <InputMask mask="999.999.999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CPF" />
              ):(
-              <InputMask mask="99.999.999/9999-99" name="cpfCnpj" icon={FiTrello} placeholder="CNPJ" />
+              <InputMask mask="99.999.999/9999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CNPJ" />
              )
 
             }
@@ -138,7 +137,7 @@ interface SignUpFormData {
 
             <Button type="submit">Cadastrar</Button>
           </Form>
-          <Link href="address-sign-up">
+          <Link href="sign-in">
             <a>
               <FiArrowLeft />
               Voltar ao login
