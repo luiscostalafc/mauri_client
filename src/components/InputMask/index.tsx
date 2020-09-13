@@ -16,6 +16,7 @@ interface Props extends InputProps {
 const InputMask: React.FC<Props> = ({ name,icon: Icon, ...rest }) => {
   const inputRef = useRef<any>(null);
 
+  const [showChild, setShowChild] = useState(false)
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
 
@@ -36,6 +37,8 @@ const InputMask: React.FC<Props> = ({ name,icon: Icon, ...rest }) => {
 
 
   useEffect(() => {
+    setShowChild(true)
+
     registerField({
       name: fieldName,
       ref: inputRef.current,
@@ -47,7 +50,7 @@ const InputMask: React.FC<Props> = ({ name,icon: Icon, ...rest }) => {
         ref.setInputValue('');
       },
     });
-  }, [fieldName, registerField]);
+  }, [fieldName, registerField, showChild]);
   return (
     <Container isErrored={!!error} isFilled={isFilled}  isFocused={isFocused}>
       {Icon && <Icon size={20} />}

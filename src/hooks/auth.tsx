@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useState, useContext } from 'react'
+import { useCookies } from 'react-cookie'
 import Cookies from 'js-cookie'
 
 import api from '../services/api'
@@ -30,11 +31,13 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 const AuthProvider: React.FC = ({ children }) => {
+  const [cookies, setCookie, removeCookie ] = useCookies(['@Liconnection:token','@Liconnection:user']);
+
 
 
   const [data, setData] = useState<AuthState>(() => {
-    const token = Cookies.get('@Liconnection:token')
-    const user = Cookies.get('@Liconnnection:user')
+    const token = Cookies.get('token')
+    const user = Cookies.get('user')
 
     if (token && user) {
       api.defaults.headers.authorization = `Bearer ${token}`
@@ -49,9 +52,10 @@ const AuthProvider: React.FC = ({ children }) => {
     const response = await api.post('login', { email, password })
 
     const { token, user } = response.data
-
-      Cookies.set('@Liconnection:token', token)
-      Cookies.set('@Liconnection:user', JSON.stringify(user))
+     let expires = new Date()
+     expires.setTime(expires.getTime() + (response.data.expires_in * 1000))
+     setCookie('@Liconnection:token', token, {path: '/', expires},)
+     setCookie('@Liconnection:user', JSON.stringify(user), {path: '/', expires})
 
     api.defaults.headers.authorization = `Bearer ${token}`
 
@@ -60,8 +64,8 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signOut = useCallback(() => {
 
-      Cookies.remove('@Liconnection:token')
-      Cookies.remove('@Liconnection:user')
+      removeCookie('@Liconnection:token', {path: '/'})
+      removeCookie('@Liconnection:user')
 
     setData({} as AuthState)
   }, [])
@@ -69,7 +73,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const updateUser = useCallback(
     (user: User) => {
 
-        Cookies.set('@Liconnection:user', JSON.stringify(user))
+       setCookie('@Liconnection:user', JSON.stringify(user), {path: '/'})
       setData({
         token: data.token,
         user
