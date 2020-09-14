@@ -1,5 +1,4 @@
 import React, { useRef, useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Form } from '@unform/web'
@@ -9,11 +8,9 @@ import * as Yup from 'yup'
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
 import { FormHandles } from '@unform/core'
 
-import { signInRequest } from '../store/modules/auth/actions'
-
+import { useAuth } from '../hooks/auth'
 import { useToast } from '../hooks/toast'
 import getValidationErrors from '../utils/getValidationErrors'
-
 
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -31,20 +28,12 @@ interface SignInFormData {
   password: string
 }
 
-interface LoadingProps {
-  token: string,
-  signed: boolean,
-  loading: boolean,
-  auth: any
-}
+
 
   const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
-  const dispatch = useDispatch()
-  const loading = useSelector<LoadingProps>(state => state.auth.loading)
-
-
+  const { signIn, user } = useAuth()
   const { addToast } = useToast()
 
   const router = useRouter()
@@ -55,20 +44,28 @@ interface LoadingProps {
         formRef.current?.setErrors({})
 
         const schema = Yup.object().shape({
-          email: Yup.string()
-            .required('E-mail obrigatório')
-            .email('Digite um e-mail válido'),
-          password: Yup.string().required('Senha obrigatória')
+          email: Yup.string().required('E-mail obrigatório').email('Digite um e-mail válido'),
+          password: Yup.string().required('Senha obrigatória'),
         })
         await schema.validate(data, {
-          abortEarly: false
+          abortEarly:false,
         })
 
-        dispatch(signInRequest({
+        await signIn({
           email: data.email,
           password: data.password
-        }))
-        router.push('/')
+        })
+
+        if (user.inactive) {
+          addToast({
+            type: 'info',
+            title: 'Cadastro em análise',
+            description: 'Seu cadastro está em fase de análise, em breve você receberá um e-mail. Obrigado!'
+          })
+        } else {
+          router.push('/')
+        }
+
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err)
@@ -85,7 +82,7 @@ interface LoadingProps {
         })
       }
     },
-    [dispatch, router, addToast]
+    [signIn, router, addToast]
   )
 
   return (
@@ -105,7 +102,7 @@ interface LoadingProps {
               placeholder="Senha"
             />
 
-            <Button type="submit">{loading ? 'Carregando...' : 'Entrar'}</Button>
+            <Button type="submit">Entrar</Button>
 
             <Link href="forgot-password">
               <a>Esqueci minha senha</a>

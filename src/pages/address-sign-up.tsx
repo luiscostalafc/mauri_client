@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello } from 'react-icons/fi'
+import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello} from 'react-icons/fi'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
@@ -23,37 +23,36 @@ import {
   Container,
   Content,
   AnimationContainer
-} from '../styles/pages/address-sign-up'
+} from '../styles/pages/sign-up'
 
 interface SignUpFormData {
   name: string
   username: string
-  completeName: string
-  rg: string
-  cpfCnpj: string
-  nick: string
+  activity: string
   email: string
+  rg: string
+  cpf_cnpj: string
   password: string
 }
 
-export const SignUp: React.FC = () => {
-  const [cpfNumber, setCpfNumber] = useState(true)
+  const SignUp: React.FC = () => {
+  const [phoneNumber, setPhoneNumber] = useState(true)
   const [check, setChecked] = useState(false)
   const formRef = useRef<FormHandles>(null)
   const { addToast } = useToast()
   const router = useRouter()
 
   const handleOptionDocument = useCallback(() => {
-    if (cpfNumber === true) {
-      setCpfNumber(false)
+    if (phoneNumber === true) {
+      setPhoneNumber(false)
       setChecked(true)
     }else {
-      setCpfNumber(true)
+      setPhoneNumber(true)
       setChecked(false)
     }
 
 
-  }, [cpfNumber, check])
+  }, [phoneNumber, check])
 
 
 
@@ -65,10 +64,9 @@ export const SignUp: React.FC = () => {
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome completo'),
           username: Yup.string().required('Nome de usuário obrigatório'),
-          completeName: '' || name,
+          activity: Yup.string().required('Preencha sua ocupação profissional'),
           rg: Yup.string().required('Preencha seu RG'),
-          cpfCnpj: Yup.string().required('Preencha o CNPJ OU RG'),
-          nick: '' || name,
+          cpf_cnpj: Yup.string().required('Preencha o CNPJ ou RG'),
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
@@ -77,9 +75,9 @@ export const SignUp: React.FC = () => {
         await schema.validate(data, {
           abortEarly: false
         })
-        await api.post('v1/users', data)
+        await api.post('users', data)
 
-        router.push('v1/sign-in')
+        router.push('sign-address')
 
         addToast({
           type: 'success',
@@ -113,17 +111,18 @@ export const SignUp: React.FC = () => {
 
 
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Endereço</h1>
+            <h1>Contatos</h1>
 
             <Input name="name" icon={FiUser} placeholder="Nome completo" />
             <Input name="username" icon={FiUser} placeholder="Usuário" />
+            <Input name="activity" icon={FiUser} placeholder="Ocupação Profissional" />
             <Input name="rg" icon={FiTrello} placeholder="RG" />
             <Checkbox size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
             {
-             cpfNumber ? (
-                   <InputMask mask="999.999.999-99" name="cpfCnpj" icon={FiTrello} placeholder="CPF" />
+             phoneNumber ? (
+               <InputMask mask="999.999.999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CPF" />
              ):(
-              <InputMask mask="99.999.999/9999-99" name="cpfCnpj" icon={FiTrello} placeholder="CNPJ" />
+              <InputMask mask="99.999.999/9999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CNPJ" />
              )
 
             }
@@ -136,7 +135,9 @@ export const SignUp: React.FC = () => {
               placeholder="Senha"
             />
 
-            <Button type="submit">Cadastrar</Button>
+            <Button type="submit">
+              Avançar {'>>'}
+              </Button>
           </Form>
           <Link href="sign-in">
             <a>
@@ -150,4 +151,5 @@ export const SignUp: React.FC = () => {
   )
 }
 
+export default SignUp
 

@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello, FiPhone} from 'react-icons/fi'
+import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello} from 'react-icons/fi'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
@@ -77,7 +77,7 @@ interface SignUpFormData {
         })
         await api.post('users', data)
 
-        router.push('sign-in')
+        router.push('sign-address')
 
         addToast({
           type: 'success',
@@ -135,7 +135,9 @@ interface SignUpFormData {
               placeholder="Senha"
             />
 
-            <Button type="submit">Cadastrar</Button>
+            <Button type="submit">
+              Avançar {'>>'}
+              </Button>
           </Form>
           <Link href="sign-in">
             <a>

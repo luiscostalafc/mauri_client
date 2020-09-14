@@ -1,14 +1,17 @@
 import React, { createContext, useCallback, useState, useContext } from 'react'
-import { useCookies } from 'react-cookie'
 import Cookies from 'js-cookie'
 
 import api from '../services/api'
 
 interface User {
   id: string
-  avatar_url: string
+  username: string
   name: string
+  activity: string
   email: string
+  rg: string
+  cpf_cnpj: string
+  inactive: boolean
 }
 
 interface AuthState {
@@ -28,10 +31,13 @@ interface AuthContextData {
   updateUser(user: User): void
 }
 
+
+
+
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [cookies, setCookie, removeCookie] = useCookies(['@Liconnection:token', '@Liconnection:user']);
+
   const [data, setData] = useState<AuthState>(() => {
   const token = Cookies.get('@Liconnection:token')
   const user = Cookies.get('@Liconnection:user')
@@ -53,8 +59,8 @@ const AuthProvider: React.FC = ({ children }) => {
 
     let expires = new Date()
     expires.setTime(expires.getTime() + (response.data.expires_in * 1000))
-    setCookie('@Liconnection:token', token, { path: '/', expires },)
-    setCookie('@Liconnection:user', JSON.stringify(user), { path: '/', expires })
+    Cookies.set('@Liconnection:token', token, { path: '/', expires },)
+    Cookies.set('@Liconnection:user', JSON.stringify(user), { path: '/', expires })
 
     api.defaults.headers.authorization = `Bearer ${token}`
 
@@ -63,8 +69,8 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signOut = useCallback(() => {
 
-    removeCookie('@Liconnection:token', { path: '/' })
-    removeCookie('@Liconnection:user')
+    Cookies.remove('@Liconnection:token', { path: '/' })
+    Cookies.remove('@Liconnection:user', { path: '/'})
 
     setData({} as AuthState)
   }, [])
@@ -72,7 +78,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const updateUser = useCallback(
     (user: User) => {
 
-      setCookie('@Liconnection:user', JSON.stringify(user), { path: '/' })
+      Cookies.set('@Liconnection:user', JSON.stringify(user), { path: '/' })
       setData({
         token: data.token,
         user
