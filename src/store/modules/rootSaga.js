@@ -1,8 +1,10 @@
+import dynamic from 'next/dynamic'
+
 import { all } from 'redux-saga/effects'
 
-import auth from './auth/sagas'
-import user from './user/sagas'
+const auth = dynamic(() => import('./auth/sagas'), {ssr: false})
+// const user = dynamic(() => import('./user/sagas'), {ssr: false})
 
 export default function* rootSaga() {
-  return yield all([auth, user])
+  return yield all([auth])
 }

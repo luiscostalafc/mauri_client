@@ -1,24 +1,35 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects'
-import { toast } from 'react-toastify'
+import { } from '../../../hooks/toast'
 
-import api from '~/services/api'
-import history from '~/services/history'
+
+import api from '../../../services/api'
+import { useRouter } from 'next/router'
 
 import { signInSuccess, signFailure, signUpSuccess } from './actions'
 
+const router = useRouter()
+const { addToast } = useToast()
+
 export function* singIn({ payload }) {
+
+
   try {
     const { email, password } = payload
 
-    const response = yield call(api.post, '/sessions', {
+    const response = yield call(api.post, '/login', {
       email,
       password
     })
 
     const { token, user } = response.data
 
-    if (!user.provider) {
-      toast.error('Usuário não é administrador')
+    if(user.inactive) {
+
+      addToast({
+        type: 'error',
+        title: 'Cadastro sob análise',
+        description: 'Favor aguardar a liberação do administrador de acesso ao sistema. Obrigado!'
+      })
       return
     }
 
@@ -26,9 +37,9 @@ export function* singIn({ payload }) {
 
     yield put(signInSuccess(token, user))
 
-    history.push('/dashboard')
+    router.push('/')
   } catch (err) {
-    toast.error('Falha na autenticação, verifique seus dados')
+    console.log('Falha na autenticação')
     yield put(signFailure())
   }
 }
@@ -45,9 +56,9 @@ export function* singUp({ payload }) {
     })
     yield put(signUpSuccess())
 
-    history.push('/')
+    router.push('/')
   } catch (err) {
-    toast.error('Falha no cadastro, verifique seus dados!')
+    console.log('Falha no cadastro')
 
     yield put(signFailure())
   }
@@ -64,7 +75,7 @@ function setToken({ payload }) {
 }
 
 export function signOut() {
-  history.push('/')
+  router.push('/')
 }
 
 export default all([

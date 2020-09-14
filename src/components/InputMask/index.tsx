@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback, InputHTMLAttributes } from 'react';
+import React, { useRef, useEffect, useState, useCallback} from 'react';
 import ReactInputMask, { Props as InputProps } from 'react-input-mask';
 import { IconBaseProps } from 'react-icons'
 import { FiAlertCircle } from 'react-icons/fi'
@@ -54,12 +54,18 @@ const InputMask: React.FC<Props> = ({ name,icon: Icon, ...rest }) => {
   return (
     <Container isErrored={!!error} isFilled={isFilled}  isFocused={isFocused}>
       {Icon && <Icon size={20} />}
-    <ReactInputMask
-     onFocus={handleInputFocus}
-     onBlur={handleInputBlur}
-     ref={inputRef}
-     defaultValue={defaultValue}
-     {...rest} />
+
+      { showChild ? (
+         <ReactInputMask
+         onFocus={handleInputFocus}
+         onBlur={handleInputBlur}
+         ref={inputRef}
+         defaultValue={defaultValue}
+         {...rest} />
+      ): null
+
+      }
+
      {error &&
      <Error title={error}>
        <FiAlertCircle color="#c53030" size={20} />

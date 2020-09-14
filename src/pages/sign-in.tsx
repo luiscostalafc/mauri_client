@@ -1,12 +1,16 @@
 import React, { useRef, useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
-import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 
-import { useAuth } from '../hooks/auth'
+
+import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
+import { FormHandles } from '@unform/core'
+
+import { signInRequest } from '../store/modules/auth/actions'
+
 import { useToast } from '../hooks/toast'
 import getValidationErrors from '../utils/getValidationErrors'
 
@@ -27,10 +31,20 @@ interface SignInFormData {
   password: string
 }
 
+interface LoadingProps {
+  token: string,
+  signed: boolean,
+  loading: boolean,
+  auth: any
+}
+
   const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
-  const { signIn } = useAuth()
+  const dispatch = useDispatch()
+  const loading = useSelector<LoadingProps>(state => state.auth.loading)
+
+
   const { addToast } = useToast()
 
   const router = useRouter()
@@ -50,10 +64,10 @@ interface SignInFormData {
           abortEarly: false
         })
 
-        signIn({
+        dispatch(signInRequest({
           email: data.email,
           password: data.password
-        })
+        }))
         router.push('/')
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -71,7 +85,7 @@ interface SignInFormData {
         })
       }
     },
-    [signIn, router, addToast]
+    [dispatch, router, addToast]
   )
 
   return (
@@ -91,7 +105,7 @@ interface SignInFormData {
               placeholder="Senha"
             />
 
-            <Button type="submit">Entrar</Button>
+            <Button type="submit">{loading ? 'Carregando...' : 'Entrar'}</Button>
 
             <Link href="forgot-password">
               <a>Esqueci minha senha</a>
