@@ -77,12 +77,12 @@ interface SignUpFormData {
         })
         await api.post('users', data)
 
-        router.push('sign-address')
+        router.push('phone-sing-up')
 
         addToast({
           type: 'success',
-          title: 'Cadastro realizado!',
-          description: 'Você já pode fazer seu login no Liconnection'
+          title: 'Dados de usuário preenchidos com sucesso!',
+          description: 'Você agora preencherá os dados telefônicos'
         })
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
