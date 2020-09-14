@@ -1,13 +1,16 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello } from 'react-icons/fi'
+import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello, FiPhone, FiSmartphone } from 'react-icons/fi'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 
-
-
+import {
+  DivContainer, Container,
+  Content,
+  AnimationContainer
+} from '../styles/pages/phone-sign-up'
 
 import api from '../services/api'
 
@@ -20,23 +23,20 @@ import Input from '../components/Input'
 import InputMask from '../components/InputMask'
 import SelectInput from '../components/SelectInput'
 
-import {
-  Container,
-  Content,
-  AnimationContainer
-} from '../styles/pages/sign-up'
 
 interface PhoneFormData {
   type: string
-  area_code: string
-  phone: string
+  numberPhone: [{
+    area_code: string
+    phone: string
+  }]
   whatsapp: boolean
   obs?: string
 }
 
 const SignUp: React.FC = () => {
-const [searchOption, setSearchOption] = useState('residencial');
-const [optionSelected, setOptionSelected] = useState<string>('');
+  const [searchOption, setSearchOption] = useState('residencial');
+  const [optionSelected, setOptionSelected] = useState<string>('');
 
 
   const formRef = useRef<FormHandles>(null)
@@ -44,8 +44,8 @@ const [optionSelected, setOptionSelected] = useState<string>('');
   const router = useRouter()
 
   const optionsSelect = [
-    {value: 'residencial', label: 'residencial' },
-    {value: 'comercial', label: 'comercial' },
+    { value: 'residencial', label: 'residencial' },
+    { value: 'comercial', label: 'comercial' },
   ];
 
   const toggleOption = useCallback(() => {
@@ -64,8 +64,7 @@ const [optionSelected, setOptionSelected] = useState<string>('');
 
         const schema = Yup.object().shape({
           type: Yup.string().required('Tipo do telefone deve ser selecionado'),
-          area_code: Yup.string().required('Digite o código de área'),
-          phone: Yup.string().required('Preencha o número do seu telefone'),
+          numberPhone: Yup.string().required('Preencha o telefone com o DDD'),
           whatsapp: Yup.boolean().required('Esse número possui Whatsapp?'),
           obs: Yup.string().optional(),
         })
@@ -110,16 +109,26 @@ const [optionSelected, setOptionSelected] = useState<string>('');
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Contatos</h1>
 
+            <DivContainer>
+              <SelectInput
+                name="type"
+                defaultValue={{ value: 'residencial', label: 'residencial' }}
+                onChange={toggleOption}
+                options={optionsSelect}
+              />
+              <InputMask mask="(99) 9999-9999" name="numberPhone" icon={FiPhone} placeholder="número com o DDD" />
+            </DivContainer>
 
-           <SelectInput
-            name="type"
-            defaultValue={{ value: 'residencial', label: 'residencial'}}
-            onChange={toggleOption}
-            options={optionsSelect}
-           />
+            <DivContainer>
+              <SelectInput
+                name="type"
+                defaultValue={{ value: 'residencial', label: 'residencial' }}
+                onChange={toggleOption}
+                options={optionsSelect}
+              />
+              <InputMask mask="(99) 99999-9999" name="numberPhone" icon={FiSmartphone} placeholder="número com o DDD" />
+            </DivContainer>
 
-            <Input name="name" icon={FiUser} placeholder="Nome completo" />
-            <Input name="username" icon={FiUser} placeholder="Usuário" />
             <Input name="activity" icon={FiUser} placeholder="Ocupação Profissional" />
             <Input name="rg" icon={FiTrello} placeholder="RG" />
             <Input name="email" icon={FiMail} placeholder="E-mail" />

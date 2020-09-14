@@ -21,8 +21,11 @@ const SelectInput: React.FC<Props> = ({ name, ...rest }) => {
       borderRadius: 10,
       borderColor: '#a0aec0',
       fontSize: 18,
-      height: 46,
+      height: 45,
       width: 142,
+      marginTop:5,
+      paddingRight:5,
+
     }),
     option: styels => ({
       ...styels,
