@@ -77,7 +77,7 @@ interface SignUpFormData {
         })
         await api.post('users', data)
 
-        router.push('phone-sing-up')
+        router.push('phone-sign-up')
 
         addToast({
           type: 'success',

@@ -6,7 +6,7 @@ import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 
-import { Checkbox} from "@chakra-ui/core";
+
 
 
 import api from '../services/api'
@@ -18,7 +18,7 @@ import getValidationErrors from '../utils/getValidationErrors'
 import Button from '../components/Button'
 import Input from '../components/Input'
 import InputMask from '../components/InputMask'
-import Select from '../components/Select'
+import SelectInput from '../components/SelectInput'
 
 import {
   Container,
@@ -35,23 +35,25 @@ interface PhoneFormData {
 }
 
 const SignUp: React.FC = () => {
-  const [phoneNumber, setPhoneNumber] = useState(true)
-  const [check, setChecked] = useState(false)
+const [searchOption, setSearchOption] = useState('residencial');
+const [optionSelected, setOptionSelected] = useState<string>('');
+
+
   const formRef = useRef<FormHandles>(null)
   const { addToast } = useToast()
   const router = useRouter()
 
-  const handleOptionDocument = useCallback(() => {
-    if (phoneNumber === true) {
-      setPhoneNumber(false)
-      setChecked(true)
-    } else {
-      setPhoneNumber(true)
-      setChecked(false)
-    }
+  const optionsSelect = [
+    {value: 'residencial', label: 'residencial' },
+    {value: 'comercial', label: 'comercial' },
+  ];
 
+  const toggleOption = useCallback(() => {
+    setSearchOption(state => (state === 'residencial' ? 'comercial' : 'residencial'));
+    setOptionSelected('');
+    formRef.current?.clearField('residencial');
+  }, []);
 
-  }, [phoneNumber, check])
 
 
 
@@ -108,26 +110,18 @@ const SignUp: React.FC = () => {
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Contatos</h1>
 
-            <Select name="type" placeholder="Selecione o tipo do telefone">
-              <option value="residencial">residencial</option>
-              <option value="comercial">comercial</option>
-              <option value="option3">outro</option>
-            </Select>
+
+           <SelectInput
+            name="type"
+            defaultValue={{ value: 'residencial', label: 'residencial'}}
+            onChange={toggleOption}
+            options={optionsSelect}
+           />
 
             <Input name="name" icon={FiUser} placeholder="Nome completo" />
             <Input name="username" icon={FiUser} placeholder="Usuário" />
             <Input name="activity" icon={FiUser} placeholder="Ocupação Profissional" />
             <Input name="rg" icon={FiTrello} placeholder="RG" />
-            <Checkbox size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
-            {
-              phoneNumber ? (
-                <InputMask mask="999.999.999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CPF" />
-              ) : (
-                  <InputMask mask="99.999.999/9999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CNPJ" />
-                )
-
-            }
-
             <Input name="email" icon={FiMail} placeholder="E-mail" />
             <Input
               name="password"
@@ -140,10 +134,10 @@ const SignUp: React.FC = () => {
               Avançar {'>>'}
             </Button>
           </Form>
-          <Link href="sign-in">
+          <Link href="sign-up">
             <a>
               <FiArrowLeft />
-              Voltar ao login
+              Voltar aos Dados do usuário
             </a>
           </Link>
         </AnimationContainer>
