@@ -107,7 +107,7 @@ export const ButtonOptions = styled.button `
 `
 
 export const DivContainer = styled.div`
-  height: 50px;
+  height: 70px;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -118,6 +118,11 @@ export const DivContainer = styled.div`
   width: 100%;
   }
 
+
+`
+
+export const SelectContainer = styled.div`
+ padding: 1px;
 `
 
 

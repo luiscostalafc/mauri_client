@@ -21,9 +21,9 @@ const SelectInput: React.FC<Props> = ({ name, ...rest }) => {
       borderRadius: 10,
       borderColor: '#a0aec0',
       fontSize: 18,
-      height: 45,
-      width: 142,
-      marginTop:5,
+      height: 62,
+      width: 200,
+      marginTop:7,
       paddingRight:5,
 
     }),

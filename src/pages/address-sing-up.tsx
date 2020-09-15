@@ -12,7 +12,7 @@ import {
   Content,
   AnimationContainer,
   SelectContainer,
-} from '../styles/pages/phone-sign-up'
+} from '../styles/pages/address-sign-up'
 
 import api from '../services/api'
 
@@ -45,7 +45,7 @@ interface PhoneFormData {
 
 
 
-const PhoneSignUp: React.FC = () => {
+const AddressSignUp: React.FC = () => {
   const [searchOption, setSearchOption] = useState('residencial');
   const [optionSelected, setOptionSelected] = useState<string>('');
   const [withWhatsapp, setWithWhatsapp ] = useState(true);
@@ -170,5 +170,5 @@ const PhoneSignUp: React.FC = () => {
   )
 }
 
-export default PhoneSignUp
+export default AddressSignUp
 
