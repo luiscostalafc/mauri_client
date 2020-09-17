@@ -9,7 +9,7 @@ const MenuItems: React.FC<CSSProperties> = ({ children }) => (
   </Text>
 )
 
-const Header = (props: string) => {
+const Header = () => {
   const [show, setShow] = React.useState(false)
   const handleToggle = () => setShow(!show)
 
@@ -25,7 +25,6 @@ const Header = (props: string) => {
         padding="1.5rem"
         bg="gray.500"
         color="white"
-        {...props}
       >
         <Box display={{ sm: 'block', md: 'none' }} onClick={handleToggle}>
           <svg
