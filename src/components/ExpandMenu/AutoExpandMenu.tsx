@@ -6,7 +6,7 @@ import { FaSearch } from 'react-icons/fa'
 
 
 
-const AutoExpandMenu = ( props: any) => {
+const AutoExpandMenu = (props: any) => {
   return (
     <Flex flexDirection="row" position="relative">
       <Box
@@ -94,7 +94,7 @@ const AutoExpandMenu = ( props: any) => {
         ></Select>
 
         <Input maxW="120px" size="md" />
-      <Button children size="md" leftIcon={FaSearch} />
+        <Button children size="md" leftIcon={FaSearch} />
       </Box>
     </Flex>
   )

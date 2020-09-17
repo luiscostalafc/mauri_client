@@ -1,4 +1,5 @@
 import React, { useRef, useCallback } from 'react'
+import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Form } from '@unform/web'
@@ -29,14 +30,14 @@ interface SignInFormData {
 }
 
 
-
-  const SignIn: React.FC = () => {
+const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
   const { signIn, user } = useAuth()
   const { addToast } = useToast()
 
   const router = useRouter()
+  const userId = Cookies.get('@Liconnection:idUser')
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
@@ -48,7 +49,7 @@ interface SignInFormData {
           password: Yup.string().required('Senha obrigatória'),
         })
         await schema.validate(data, {
-          abortEarly:false,
+          abortEarly: false,
         })
 
         await signIn({
