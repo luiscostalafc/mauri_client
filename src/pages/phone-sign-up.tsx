@@ -1,4 +1,5 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { FiArrowLeft, FiPhone, FiSmartphone, FiFileText} from 'react-icons/fi'
@@ -25,6 +26,8 @@ import Input from '../components/Input'
 import InputMask from '../components/InputMask'
 import SelectInput from '../components/SelectInput'
 import CheckboxInput from '../components/CheckBoxInput'
+import { truncate } from 'fs'
+import { GiTrousers } from 'react-icons/gi'
 
 interface CheckboxOption {
   id: string
@@ -34,6 +37,7 @@ interface CheckboxOption {
 
 
 interface PhoneFormData {
+  user_id: number
   type: string
   numberPhone: [{
     area_code: string
@@ -44,11 +48,12 @@ interface PhoneFormData {
 }
 
 
-
 const PhoneSignUp: React.FC = () => {
   const [searchOption, setSearchOption] = useState('residencial');
   const [optionSelected, setOptionSelected] = useState<string>('');
   const [withWhatsapp, setWithWhatsapp ] = useState(true);
+
+  const userId = Cookies.get('@Liconnection:user')
 
 
   const formRef = useRef<FormHandles>(null)
@@ -56,14 +61,14 @@ const PhoneSignUp: React.FC = () => {
   const router = useRouter()
 
   const checkboxOption: CheckboxOption[] = [
-    {id: 'whatsApp', value: 'whatsApp', label: 'Whatsapp'}
+    {id: 'whatsApp', value: 'whatsApp', label: 'sim'},
   ]
+
 
   const optionsSelect = [
     { value: 'residencial', label: 'residencial' },
     { value: 'comercial', label: 'comercial' },
   ];
-
 
 
   const toggleOption = useCallback(() => {
@@ -72,17 +77,17 @@ const PhoneSignUp: React.FC = () => {
     formRef.current?.clearField('residencial');
   }, []);
 
-  const whatsOption = useCallback(() => {
+     useEffect(() => {
      if(withWhatsapp === true) {
-      setWithWhatsapp(false)
-     } else {
+       setWithWhatsapp(false)
+     }else {
        setWithWhatsapp(true)
      }
-
   }, [])
 
 
   const handleSubmit = useCallback(
+
     async (data: PhoneFormData) => {
       try {
         formRef.current?.setErrors({})
@@ -92,11 +97,14 @@ const PhoneSignUp: React.FC = () => {
           numberPhone: Yup.string().required('Preencha o telefone com o DDD'),
           whatsapp: Yup.boolean().required('Esse número possui Whatsapp?'),
           obs: Yup.string().optional(),
+          user_id: Yup.number().default(userId)
         })
         await schema.validate(data, {
           abortEarly: false
         })
-        await api.post('phones', data)
+
+      const response = await api.post('phones', data)
+        console.log(response)
 
         router.push('address-sing-up')
 
@@ -148,7 +156,7 @@ const PhoneSignUp: React.FC = () => {
 
             <DivContainer>
               <InputMask mask="(99) 99999-9999" name="numberPhone" icon={FiSmartphone} placeholder="número com o DDD" />
-              <CheckboxInput defaultChecked={withWhatsapp} onChange={whatsOption} name="whatsapp" options={checkboxOption}/>
+              <Input  name="whatsapp" type="checkbox" checked={isChecked} onChange={handleWhats}/>
               <FaWhatsapp style={{marginTop:10}}  size="50px" color="128c7e"/>
             </DivContainer>
 

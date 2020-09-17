@@ -1,7 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello} from 'react-icons/fi'
+import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello } from 'react-icons/fi'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
@@ -35,18 +36,19 @@ interface SignUpFormData {
   password: string
 }
 
-  const SignUp: React.FC = () => {
+const SignUp: React.FC = () => {
   const [cpfNumber, setCpfNumber] = useState(true)
   const [check, setChecked] = useState(false)
   const formRef = useRef<FormHandles>(null)
   const { addToast } = useToast()
   const router = useRouter()
 
+
   const handleOptionDocument = useCallback(() => {
     if (cpfNumber === true) {
       setCpfNumber(false)
       setChecked(true)
-    }else {
+    } else {
       setCpfNumber(true)
       setChecked(false)
     }
@@ -75,7 +77,13 @@ interface SignUpFormData {
         await schema.validate(data, {
           abortEarly: false
         })
-        await api.post('users', data)
+        const response = await api.post('users', data)
+
+        const { id } = response.data
+
+        let expires = new Date()
+        expires.setTime(expires.getTime() + (response.data.expires_in * 1000))
+        Cookies.set('@Liconnection:token', id, { path: '/', expires },)
 
         router.push('phone-sign-up')
 
@@ -119,11 +127,11 @@ interface SignUpFormData {
             <Input name="rg" icon={FiTrello} placeholder="RG" />
             <Checkbox size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
             {
-             cpfNumber ? (
-               <InputMask mask="999.999.999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CPF" />
-             ):(
-              <InputMask mask="99.999.999/9999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CNPJ" />
-             )
+              cpfNumber ? (
+                <InputMask mask="999.999.999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CPF" />
+              ) : (
+                  <InputMask mask="99.999.999/9999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CNPJ" />
+                )
 
             }
 
@@ -136,8 +144,8 @@ interface SignUpFormData {
             />
 
             <Button type="submit">
-              Avançar {'>>'}
-              </Button>
+              Avançar `{'>>'}`
+            </Button>
           </Form>
           <Link href="sign-in">
             <a>
