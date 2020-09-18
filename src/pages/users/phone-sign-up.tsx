@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
+import { Switch, Flex, FormLabel } from "@chakra-ui/core";
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { FiArrowLeft, FiPhone, FiSmartphone, FiFileText} from 'react-icons/fi'
-import { FaWhatsapp} from 'react-icons/fa'
+import { FiArrowLeft, FiPhone, FiSmartphone, FiFileText } from 'react-icons/fi'
+import { FaWhatsapp } from 'react-icons/fa'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
@@ -13,27 +14,19 @@ import {
   Content,
   AnimationContainer,
   SelectContainer,
-} from '../styles/pages/phone-sign-up'
+} from '../../styles/pages/phone-sign-up'
 
-import api from '../services/api'
+import api from '../../services/api'
 
-import { useToast } from '../hooks/toast'
+import { useToast } from '../../hooks/toast'
 
-import getValidationErrors from '../utils/getValidationErrors'
+import getValidationErrors from '../../utils/getValidationErrors'
 
-import Button from '../components/Button'
-import Input from '../components/Input'
-import InputMask from '../components/InputMask'
-import SelectInput from '../components/SelectInput'
-import CheckboxInput from '../components/CheckBoxInput'
-import { truncate } from 'fs'
-import { GiTrousers } from 'react-icons/gi'
+import Button from '../../components/Button'
+import Input from '../../components/Input'
+import InputMask from '../../components/InputMask'
+import SelectInput from '../../components/SelectInput'
 
-interface CheckboxOption {
-  id: string
-  value: string
-  label: string
-}
 
 
 interface PhoneFormData {
@@ -51,7 +44,7 @@ interface PhoneFormData {
 const PhoneSignUp: React.FC = () => {
   const [searchOption, setSearchOption] = useState('residencial');
   const [optionSelected, setOptionSelected] = useState<string>('');
-  const [withWhatsapp, setWithWhatsapp ] = useState(true);
+  const [withWhatsapp, setWithWhatsapp] = useState(true);
 
   const userId = Cookies.get('@Liconnection:user')
 
@@ -60,9 +53,6 @@ const PhoneSignUp: React.FC = () => {
   const { addToast } = useToast()
   const router = useRouter()
 
-  const checkboxOption: CheckboxOption[] = [
-    {id: 'whatsApp', value: 'whatsApp', label: 'sim'},
-  ]
 
 
   const optionsSelect = [
@@ -77,13 +67,9 @@ const PhoneSignUp: React.FC = () => {
     formRef.current?.clearField('residencial');
   }, []);
 
-     useEffect(() => {
-     if(withWhatsapp === true) {
-       setWithWhatsapp(false)
-     }else {
-       setWithWhatsapp(true)
-     }
-  }, [])
+  function handleWhatsapp() { withWhatsapp ? setWithWhatsapp(false) : setWithWhatsapp(true)
+  }
+   console.log(withWhatsapp)
 
 
   const handleSubmit = useCallback(
@@ -103,7 +89,7 @@ const PhoneSignUp: React.FC = () => {
           abortEarly: false
         })
 
-      const response = await api.post('phones', data)
+        const response = await api.post('phones', data)
         console.log(response)
 
         router.push('address-sing-up')
@@ -145,19 +131,22 @@ const PhoneSignUp: React.FC = () => {
             <DivContainer>
               <InputMask mask="(99) 9999-9999" name="numberPhone" icon={FiPhone} placeholder="número com o DDD" />
               <SelectContainer>
-              <SelectInput
-                name="type"
-                defaultValue={{ value: 'residencial', label: 'residencial' }}
-                onChange={toggleOption}
-                options={optionsSelect}
-              />
+                <SelectInput
+                  name="type"
+                  defaultValue={{ value: 'residencial', label: 'residencial' }}
+                  onChange={toggleOption}
+                  options={optionsSelect}
+                />
               </SelectContainer>
             </DivContainer>
 
             <DivContainer>
               <InputMask mask="(99) 99999-9999" name="numberPhone" icon={FiSmartphone} placeholder="número com o DDD" />
-              <Input  name="whatsapp" type="checkbox" checked={isChecked} onChange={handleWhats}/>
-              <FaWhatsapp style={{marginTop:10}}  size="50px" color="128c7e"/>
+              <Flex justify="center" align="center">
+                <FaWhatsapp style={{ marginTop: 10 }} size="50px" color="128c7e" />
+                <FormLabel htmlFor="whatsapp">Whatsapp?</FormLabel>
+                <Switch name="whatsapp" id="whatsapp" onChange={handleWhatsapp} isChecked={withWhatsapp} />
+              </Flex>
             </DivContainer>
 
             <Input name="obs" icon={FiFileText} placeholder="Observações" />

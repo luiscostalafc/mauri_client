@@ -10,21 +10,21 @@ import * as Yup from 'yup'
 import { Checkbox } from "@chakra-ui/core";
 
 
-import api from '../services/api'
+import api from '../../services/api'
 
-import { useToast } from '../hooks/toast'
+import { useToast } from '../../hooks/toast'
 
-import getValidationErrors from '../utils/getValidationErrors'
+import getValidationErrors from '../../utils/getValidationErrors'
 
-import Button from '../components/Button'
-import Input from '../components/Input'
-import InputMask from '../components/InputMask'
+import Button from '../../components/Button'
+import Input from '../../components/Input'
+import InputMask from '../../components/InputMask'
 
 import {
   Container,
   Content,
   AnimationContainer
-} from '../styles/pages/sign-up'
+} from '../../styles/pages/sign-up'
 
 interface SignUpFormData {
   name: string
@@ -67,7 +67,7 @@ const SignUp: React.FC = () => {
           name: Yup.string().required('Nome completo'),
           username: Yup.string().required('Nome de usuário obrigatório'),
           activity: Yup.string().required('Preencha sua ocupação profissional'),
-          rg: Yup.string().required('Preencha seu RG'),
+          rg: Yup.string().required('Preencha seu RG').max(14),
           cpf_cnpj: Yup.string().required('Preencha o CNPJ ou RG'),
           email: Yup.string()
             .required('E-mail obrigatório')
@@ -144,7 +144,7 @@ const SignUp: React.FC = () => {
             />
 
             <Button type="submit">
-              Avançar `{'>>'}`
+              Avançar {'>>'}
             </Button>
           </Form>
           <Link href="sign-in">

@@ -9,12 +9,12 @@ import * as Yup from 'yup'
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
 import { FormHandles } from '@unform/core'
 
-import { useAuth } from '../hooks/auth'
-import { useToast } from '../hooks/toast'
-import getValidationErrors from '../utils/getValidationErrors'
+import { useAuth } from '../../hooks/auth'
+import { useToast } from '../../hooks/toast'
+import getValidationErrors from '../../utils/getValidationErrors'
 
-import Button from '../components/Button'
-import Input from '../components/Input'
+import Button from '../../components/Button'
+import Input from '../../components/Input'
 
 import {
   Container,
@@ -22,7 +22,7 @@ import {
   Background,
   Image,
   AnimationContainer
-} from '../styles/pages/sign-in'
+} from '../../styles/pages/sign-in'
 
 interface SignInFormData {
   email: string
