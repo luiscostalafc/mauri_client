@@ -1429,6 +1429,14 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@emersonbraun/pretty-log@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@emersonbraun/pretty-log/-/pretty-log-0.1.2.tgz#fe235d7864020cd4e4bae5730c0761f4faf4c5b8"
+  integrity sha512-752+shzTMpWO8e/zdVSkj6Z2HKOD1wRLHNOBW02Rzj03fKtD7uYeVU/0ml+xK4bC4a92iGXdAwyv9edms4s69w==
+  dependencies:
+    chalk "^4.1.0"
+    figures "^3.2.0"
+
 "@emotion/cache@^10.0.27", "@emotion/cache@^10.0.9":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"
@@ -11162,6 +11170,11 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-loading@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-2.0.3.tgz#e8138fb0c3e4674e481b320802ac7048ae14ffb9"
+  integrity sha512-Vdqy79zq+bpeWJqC+xjltUjuGApyoItPgL0vgVfcJHhqwU7bAMKzysfGW/ADu6i0z0JiOCRJjo+IkFNkRNbA3A==
 
 react-mask@^1.0.0:
   version "1.0.0"
