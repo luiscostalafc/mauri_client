@@ -19,7 +19,7 @@ const columns = [
 ]
 
 export async function getStaticProps() {
-  const response = await api.get('/deliveries')
+  const response = await api.get('deliveries')
   return {
     props: {
       data: response.data || [],

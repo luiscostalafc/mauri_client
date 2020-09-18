@@ -1429,13 +1429,14 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@emersonbraun/pretty-log@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@emersonbraun/pretty-log/-/pretty-log-0.1.2.tgz#fe235d7864020cd4e4bae5730c0761f4faf4c5b8"
-  integrity sha512-752+shzTMpWO8e/zdVSkj6Z2HKOD1wRLHNOBW02Rzj03fKtD7uYeVU/0ml+xK4bC4a92iGXdAwyv9edms4s69w==
+"@emersonbraun/pretty-log@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@emersonbraun/pretty-log/-/pretty-log-1.1.0.tgz#4c0f35df089bc501b4465bb43561cb435e96b5d3"
+  integrity sha512-orM7IF3gkNOcaNo/eGbUmAU94ubwrYca9jKvbV7PuWYku4iUk/aJw3gsp2cMh9z/w/mZ8ccCVnB/BH0s5g9okw==
   dependencies:
     chalk "^4.1.0"
     figures "^3.2.0"
+    jest "^26.4.2"
 
 "@emotion/cache@^10.0.27", "@emotion/cache@^10.0.9":
   version "10.0.29"
@@ -2847,6 +2848,11 @@
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/@types/npmlog/-/npmlog-4.1.2.tgz#d070fe6a6b78755d1092a3dc492d34c3d8f871c4"
   integrity sha512-4QQmOF5KlwfxJ5IGXFIudkeLCdMABz03RcUXu+LCb24zmln8QW6aDjuGl4d4XPVLf2j+FnjelHTP7dvceAFbhA==
+
+"@types/nprogress@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@types/nprogress/-/nprogress-0.2.0.tgz#86c593682d4199212a0509cc3c4d562bbbd6e45f"
+  integrity sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==
 
 "@types/object-assign@^4.0.30":
   version "4.0.30"
@@ -8691,7 +8697,7 @@ jest-worker@^26.3.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jest@^26.1.0:
+jest@^26.1.0, jest@^26.4.2:
   version "26.4.2"
   resolved "https://registry.yarnpkg.com/jest/-/jest-26.4.2.tgz#7e8bfb348ec33f5459adeaffc1a25d5752d9d312"
   integrity sha512-LLCjPrUh98Ik8CzW8LLVnSCfLaiY+wbK53U7VxnFSX7Q+kWC4noVeDvGWIFw0Amfq1lq2VfGm7YHWSLBV62MJw==
@@ -9926,6 +9932,11 @@ npmlog@^4.1.2:
     console-control-strings "~1.1.0"
     gauge "~2.7.3"
     set-blocking "~2.0.0"
+
+nprogress@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
+  integrity sha1-y480xTIT2JVyP8urkH6UIq28r7E=
 
 nth-check@^1.0.2, nth-check@~1.0.1:
   version "1.0.2"
