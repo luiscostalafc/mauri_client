@@ -109,6 +109,8 @@ export async function deleteData (URL: string, silent = false, debug = false) {
     PrettyLog.error(`Error to delete ${completeURL}`, e)
   }
 }
+
+
  /* ------ original ------*/
 const api = axios.create({
   baseURL: 'http://localhost:3333/api'

@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react'
-import { Switch, Flex, FormLabel } from "@chakra-ui/core";
+import { Switch, Flex } from "@chakra-ui/core";
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -65,8 +65,6 @@ const PhoneSignUp: React.FC = () => {
     withWhatsapp ? setWithWhatsapp(false) : setWithWhatsapp(true)
   }
   console.log(withWhatsapp)
-
-
 
 
 

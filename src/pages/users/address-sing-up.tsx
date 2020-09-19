@@ -1,19 +1,21 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { FiArrowLeft, FiPhone, FiSmartphone, FiFileText} from 'react-icons/fi'
-import { FaWhatsapp} from 'react-icons/fa'
+
+import { FiArrowLeft, FiPhone, FiSmartphone, FiFileText } from 'react-icons/fi'
+import Cookies from 'js-cookie'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 
 import {
- Container,
+  Container,
   Content,
   AnimationContainer,
 } from '../../styles/pages/address-sign-up'
 
 import api from '../../services/api'
+
 
 import { useToast } from '../../hooks/toast'
 
@@ -22,82 +24,59 @@ import getValidationErrors from '../../utils/getValidationErrors'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 import InputMask from '../../components/InputMask'
-import SelectInput from '../../components/SelectInput'
-import CheckboxInput from '../../components/CheckBoxInput'
 
-interface CheckboxOption {
-  id: string
-  value: string
-  label: string
+
+interface AddressFormData {
+  user_id: string
+  cep: string
+  state: string
+  city: string
+  country: string
+  district: string
+  street: string
+  number: string
+  complement: string
 }
-
-
-interface PhoneFormData {
-  type: string
-  numberPhone: [{
-    area_code: string
-    phone: string
-  }]
-  whatsapp: boolean
-  obs?: string
-}
-
-
 
 const AddressSignUp: React.FC = () => {
-  const [searchOption, setSearchOption] = useState('residencial');
-  const [optionSelected, setOptionSelected] = useState<string>('');
-  const [withWhatsapp, setWithWhatsapp ] = useState(true);
 
 
   const formRef = useRef<FormHandles>(null)
   const { addToast } = useToast()
   const router = useRouter()
 
-  const checkboxOption: CheckboxOption[] = [
-    {id: 'whatsApp', value: 'whatsApp', label: 'Whatsapp'}
-  ]
-
-  const optionsSelect = [
-    { value: 'residencial', label: 'residencial' },
-    { value: 'comercial', label: 'comercial' },
-  ];
-
-
-
-  const toggleOption = useCallback(() => {
-    setSearchOption(state => (state === 'residencial' ? 'comercial' : 'residencial'));
-    setOptionSelected('');
-    formRef.current?.clearField('residencial');
-  }, []);
-
-  const whatsOption = useCallback(() => {
-     if(withWhatsapp === true) {
-      setWithWhatsapp(false)
-     } else {
-       setWithWhatsapp(true)
-     }
-
-  }, [])
 
 
   const handleSubmit = useCallback(
-    async (data: PhoneFormData) => {
+    async (data: AddressFormData) => {
       try {
+
+        const userId = Cookies.get('@Liconnection:user')
+
         formRef.current?.setErrors({})
 
         const schema = Yup.object().shape({
-          type: Yup.string().required('Tipo do telefone deve ser selecionado'),
-          numberPhone: Yup.string().required('Preencha o telefone com o DDD'),
-          whatsapp: Yup.boolean().required('Esse número possui Whatsapp?'),
-          obs: Yup.string().optional(),
+          user_id: Yup.string(),
+          cep: Yup.string().required('Preencha o CEP'),
+          state: Yup.string().required('Preencha o UF'),
+          city: Yup.string().required('Preencha a cidade'),
+          country: Yup.string().required('Preencha o país'),
+          district: Yup.string().required('Preencha o bairro'),
+          street: Yup.string().required('Preencha o estado'),
+          number: Yup.string().required('Preencha o número ou deixe como s/n'),
+          complement: Yup.string()
         })
         await schema.validate(data, {
           abortEarly: false
         })
-        await api.post('phones', data)
 
-        router.push('address-sing-up')
+       const userData = { ...data, user_id: userId}
+
+
+        const response= await api.post('address', userData)
+        console.log(response)
+
+        router.push('sing-in')
 
         addToast({
           type: 'success',
@@ -129,23 +108,12 @@ const AddressSignUp: React.FC = () => {
       <Content>
         <AnimationContainer>
 
-
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Contatos</h1>
+            <h1>Endereço</h1>
 
+            <InputMask mask="99999-999" name="cep"  icon={FiPhone} placeholder="CEP" />
 
-              <InputMask mask="(99) 9999-9999" name="numberPhone" icon={FiPhone} placeholder="número com o DDD" />
-
-              <SelectInput
-                name="type"
-                defaultValue={{ value: 'residencial', label: 'residencial' }}
-                onChange={toggleOption}
-                options={optionsSelect}
-              />
-
-              <InputMask mask="(99) 99999-9999" name="numberPhone" icon={FiSmartphone} placeholder="número com o DDD" />
-              <CheckboxInput defaultChecked={withWhatsapp} onChange={whatsOption} name="whatsapp" options={checkboxOption}/>
-              <FaWhatsapp style={{marginTop:10}}  size="50px" color="128c7e"/>
+            <Input name="street" icon={FiSmartphone} placeholder="Rua" />
 
             <Input name="obs" icon={FiFileText} placeholder="Observações" />
 
