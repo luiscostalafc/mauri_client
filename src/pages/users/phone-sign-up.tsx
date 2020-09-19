@@ -30,12 +30,9 @@ import SelectInput from '../../components/SelectInput'
 
 
 interface PhoneFormData {
-  user_id: number
+  user_id: string
   type: string
-  numberPhone: [{
-    area_code: string
-    phone: string
-  }]
+  phone: string
   whatsapp: boolean
   obs?: string
 }
@@ -46,13 +43,10 @@ const PhoneSignUp: React.FC = () => {
   const [optionSelected, setOptionSelected] = useState<string>('');
   const [withWhatsapp, setWithWhatsapp] = useState(true);
 
-  const userId = Cookies.get('@Liconnection:user')
-
 
   const formRef = useRef<FormHandles>(null)
   const { addToast } = useToast()
   const router = useRouter()
-
 
 
   const optionsSelect = [
@@ -67,29 +61,40 @@ const PhoneSignUp: React.FC = () => {
     formRef.current?.clearField('residencial');
   }, []);
 
-  function handleWhatsapp() { withWhatsapp ? setWithWhatsapp(false) : setWithWhatsapp(true)
+  function handleWhatsapp() {
+    withWhatsapp ? setWithWhatsapp(false) : setWithWhatsapp(true)
   }
-   console.log(withWhatsapp)
+  console.log(withWhatsapp)
+
+
+
 
 
   const handleSubmit = useCallback(
 
     async (data: PhoneFormData) => {
       try {
+        const userId = Cookies.get('@Liconnection:user')
+
         formRef.current?.setErrors({})
 
         const schema = Yup.object().shape({
           type: Yup.string().required('Tipo do telefone deve ser selecionado'),
-          numberPhone: Yup.string().required('Preencha o telefone com o DDD'),
-          whatsapp: Yup.boolean().required('Esse número possui Whatsapp?'),
+          phone: Yup.string().required('Preencha o telefone com o DDD'),
+          whatsapp: Yup.boolean().default(true),
           obs: Yup.string().optional(),
-          user_id: Yup.number().default(userId)
+          user_id: Yup.string().default(userId)
         })
         await schema.validate(data, {
           abortEarly: false
         })
 
-        const response = await api.post('phones', data)
+        const dataUser = {...data, user_id: userId, whatsapp: withWhatsapp}
+
+        console.log(dataUser)
+
+        const response = await api.post('phones', dataUser)
+
         console.log(response)
 
         router.push('address-sing-up')
@@ -105,7 +110,9 @@ const PhoneSignUp: React.FC = () => {
 
           formRef.current?.setErrors(errors)
 
+          console.log(err)
           return
+
         }
 
         addToast({
@@ -129,7 +136,7 @@ const PhoneSignUp: React.FC = () => {
             <h1>Contatos</h1>
 
             <DivContainer>
-              <InputMask mask="(99) 9999-9999" name="numberPhone" icon={FiPhone} placeholder="número com o DDD" />
+              <InputMask mask="(99) 9999-9999" name="phone" icon={FiPhone} placeholder="número com o DDD" />
               <SelectContainer>
                 <SelectInput
                   name="type"
@@ -141,10 +148,9 @@ const PhoneSignUp: React.FC = () => {
             </DivContainer>
 
             <DivContainer>
-              <InputMask mask="(99) 99999-9999" name="numberPhone" icon={FiSmartphone} placeholder="número com o DDD" />
-              <Flex justify="center" align="center">
+              <InputMask mask="(99) 99999-9999" name="phone" icon={FiSmartphone} placeholder="número com o DDD" />
+              <Flex justify="center" align="center" width={200}>
                 <FaWhatsapp style={{ marginTop: 10 }} size="50px" color="128c7e" />
-                <FormLabel htmlFor="whatsapp">Whatsapp?</FormLabel>
                 <Switch name="whatsapp" id="whatsapp" onChange={handleWhatsapp} isChecked={withWhatsapp} />
               </Flex>
             </DivContainer>
@@ -155,7 +161,7 @@ const PhoneSignUp: React.FC = () => {
               Avançar para endereço {'>>'}
             </Button>
           </Form>
-          <Link href="sign-up">
+          <Link href="api/sign-up">
             <a>
               <FiArrowLeft />
               Voltar aos Dados do usuário

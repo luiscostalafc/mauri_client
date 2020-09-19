@@ -8,23 +8,22 @@ import { Form } from '@unform/web'
 import * as Yup from 'yup'
 
 import {
-  DivContainer, Container,
+ Container,
   Content,
   AnimationContainer,
-  SelectContainer,
-} from '../styles/pages/address-sign-up'
+} from '../../styles/pages/address-sign-up'
 
-import api from '../services/api'
+import api from '../../services/api'
 
-import { useToast } from '../hooks/toast'
+import { useToast } from '../../hooks/toast'
 
-import getValidationErrors from '../utils/getValidationErrors'
+import getValidationErrors from '../../utils/getValidationErrors'
 
-import Button from '../components/Button'
-import Input from '../components/Input'
-import InputMask from '../components/InputMask'
-import SelectInput from '../components/SelectInput'
-import CheckboxInput from '../components/CheckBoxInput'
+import Button from '../../components/Button'
+import Input from '../../components/Input'
+import InputMask from '../../components/InputMask'
+import SelectInput from '../../components/SelectInput'
+import CheckboxInput from '../../components/CheckBoxInput'
 
 interface CheckboxOption {
   id: string
@@ -134,23 +133,19 @@ const AddressSignUp: React.FC = () => {
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Contatos</h1>
 
-            <DivContainer>
+
               <InputMask mask="(99) 9999-9999" name="numberPhone" icon={FiPhone} placeholder="número com o DDD" />
-              <SelectContainer>
+
               <SelectInput
                 name="type"
                 defaultValue={{ value: 'residencial', label: 'residencial' }}
                 onChange={toggleOption}
                 options={optionsSelect}
               />
-              </SelectContainer>
-            </DivContainer>
 
-            <DivContainer>
               <InputMask mask="(99) 99999-9999" name="numberPhone" icon={FiSmartphone} placeholder="número com o DDD" />
               <CheckboxInput defaultChecked={withWhatsapp} onChange={whatsOption} name="whatsapp" options={checkboxOption}/>
               <FaWhatsapp style={{marginTop:10}}  size="50px" color="128c7e"/>
-            </DivContainer>
 
             <Input name="obs" icon={FiFileText} placeholder="Observações" />
 

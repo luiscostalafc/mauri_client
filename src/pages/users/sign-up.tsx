@@ -83,7 +83,7 @@ const SignUp: React.FC = () => {
 
         let expires = new Date()
         expires.setTime(expires.getTime() + (response.data.expires_in * 1000))
-        Cookies.set('@Liconnection:token', id, { path: '/', expires },)
+        Cookies.set('@Liconnection:user', id, { path: '/', expires },)
 
         router.push('phone-sign-up')
 

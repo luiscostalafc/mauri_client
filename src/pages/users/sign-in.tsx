@@ -1,5 +1,4 @@
 import React, { useRef, useCallback } from 'react'
-import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Form } from '@unform/web'
@@ -37,7 +36,7 @@ const SignIn: React.FC = () => {
   const { addToast } = useToast()
 
   const router = useRouter()
-  const userId = Cookies.get('@Liconnection:idUser')
+
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
