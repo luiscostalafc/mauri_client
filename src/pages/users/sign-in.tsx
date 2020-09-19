@@ -119,7 +119,7 @@ const SignIn: React.FC = () => {
       </Content>
 
       <Background>
-        <Image src="liconnection_logo.jpeg" />
+        <Image src="../liconnection_logo.jpeg" />
       </Background>
     </Container>
   )

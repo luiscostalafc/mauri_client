@@ -2,7 +2,8 @@ import React, { useCallback, useRef } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-import { FiArrowLeft, FiPhone, FiSmartphone, FiFileText } from 'react-icons/fi'
+import { FiArrowLeft, FiMapPin } from 'react-icons/fi'
+import { FaCity } from 'react-icons/fa'
 import Cookies from 'js-cookie'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
@@ -15,7 +16,6 @@ import {
 } from '../../styles/pages/address-sign-up'
 
 import api from '../../services/api'
-
 
 import { useToast } from '../../hooks/toast'
 
@@ -31,7 +31,6 @@ interface AddressFormData {
   cep: string
   state: string
   city: string
-  country: string
   district: string
   street: string
   number: string
@@ -60,7 +59,6 @@ const AddressSignUp: React.FC = () => {
           cep: Yup.string().required('Preencha o CEP'),
           state: Yup.string().required('Preencha o UF'),
           city: Yup.string().required('Preencha a cidade'),
-          country: Yup.string().required('Preencha o país'),
           district: Yup.string().required('Preencha o bairro'),
           street: Yup.string().required('Preencha o estado'),
           number: Yup.string().required('Preencha o número ou deixe como s/n'),
@@ -73,10 +71,10 @@ const AddressSignUp: React.FC = () => {
        const userData = { ...data, user_id: userId}
 
 
-        const response= await api.post('address', userData)
+        const response= await api.post('addresses', userData)
         console.log(response)
 
-        router.push('sing-in')
+        router.push('sign-in')
 
         addToast({
           type: 'success',
@@ -88,6 +86,8 @@ const AddressSignUp: React.FC = () => {
           const errors = getValidationErrors(err)
 
           formRef.current?.setErrors(errors)
+
+          console.log(err)
 
           return
         }
@@ -111,20 +111,29 @@ const AddressSignUp: React.FC = () => {
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Endereço</h1>
 
-            <InputMask mask="99999-999" name="cep"  icon={FiPhone} placeholder="CEP" />
+            <InputMask mask="99999-999" name="cep"  icon={FiMapPin} placeholder="CEP" />
 
-            <Input name="street" icon={FiSmartphone} placeholder="Rua" />
+            <Input name="street" icon={FiMapPin} placeholder="Rua" />
 
-            <Input name="obs" icon={FiFileText} placeholder="Observações" />
+            <Input name="number" icon={FiMapPin} placeholder="Número" />
+
+            <Input name="complement" icon={FiMapPin} placeholder="Complemento" />
+
+            <Input name="district" icon={FiMapPin} placeholder="Bairro" />
+
+            <Input name="city" icon={FaCity} placeholder="Cidade"/>
+
+            <Input name="state" icon={FaCity} placeholder="Estado" />
+
 
             <Button type="submit">
-              Avançar para endereço {'>>'}
+              Concluir
             </Button>
           </Form>
-          <Link href="sign-up">
+          <Link href="address-sign-up">
             <a>
               <FiArrowLeft />
-              Voltar aos Dados do usuário
+              Voltar aos Dados de contato
             </a>
           </Link>
         </AnimationContainer>

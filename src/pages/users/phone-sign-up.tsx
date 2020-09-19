@@ -95,7 +95,7 @@ const PhoneSignUp: React.FC = () => {
 
         console.log(response)
 
-        router.push('address-sing-up')
+        router.push('address-sign-up')
 
         addToast({
           type: 'success',
@@ -159,7 +159,7 @@ const PhoneSignUp: React.FC = () => {
               Avançar para endereço {'>>'}
             </Button>
           </Form>
-          <Link href="api/sign-up">
+          <Link href="sign-up">
             <a>
               <FiArrowLeft />
               Voltar aos Dados do usuário
