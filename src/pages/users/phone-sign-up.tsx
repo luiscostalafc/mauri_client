@@ -14,6 +14,8 @@ import {
   Content,
   AnimationContainer,
   SelectContainer,
+  Background,
+  ImageCart,
 } from '../../styles/pages/phone-sign-up'
 
 import api from '../../services/api'
@@ -167,6 +169,10 @@ const PhoneSignUp: React.FC = () => {
           </Link>
         </AnimationContainer>
       </Content>
+
+      <Background>
+        <ImageCart src="../liconnection_logo.jpeg" />
+      </Background>
     </Container>
   )
 }

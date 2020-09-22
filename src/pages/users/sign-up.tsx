@@ -23,7 +23,10 @@ import InputMask from '../../components/InputMask'
 import {
   Container,
   Content,
-  AnimationContainer
+  AnimationContainer,
+  Background,
+  Image,
+  ImageCart,
 } from '../../styles/pages/sign-up'
 
 interface SignUpFormData {
@@ -155,6 +158,9 @@ const SignUp: React.FC = () => {
           </Link>
         </AnimationContainer>
       </Content>
+      <Background>
+        <ImageCart src="../cart_no_background.png" />
+      </Background>
     </Container>
   )
 }

@@ -13,6 +13,8 @@ import {
   Container,
   Content,
   AnimationContainer,
+  Background,
+  ImageCart,
 } from '../../styles/pages/address-sign-up'
 
 import api from '../../services/api'
@@ -138,6 +140,10 @@ const AddressSignUp: React.FC = () => {
           </Link>
         </AnimationContainer>
       </Content>
+
+      <Background>
+        <ImageCart src="../liconnection_logo.jpeg" />
+      </Background>
     </Container>
   )
 }

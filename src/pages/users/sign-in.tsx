@@ -20,6 +20,7 @@ import {
   Content,
   Background,
   Image,
+  ImageCart,
   AnimationContainer
 } from '../../styles/pages/sign-in'
 
@@ -89,7 +90,7 @@ const SignIn: React.FC = () => {
     <Container>
       <Content>
         <AnimationContainer>
-          <img src="/liconnection.svg" alt="Logo do site" />
+          <ImageCart src="/liconnection.svg" alt="Logo do site" />
 
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu login</h1>
@@ -119,7 +120,7 @@ const SignIn: React.FC = () => {
       </Content>
 
       <Background>
-        <Image src="../liconnection_logo.jpeg" />
+        <Image src="../home.png" />
       </Background>
     </Container>
   )

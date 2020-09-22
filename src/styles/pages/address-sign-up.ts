@@ -6,6 +6,7 @@ export const Container = styled.div`
   height: 100vh;
   display: flex;
   align-items: stretch;
+  background-color: #E2E8F0;
 `
 
 export const Content = styled.div`
@@ -17,10 +18,10 @@ export const Content = styled.div`
   max-width: 700%;
 `
 
-const appearFromRight = keyframes`
+const appearFromLeft = keyframes`
   from {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(-200px);
   }
   to {
     opacity: 1;
@@ -34,7 +35,7 @@ export const AnimationContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  animation: ${appearFromRight} 1s;
+
 
   form {
     margin: 80px 0;
@@ -104,6 +105,25 @@ export const ButtonOptions = styled.button `
     background: ${shade(0.2, '#ff9000')};
   }
 
+`
+
+export const Background = styled.div`
+  max-width: 1080px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+`
+
+export const ImageCart = styled.img`
+  animation: ${appearFromLeft} 1.5s;
+  max-width: 1080px; /* Máximo da largura da imagem */
+  width: 100%;
+  max-height: 100%; /* Máximo da altura da imagem */
+  min-height: auto; /* Mínimo da altura, por padrão “auto” */
+  background-size: 100%;
+  background-repeat: no-repeat;
+  padding: 20px;
 `
 
 
