@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import Slider from '../../src/components/Slider'
 import Group from '../../src/components/Group'
-//import Header from '../../src/components/Header'
+import Header from '../../src/components/Header'
 import LeftMenu from '../../src/components/LeftMenu'
 import RightMenu from '../../src/components/RightMenu'
 //import ProductAuto from '../../src/components/Product/ProductAuto'
@@ -45,7 +45,7 @@ export default function Index() {
         alignItems="flex-start"
         width={{ sm: '68%', md: '100%' }}
       >
-         {/* <Header /> */}
+          <Header />
       </Flex>
 
       <Flex
