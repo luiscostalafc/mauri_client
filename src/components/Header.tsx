@@ -1,5 +1,8 @@
 import React, {CSSProperties} from 'react'
+import Link from 'next/link'
+
 import { Box, Flex, Text, Button } from '@chakra-ui/core'
+
 
 
 
@@ -58,9 +61,12 @@ const Header = () => {
           display={{ sm: show ? 'block' : 'none', md: 'block' }}
           mt={{ base: 4, md: 0 }}
         >
-          <Button bg="transparent" border="1px" marginLeft={20}>
+          <Link href="users/profile">
+          <Button  bg="transparent" border="1px" marginLeft={20}>
             Perfil
           </Button>
+          </Link>
+
         </Box>
       </Flex>
     </>
