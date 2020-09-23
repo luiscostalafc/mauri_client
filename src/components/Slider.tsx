@@ -16,7 +16,7 @@ const Slider = (props:any) => {
       <Box flex="1" textAlign="left">
         <ButtonGroup spacing={1}>
           <Button
-            _hover={{ bg: "#D6BCFA" }}
+            _hover={{ bg: "#FBD38D" }}
             width="100%"
             height={12}
             size="lg"
@@ -30,7 +30,7 @@ const Slider = (props:any) => {
             Auto Peças
           </Button>
           <Button
-             _hover={{ bg: "#D6BCFA" }}
+             _hover={{ bg: "#FBD38D" }}
             width="100%"
             height={12}
             marginTop={1}
@@ -45,7 +45,7 @@ const Slider = (props:any) => {
             Moto Peças
           </Button>
           <Button
-             _hover={{ bg: "#D6BCFA" }}
+             _hover={{ bg: "#FBD38D" }}
             width="100%"
             height={12}
             marginTop={1}
@@ -60,7 +60,7 @@ const Slider = (props:any) => {
             Bicicletas
           </Button>
           <Button
-             _hover={{ bg: "#D6BCFA" }}
+             _hover={{ bg: "#FBD38D" }}
             width="100%"
             height={12}
             marginTop={1}
@@ -75,7 +75,7 @@ const Slider = (props:any) => {
             Ferramentas
           </Button>
           <Button
-             _hover={{ bg: "#D6BCFA" }}
+             _hover={{ bg: "#FBD38D" }}
             width="100%"
             height={12}
             marginTop={1}
@@ -90,7 +90,7 @@ const Slider = (props:any) => {
             Livraria
           </Button>
           <Button
-             _hover={{ bg: "#D6BCFA" }}
+             _hover={{ bg: "#FBD38D" }}
             width="100%"
             height={12}
             marginTop={1}
