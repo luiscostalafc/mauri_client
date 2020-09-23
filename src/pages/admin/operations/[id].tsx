@@ -13,7 +13,7 @@ function Edit() {
   // const data = response.data || []
 
   return (
-    <Template 
+    <Template
     content={<div>{id}</div>}
     slider={<AdminMenu/>}
     group={<></>}
@@ -24,7 +24,7 @@ function Edit() {
 // export async function getStaticPaths(params : GetStaticPaths) {
 //   const response = await api.get('/operations')
 //   const data = response.data || []
-  
+
 //   const paths = data.map((d) => `admin/operations/${d.id}`)
 //   return { paths, fallback: true }
 // }
