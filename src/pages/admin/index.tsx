@@ -1,14 +1,14 @@
 import React from 'react'
 import Template from '../../components/Template'
 import AdminMenu from '../../components/AdminMenu'
-import api from '../../services/api'
+import { get } from '../../services/api'
 
 
 export async function getStaticProps() {
-  const response = await api.get('/users')
+  const response = await get('users', true, true)
   return {
     props: {
-      data: response.data || [],
+      data: response
     },
   }
 }
@@ -17,7 +17,7 @@ export default function Index({ data }) {
 
   return (
     <Template 
-    content={Index}
+    content={<div>Index</div>}
     slider={<AdminMenu/>}
     group={<></>}
     />

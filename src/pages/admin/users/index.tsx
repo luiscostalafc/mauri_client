@@ -1,73 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
+import { Button } from "@chakra-ui/core"
 import Template from '../../../components/Template'
 import AdminMenu from '../../../components/AdminMenu'
-import api from '../../../services/api'
+import { deleteData, get } from '../../../services/api'
+import { useRouter } from 'next/router'
 
+import { useToast } from '../../../hooks/toast'
 
-const columns = [
-  {
-    name: 'Name',
-    selector: 'name',
-    sortable: true,
-  },
-  {
-    name: 'Username',
-    selector: 'username',
-    sortable: true,
-  },
-  {
-    name: 'activity',
-    selector: 'activity',
-    sortable: true,
-  },
-  {
-    name: 'complete_name',
-    selector: 'complete_name',
-    sortable: true,
-  },
-  {
-    name: 'email',
-    selector: 'email',
-    sortable: true,
-  },
-  {
-    name: 'rg',
-    selector: 'rg',
-    sortable: true,
-  },
-  {
-    name: 'cpf_cnpj',
-    selector: 'cpf_cnpj',
-    sortable: true,
-  },
-  {
-    name: 'nick',
-    selector: 'nick',
-    sortable: true,
-  },
-  {
-    name: 'is_provider',
-    selector: 'is_provider',
-    sortable: true,
-  },
-  {
-    name: 'inactive',
-    selector: 'inactive',
-    sortable: true,
-  },
-]
-
+const moduleName = 'users'
 export async function getStaticProps() {
-  const response = await api.get('/users')
+  const response = await get(moduleName)
   return {
     props: {
-      data: response.data || [],
+      data: response,
     },
   }
 }
 
-export default function Index({ data }) {
+export default function Index({ data }: any) {
+  const [dataVal, setData] = useState(data)
+  const router = useRouter()
+  const { addToast } = useToast()
+
+  const columns = [
+    { name: 'Name', selector: 'name', sortable: true, },
+    { name: 'Username', selector: 'username', sortable: true, },
+    { name: 'activity', selector: 'activity', sortable: true, },
+    { name: 'complete_name', selector: 'complete_name', sortable: true, },
+    { name: 'email', selector: 'email', sortable: true, },
+    { name: 'rg', selector: 'rg', sortable: true, },
+    { name: 'cpf_cnpj', selector: 'cpf_cnpj', sortable: true, },
+    { name: 'nick', selector: 'nick', sortable: true, },
+    { name: 'is_provider', selector: 'is_provider', sortable: true, },
+    { name: 'inactive', selector: 'inactive', sortable: true, },
+    { 
+      name: 'Actions', 
+      cell: (row: { id: number }) => 
+      (<>
+          <Button onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Edit</Button>
+          <Button onClick={() => remove(row.id)}>Delete</Button>
+        </>),
+    },
+  ]
+
+  async function remove (id: number | string) {
+    if(confirm('Are you sure?')) {
+      await deleteData(`${moduleName}/${id}`)
+      const response = await get(moduleName)
+      addToast({
+        type: 'success',
+        title: 'Apagado!',
+        description: 'Dados removidos com sucesso'
+      })
+      setData(response)
+    }
+  }
 
   return (
     <Template 
@@ -75,7 +63,11 @@ export default function Index({ data }) {
       <DataTable
         title="Users"
         columns={columns}
-        data={data}
+        data={dataVal}
+        pagination={true}
+        highlightOnHover={true}
+        striped={true}
+        fixedHeader={true}
       />
     }
     slider={<AdminMenu/>}

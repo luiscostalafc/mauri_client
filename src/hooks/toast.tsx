@@ -6,6 +6,7 @@ import ToastContainer from '../components/ToastContainer'
 export interface ToastMessage {
   id: string
   type?: 'success' | 'error' | 'info'
+  happen?: 'load' | 'create' | 'update' | 'delete'
   title: string
   description?: string
 }
