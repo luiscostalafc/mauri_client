@@ -171,7 +171,7 @@ const PhoneSignUp: React.FC = () => {
       </Content>
 
       <Background>
-        <ImageCart src="../liconnection_logo.jpeg" />
+        <ImageCart src="../cart_no_background.png" />
       </Background>
     </Container>
   )

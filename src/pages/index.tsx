@@ -13,6 +13,7 @@ import { Flex, Image, Grid } from '@chakra-ui/core'
 export default function Index() {
   const [transform, setTransform] = useState('scaleX(0)')
 
+
   function handleClick() {
     if (transform === 'scaleX(0)') {
       setTransform('scaleX(1)')
@@ -27,7 +28,7 @@ export default function Index() {
       height="100vh"
       width="100vh"
       templateColumns="100% 50% 100% 50%"
-      templateRows="100px 50px auto 0px 80px"
+      templateRows="200px 50px auto 0px 80px"
       templateAreas="
     '. logo header logoR'
     '. menuL filter menuR'
@@ -77,14 +78,14 @@ export default function Index() {
       <Flex gridArea="logo" alignItems="flex-start" justify="center">
         <Image
           size="70%"
-          src="https://i.imgur.com/y7zANKQ.jpg"
+          src="/liconnection.svg"
           alt="Liconnection"
         />
       </Flex>
       <Flex gridArea="logoR" alignItems="flex-start" justify="center">
         <Image
           size="70%"
-          src="https://i.imgur.com/2o426TW.jpg"
+          src="/liconnection.svg"
           alt="Liconnection"
         />
       </Flex>

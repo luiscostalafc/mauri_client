@@ -7,8 +7,7 @@ const Logo = () => {
       <Image
         rounded="full"
         size="100%"
-        src="https://bit.ly/sage-adebayo"
-        alt="Liconnection"
+        src="/liconnection.svg"
       />
     </Flex>
   )
