@@ -14,21 +14,18 @@ import Input from '../../../components/Input'
 
 import { validateForm } from '../../../services/validateForm'
 import { post } from '../../../services/api'
-import { creationToast, validationErrorToast } from '../../../config/toastMessages'
 import InputToogle from '../../../components/InputToogle'
+import { creationToast, validationErrorToast } from '../../../config/toastMessages'
 
 interface FormData {
-  name: string
-  username: string
-  activity: string
-  complete_name: string
-  email: string
-  rg: string
-  cpf_cnpj: string
-  nick: string
-  is_provider: string
-  inactive: string
+  delivery: string
+  inactive: boolean
 }
+
+const schema = Yup.object().shape({
+  delivery: Yup.string().required('Entrega é obrigatória'),
+})
+
 
 export default function Create() {
   const formRef = useRef<FormHandles>(null)
@@ -36,11 +33,6 @@ export default function Create() {
   const { addToast } = useToast()
 
   const router = useRouter()
-
-  const schema = Yup.object().shape({
-    name: Yup.string().required('Nome é obrigatório'),
-    email: Yup.string().required('E-mail obrigatório').email('Digite um e-mail válido'),
-  })
 
   const handleSubmit = useCallback(
     async (data: FormData) => {
@@ -51,7 +43,7 @@ export default function Create() {
         return
       }
 
-      const response = await post('users', data)
+      const response = await post('deliveries', data)
       if (response) {
         addToast(creationToast.success)
         router.push('/')
@@ -64,18 +56,9 @@ export default function Create() {
     <Template 
     content={
       <Form ref={formRef} onSubmit={handleSubmit}>
-        <h1>Usuários</h1>
-        <Input name="name" placeholder="Nome" />
-        <Input name="username" placeholder="Username" />
-        <Input name="activity" placeholder="Atividade" />
-        <Input name="complete_name" placeholder="Nome completo" />
-        <Input name="email" placeholder="E-mail" />
-        <Input name="rg" placeholder="RG" />
-        <Input name="cpf_cnpj" placeholder="CPF ou CNPJ" />
-        <Input name="nick" placeholder="Apelido" />
-        <InputToogle name="is_provider" placeholder="Fornecedor"/>
+        <h1>Entregas</h1>
+        <Input name="delivery" placeholder="Entrega" />
         <InputToogle name="inactive" placeholder="Inativo"/>
-
         <Button type="submit">Inserir</Button>
       </Form>     
     }

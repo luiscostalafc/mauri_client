@@ -7,6 +7,7 @@ import { deleteData, get } from '../../../services/api'
 import { useRouter } from 'next/router'
 
 import { useToast } from '../../../hooks/toast'
+import { deletionToast } from '../../../config/toastMessages'
 
 const moduleName = 'orders'
 export async function getStaticProps() {
@@ -38,14 +39,10 @@ export default function Index({ data }: any) {
   ]
 
   async function remove (id: number | string) {
-    if(confirm('Are you sure?')) {
+    if(confirm('Você tem certeza?')) {
       await deleteData(`${moduleName}/${id}`)
       const response = await get(moduleName)
-      addToast({
-        type: 'success',
-        title: 'Apagado!',
-        description: 'Dados removidos com sucesso'
-      })
+      addToast(deletionToast.success)
       setData(response)
     }
   }
@@ -53,6 +50,8 @@ export default function Index({ data }: any) {
   return (
     <Template 
     content={
+      <>
+      <Button onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
       <DataTable
         title="Orders (preciso arrumar os joins)"
         columns={columns}
@@ -62,6 +61,7 @@ export default function Index({ data }: any) {
         striped={true}
         fixedHeader={true}
       />
+      </>
     }
     slider={<AdminMenu/>}
     group={<></>}

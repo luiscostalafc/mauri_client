@@ -3,10 +3,10 @@ import { uuid } from 'uuidv4'
 
 import ToastContainer from '../components/ToastContainer'
 
+declare type Types = 'success' | 'error' | 'info'
 export interface ToastMessage {
   id: string
-  type?: 'success' | 'error' | 'info'
-  happen?: 'load' | 'create' | 'update' | 'delete'
+  type?: Types
   title: string
   description?: string
 }
