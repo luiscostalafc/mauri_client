@@ -205,7 +205,7 @@ const Profile: React.FC = () => {
           <Input name="username" icon={FiUser} placeholder="Usuário" />
           <Input name="activity" icon={FiUser} placeholder="Ocupação Profissional" />
           <Input name="rg" icon={FiTrello} placeholder="RG" />
-          <Checkbox size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
+          <Checkbox variantColor="green" borderColor="#ed8936" size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
             {
               cpfNumber ? (
                 <InputMask mask="999.999.999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CPF" />

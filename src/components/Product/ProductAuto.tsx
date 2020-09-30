@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   Box,
   Flex,
@@ -16,6 +16,8 @@ import {
   AccordionIcon,
   AccordionPanel
 } from '@chakra-ui/core'
+
+import { get } from '../../services/api'
 
 import Filter from '../Filter'
 
@@ -39,6 +41,16 @@ interface ProductAuto {
 import { FaCartArrowDown } from 'react-icons/fa'
 
 const ProductAuto = (props: ProductAuto) => {
+
+  useEffect(() => {
+   async function loadProductAuto() {
+     const response = await get('products')
+      console.log(response.data)
+
+   }
+   loadProductAuto()
+  },[])
+
   return (
     <Box
       maxH={800}
