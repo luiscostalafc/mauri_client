@@ -9,10 +9,10 @@ import { MdArrowDropDown } from "react-icons/md";
 
 const AutoExpandMenu = (props: any) => {
   return (
-    <Flex backgroundColor="transparent"  flexDirection="row" position="fixed">
+    <Flex backgroundColor="transparent" paddingLeft={5}  flexDirection="row" position="relative">
       <Box
-        display="flex"
-        marginLeft={-400}
+        display="fixed"
+        marginLeft={220}
         flexDirection="row"
         transformOrigin="left"
         transition="0.5s"

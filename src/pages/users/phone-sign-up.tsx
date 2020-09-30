@@ -152,7 +152,7 @@ const PhoneSignUp: React.FC = () => {
               <InputMask mask="(99) 99999-9999" name="phone" icon={FiSmartphone} placeholder="número com o DDD" />
               <Flex justify="center" align="center" width={200}>
                 <FaWhatsapp style={{ marginTop: 10 }} size="50px" color="128c7e" />
-                <Switch name="whatsapp" id="whatsapp" onChange={handleWhatsapp} isChecked={withWhatsapp} />
+                <Switch color="green" name="whatsapp" id="whatsapp" onChange={handleWhatsapp} isChecked={withWhatsapp} />
               </Flex>
             </DivContainer>
 
