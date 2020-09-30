@@ -26,8 +26,8 @@ interface FormData {
   rg: string
   cpf_cnpj: string
   nick: string
-  is_provider: string
-  inactive: string
+  is_provider: boolean
+  inactive: boolean
 }
 
 export default function Create() {
@@ -39,22 +39,29 @@ export default function Create() {
 
   const schema = Yup.object().shape({
     name: Yup.string().required('Nome é obrigatório'),
+    activity: Yup.string().required('Atividade é obrigatória'),
     email: Yup.string().required('E-mail obrigatório').email('Digite um e-mail válido'),
+    rg: Yup.string().required('RG é obrigatório'),
+    cpf_cnpj: Yup.string().required('CPF/CNPJ é obrigatório'),
   })
 
   const handleSubmit = useCallback(
     async (data: FormData) => {
       const validationErrors = await validateForm(schema, data)
+      
       if (validationErrors) {
         formRef.current?.setErrors(validationErrors)
         addToast(validationErrorToast)
         return
       }
+      
+      data.inactive = Boolean(data.inactive)
+      data.is_provider = Boolean(data.is_provider)
 
-      const response = await post('users', data)
+      const response = await post('users', data, false, false, true)
       if (response) {
         addToast(creationToast.success)
-        router.push('/')
+        router.push('/admin/users')
       }
     },
     [router, addToast]

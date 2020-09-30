@@ -20,13 +20,17 @@ interface FormData {
   user_id: number
   provider_id: number
   order_status_id: number
+  delivery_id: number
 }
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('Nome é obrigatório'),
-  email: Yup.string().required('E-mail obrigatório').email('Digite um e-mail válido'),
+  user_id: Yup.number().required('Usuário é obrigatório'),
+  provider_id: Yup.number().required('Prestador obrigatório'),
+  order_status_id: Yup.number().required('Status obrigatório'),
+  delivery_id: Yup.number().required('Status obrigatório'),
 })
 
+const moduleName = 'orders'
 export default function Create() {
   const formRef = useRef<FormHandles>(null)
 
@@ -44,10 +48,10 @@ export default function Create() {
         return
       }
 
-      const response = await post('orders', data)
+      const response = await post(moduleName, data)
       if (response) {
         addToast(creationToast.success)
-        router.push('/')
+        router.push(`/admin/${moduleName}`)
       }
     },
     [router, addToast]
@@ -61,6 +65,7 @@ export default function Create() {
         <Input name="user_id" placeholder="user_id" />
         <Input name="provider_id" placeholder="provider_id" />
         <Input name="order_status_id" placeholder="order_status_id" />
+        <Input name="delivery_id" placeholder="delivery_id" />
 
         <Button type="submit">Inserir</Button>
       </Form>     

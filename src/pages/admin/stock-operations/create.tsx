@@ -27,7 +27,6 @@ interface FormData {
 const schema = Yup.object().shape({
   quantity: Yup.number().required('Quantidade é obrigatório'),
   unit_value: Yup.number().required('Valor unitário é obrigatório'),
-  comment: Yup.string(),
   operation_id: Yup.number().required('Operação é obrigatório'),
   product_id: Yup.number().required('Produto é obrigatório'),
 })
@@ -51,7 +50,7 @@ export default function Create() {
       const response = await post('stock-operations', data)
       if (response) {
         addToast(creationToast.success)
-        router.push('/')
+        router.push('/admin/stock-operations/')
       }
     },
     [router, addToast]

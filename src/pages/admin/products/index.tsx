@@ -76,6 +76,8 @@ export default function Index({ data }: any) {
   return (
     <Template 
     content={
+      <>
+      <Button onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
       <DataTable
         title="Products"
         columns={columns}
@@ -85,6 +87,7 @@ export default function Index({ data }: any) {
         striped={true}
         fixedHeader={true}
       />
+      </>
     }
     slider={<AdminMenu/>}
     group={<></>}

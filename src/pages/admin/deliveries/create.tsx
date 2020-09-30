@@ -46,7 +46,7 @@ export default function Create() {
       const response = await post('deliveries', data)
       if (response) {
         addToast(creationToast.success)
-        router.push('/')
+        router.push('/admin/deliveries')
       }
     },
     [router, addToast]

@@ -46,8 +46,8 @@ interface FormData {
 }
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('Nome é obrigatório'),
-  email: Yup.string().required('E-mail obrigatório').email('Digite um e-mail válido'),
+  group_id: Yup.string().required('Grupo é obrigatório'),
+  subgroup_id: Yup.string().required('Sub Grupo obrigatório'),
 })
 
 export default function Create() {
@@ -66,10 +66,10 @@ export default function Create() {
         return
       }
 
-      const response = await post('deliveries', data)
+      const response = await post('products', data)
       if (response) {
         addToast(creationToast.success)
-        router.push('/')
+        router.push('/admin/products')
       }
     },
     [router, addToast]

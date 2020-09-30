@@ -28,6 +28,7 @@ export default function Index({ data }: any) {
     { name: 'user_id', selector: 'user_id', sortable: true,},
     { name: 'provider_id', selector: 'provider_id', sortable: true,},
     { name: 'order_status_id', selector: 'order_status_id', sortable: true,},
+    { name: 'delivery_id', selector: 'delivery_id', sortable: true,},
     { 
       name: 'Actions', 
       cell: (row: { id: number }) => 
