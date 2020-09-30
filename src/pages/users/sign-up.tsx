@@ -7,7 +7,7 @@ import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 
-import { Checkbox } from "@chakra-ui/core";
+import { Checkbox, Progress } from "@chakra-ui/core";
 
 
 import api from '../../services/api'
@@ -123,6 +123,8 @@ const SignUp: React.FC = () => {
 
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Dados do usuário</h1>
+
+            <Progress margin={5} hasStripe isAnimated value={1} size="sm" color="green" />
 
             <Input name="name" icon={FiUser} placeholder="Nome completo" />
             <Input name="username" icon={FiUser} placeholder="Usuário" />

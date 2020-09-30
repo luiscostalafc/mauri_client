@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { Progress } from '@chakra-ui/core'
 
 import { FiArrowLeft, FiMapPin } from 'react-icons/fi'
 import { FaCity } from 'react-icons/fa'
@@ -112,6 +113,8 @@ const AddressSignUp: React.FC = () => {
 
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Endereço</h1>
+
+            <Progress margin={5} hasStripe isAnimated value={100} size="sm" color="green" />
 
             <InputMask mask="99999-999" name="cep"  icon={FiMapPin} placeholder="CEP" />
 

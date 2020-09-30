@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react'
-import { Switch, Flex } from "@chakra-ui/core";
+import { Switch, Flex, Progress } from "@chakra-ui/core";
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -89,7 +89,7 @@ const PhoneSignUp: React.FC = () => {
           abortEarly: false
         })
 
-        const dataUser = {...data, user_id: userId, whatsapp: withWhatsapp}
+        const dataUser = { ...data, user_id: userId, whatsapp: withWhatsapp }
 
         console.log(dataUser)
 
@@ -131,9 +131,10 @@ const PhoneSignUp: React.FC = () => {
       <Content>
         <AnimationContainer>
 
-
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Contatos</h1>
+
+            <Progress margin={5} hasStripe isAnimated value={50} size="sm" color="green" />
 
             <DivContainer>
               <InputMask mask="(99) 9999-9999" name="phone" icon={FiPhone} placeholder="número com o DDD" />

@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components'
 import { shade } from 'polished'
 
 export const Container = styled.div`
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: stretch;
   background-color: #E2E8F0;
