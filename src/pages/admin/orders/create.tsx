@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react'
+import React, { useRef, useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
@@ -13,8 +13,9 @@ import Button from '../../../components/Button'
 import Input from '../../../components/Input'
 
 import { validateForm } from '../../../services/validateForm'
-import { post } from '../../../services/api'
+import { post, get } from '../../../services/api'
 import { creationToast, validationErrorToast } from '../../../config/toastMessages'
+import SelectInput from '../../../components/SelectInput'
 
 interface FormData {
   user_id: number
@@ -33,10 +34,69 @@ const schema = Yup.object().shape({
 const moduleName = 'orders'
 export default function Create() {
   const formRef = useRef<FormHandles>(null)
-
   const { addToast } = useToast()
 
   const router = useRouter()
+
+  const [users, setUsers] = useState([])
+  const [providers, setProviders] = useState([])
+  const [orderStatus, setOrderStatus] = useState([])
+  const [deliveries, setDeliveries] = useState([])
+
+  const getUsers = useCallback(async () => {
+    const response = await get('users')
+    const input = response.map(r => {
+      return {
+        value: r.id,
+        label: r.name,
+      }
+    })
+    console.log(input)
+    setUsers(input)
+  },[users])
+
+  const getProviders = useCallback(async () => {
+    const response = await get('users')
+    const input = response.map(r => {
+      return {
+        value: r.id,
+        label: r.name,
+      }
+    })
+    console.log(input)
+    setProviders(input)
+  },[users])
+
+  const getStatus = useCallback(async () => {
+    const response = await get('order-statuses')
+    const input = response.map(r => {
+      return {
+        value: r.id,
+        label: r.order_status,
+      }
+    })
+    console.log(input)
+    setOrderStatus(input)
+  },[users])
+
+  const getDeliveries = useCallback(async () => {
+    const response = await get('deliveries')
+    const input = response.map(r => {
+      return {
+        value: r.id,
+        label: r.delivery,
+      }
+    })
+    console.log(input)
+    setDeliveries(input)
+  },[users])
+
+  useEffect(() => {
+    getUsers()
+    getProviders()
+    getStatus()
+    getDeliveries()
+  },[])
 
 
   const handleSubmit = useCallback(
@@ -62,10 +122,10 @@ export default function Create() {
     content={
       <Form ref={formRef} onSubmit={handleSubmit}>
         <h1>Pedidos</h1>
-        <Input name="user_id" placeholder="user_id" />
-        <Input name="provider_id" placeholder="provider_id" />
-        <Input name="order_status_id" placeholder="order_status_id" />
-        <Input name="delivery_id" placeholder="delivery_id" />
+        <SelectInput name="user_id" placeholder="Usuário" options={users}/>
+        <SelectInput name="provider_id" placeholder="Prestador" options={providers}/>
+        <SelectInput name="order_status_id" placeholder="Estatus Ordem" options={orderStatus}/>
+        <SelectInput name="delivery_id" placeholder="Entrega" options={deliveries}/>
 
         <Button type="submit">Inserir</Button>
       </Form>     

@@ -25,17 +25,19 @@ export default function Index({ data }: any) {
   const { addToast } = useToast()
 
   const columns = [
-    { name: 'user_id', selector: 'user_id', sortable: true,},
-    { name: 'provider_id', selector: 'provider_id', sortable: true,},
-    { name: 'order_status_id', selector: 'order_status_id', sortable: true,},
-    { name: 'delivery_id', selector: 'delivery_id', sortable: true,},
+    { name: 'Nome', selector: 'name', sortable: true,},
+    { name: 'Atividade', selector: 'activity', sortable: true,},
+    { name: 'Email', selector: 'email', sortable: true,},
+    { name: 'RG', selector: 'rg', sortable: true,},
+    { name: 'Estatus', selector: 'order_status', sortable: true,},
+    { name: 'Entrega', selector: 'delivery', sortable: true,},
     { 
       name: 'Actions', 
       cell: (row: { id: number }) => 
       (<>
-          <Button onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Edit</Button>
-          <Button onClick={() => remove(row.id)}>Delete</Button>
-        </>),
+        <Button onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Editar</Button>
+        <Button onClick={() => remove(row.id)}>Apagar</Button>
+      </>),
     },
   ]
 
@@ -54,7 +56,7 @@ export default function Index({ data }: any) {
       <>
       <Button onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
       <DataTable
-        title="Orders (preciso arrumar os joins)"
+        title="Orders"
         columns={columns}
         data={dataVal}
         pagination={true}
