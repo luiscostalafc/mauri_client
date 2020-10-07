@@ -36,7 +36,7 @@ export default function Template(props: TemplateInterface) {
       height="100vh"
       width="100vh"
       templateColumns="100% 50% 100% 50%"
-      templateRows="100px 50px auto 0px 80px"
+      templateRows="200px 50px auto 0px 80px"
       templateAreas="
     '. logo header logoR'
     '. menuL filter menuR'
@@ -48,7 +48,7 @@ export default function Template(props: TemplateInterface) {
       justifyItems="center"
     >
       <Flex gridArea="logo" alignItems="flex-start" justify="center">
-        { props.logo || <Image size="70%" src="https://i.imgur.com/y7zANKQ.jpg" alt="Liconnection" /> }
+        { props.logo || <Image size="70%" src="/liconnection.svg" alt="Liconnection" /> }
       </Flex>
 
       <Flex gridArea="header" flexDir="row" alignItems="flex-start" width={{ sm: '68%', md: '100%' }}>
@@ -56,11 +56,11 @@ export default function Template(props: TemplateInterface) {
       </Flex>
 
       <Flex gridArea="logoR" alignItems="flex-start" justify="center">
-        { props.logoR || <Image size="70%" src="https://i.imgur.com/2o426TW.jpg" alt="Liconnection"/>}
+        { props.logoR || <Image size="70%" src="/liconnection.svg" alt="Liconnection"/>}
       </Flex>
 
       <Flex marginTop={-8} gridArea="menuL" flexDir="row" alignItems="flex-start" justifyContent="flex-start">
-        { props.menuL || <LeftMenu />}  
+        { props.menuL || <LeftMenu />}
       </Flex>
 
       <Flex paddingTop={2} id="items" gridArea="filter" flexDirection="row" position="relative" >

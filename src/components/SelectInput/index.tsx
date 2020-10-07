@@ -38,12 +38,12 @@ const SelectInput: React.FC<Props> = ({ name, ...rest }) => {
       ...theme,
       colors: {
         ...theme.colors,
-        primary: '#ff9000',
+        primary: '#F6AD55',
         neutral0: '#a0aec0',
         primary25: '#a0aec0',
         primary50: '#999591',
         neutral80: '#666360',
-        neutral30: '#ff9000',
+        neutral30: '#F6AD55',
       },
     };
   };

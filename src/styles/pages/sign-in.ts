@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components'
 import { shade } from 'polished'
 
 export const Container = styled.div`
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: stretch;
   background-color: #E2E8F0
@@ -46,14 +46,14 @@ export const AnimationContainer = styled.div`
     }
 
     a {
-      color: #a0aec0;
+      color: #F6AD55;
       display: block;
       margin-top: 24px;
       text-decoration: none;
       transition: color 0.2s;
 
       &:hover {
-        color: ${shade(0.2, '#A0AEC0')};
+        color: ${shade(0.2, '#F6AD55')};
       }
     }
   }
@@ -65,6 +65,7 @@ export const AnimationContainer = styled.div`
     text-decoration: none;
     outline: 0;
     transition: color 0.2s;
+    padding-bottom: 20px;
 
     display: flex;
     align-items: center;
