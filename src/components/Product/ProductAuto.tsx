@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import {
   Box,
   Flex,
-  Image,
   Badge,
   Button,
   Link,
@@ -17,25 +16,38 @@ import {
   AccordionPanel
 } from '@chakra-ui/core'
 
+import ProductImage from '../ProductImage'
+
 import { get } from '../../services/api'
 
 import Filter from '../Filter'
 
+interface ImageProduct {
+  asset?: string
+  mine?: string
+  path?: string
+}
+
 interface ProductAuto {
-  imageUrl: string
-  imageAlt: string
-  segment: string
-  title: string
-  description: string
-  motor: string
-  position: string
-  system: string
-  material: string
-  color: string
-  measure: number
-  unity: string
-  quantity: number
-  formattedPrice: number
+  group_id?: number
+  subgroup_id?: number
+  name?: string
+  automaker?: string //montadora
+  model?: string //modelo
+  year_start?: string //ano-fab
+  year_end?: string // ano-mod
+  engine?: string // motor
+  type?: string //combust.
+  complement?: string //chassi
+  obs?: string //descrição
+  position?: string //posição
+  system?: string //sistema
+  material?: number //material
+  color?: string //cor
+  size?: string  //medida
+  quality?: string // qualidade
+  formattedPrice?: number //qualidade
+  image?: ImageProduct[]
 }
 
 import { FaCartArrowDown } from 'react-icons/fa'
@@ -45,11 +57,12 @@ const ProductAuto = (props: ProductAuto) => {
   useEffect(() => {
    async function loadProductAuto() {
      const response = await get('products')
-      console.log(response.data)
-
+      console.log(response)
    }
    loadProductAuto()
   },[])
+
+
 
   return (
     <Box
@@ -61,7 +74,7 @@ const ProductAuto = (props: ProductAuto) => {
       overflow="hidden"
     >
       <Link href="#">
-        <Image src={props.imageUrl} alt={props.imageAlt} />
+        <ProductImage />
       </Link>
 
       <Box p="6">

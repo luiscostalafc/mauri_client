@@ -55,7 +55,7 @@ export default function Index() {
         maxWidth="100vh"
         wrap="wrap"
       >
-         {/* <ProductAuto></ProductAuto> */}
+         <ProductAuto />
       </Flex>
       <Flex
         maxHeight="100vh"
