@@ -34,7 +34,7 @@ const customTheme: DefaultTheme = {
       700: '#202024',
       800: '#121214'
     }
-  }
+  },
 }
 
 export default customTheme
