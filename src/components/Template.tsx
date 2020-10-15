@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
-import Slider from '../../src/components/Slider'
-import Group from '../../src/components/Group'
+//import Slider from '../../src/components/Slider'
+//import Group from '../../src/components/Group'
 import Header from '../../src/components/Header'
-import LeftMenu from '../../src/components/LeftMenu'
-import RightMenu from '../../src/components/RightMenu'
+import AdminLeftMenu from '../../src/components/AdminLeftMenu'
+import AdminRightMenu from '../../src/components/AdminRightMenu'
 //import ProductAuto from '../../src/components/Product/ProductAuto'
-import AutoExpandMenu from '../../src/components/ExpandMenu/AutoExpandMenu'
-import Footer from '../../src/components/Footer'
+//import AutoExpandMenu from '../../src/components/ExpandMenu/AutoExpandMenu'
+//import Footer from '../../src/components/Footer'
 import { Flex, Image, Grid } from '@chakra-ui/core'
 
 declare interface TemplateInterface {
@@ -36,18 +36,17 @@ export default function Template(props: TemplateInterface) {
       height="100vh"
       width="100vh"
       templateColumns="100% 50% 100% 50%"
-      templateRows="200px 50px auto 0px 80px"
+      templateRows="200px 50px auto 0px"
       templateAreas="
-    '. logo header logoR'
-    '. menuL filter menuR'
-    '. slider content group'
+    '. logoL header logoR'
+    '. menuL . menuR'
+    '.  content content content'
     '. . . .'
-    '. . footer .'
     "
       justifyContent="center"
       justifyItems="center"
     >
-      <Flex gridArea="logo" alignItems="flex-start" justify="center">
+      <Flex gridArea="logoL" alignItems="flex-start" justify="center">
         { props.logo || <Image size="70%" src="/liconnection.svg" alt="Liconnection" /> }
       </Flex>
 
@@ -60,31 +59,31 @@ export default function Template(props: TemplateInterface) {
       </Flex>
 
       <Flex marginTop={-8} gridArea="menuL" flexDir="row" alignItems="flex-start" justifyContent="flex-start">
-        { props.menuL || <LeftMenu />}
+        { props.menuL || <AdminLeftMenu onClick={handleClick} />}
       </Flex>
 
-      <Flex paddingTop={2} id="items" gridArea="filter" flexDirection="row" position="relative" >
+      {/* <Flex paddingTop={2} id="items" gridArea="filter" flexDirection="row" position="relative" >
         { props.filter || <AutoExpandMenu transform={transform} />}
-      </Flex>
+      </Flex> */}
 
       <Flex marginTop={-8} gridArea="menuR" flexDir="row" alignItems="flex-start" justifyContent="flex-start" >
-        { props.menuR || <RightMenu />}
+        { props.menuR || <AdminRightMenu onClick={handleClick} />}
       </Flex>
 
-      <Flex paddingTop={2} paddingLeft={2} marginTop={-12} gridArea="slider" flexDir="column" alignItems="flex-start" >
+      {/* <Flex paddingTop={2} paddingLeft={2} marginTop={-12} gridArea="slider" flexDir="column" alignItems="flex-start" >
         { props.slider || <Slider onClick={handleClick} />}
-      </Flex>
+      </Flex> */}
 
-      <Flex gridArea="content" flexDir="row" alignItems="flex-center" maxWidth="100vh" wrap="wrap">
+      <Flex gridArea="content" flexDir="row" alignItems="flex-center" maxWidth="100%" wrap="wrap">
         { props.content }
       </Flex>
-      <Flex maxHeight="100vh" gridArea="group" flexDir="row" alignItems="flex-start" justifyContent="flex-start">
+      {/* <Flex maxHeight="100vh" gridArea="group" flexDir="row" alignItems="flex-start" justifyContent="flex-start">
         { props.group || <Group />}
-      </Flex>
+      </Flex> */}
 
-      <Flex gridArea="footer" flexDir="row" alignItems="flex-start">
+      {/* <Flex gridArea="footer" flexDir="row" alignItems="flex-start">
         { props.footer || <Footer /> }
-      </Flex>
+      </Flex> */}
     </Grid>
   )
 }

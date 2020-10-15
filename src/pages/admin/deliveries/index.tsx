@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { Button } from "@chakra-ui/core"
+import { Button, Flex } from "@chakra-ui/core"
 import Template from '../../../components/Template'
 import AdminMenu from '../../../components/AdminMenu'
 import { deleteData, get } from '../../../services/api'
@@ -8,6 +8,26 @@ import { useRouter } from 'next/router'
 
 import { useToast } from '../../../hooks/toast'
 import { deletionToast } from '../../../config/toastMessages'
+
+const customStyles = {
+  rows: {
+    style: {
+      minHeight: '72px', // override the row height
+    }
+  },
+  headCells: {
+    style: {
+      paddingLeft: '8px', // override the cell padding for head cells
+      paddingRight: '8px',
+    },
+  },
+  cells: {
+    style: {
+      paddingLeft: '10px', // override the cell padding for data cells
+      paddingRight: '10px',
+    },
+  },
+};
 
 const moduleName = 'deliveries'
 export async function getStaticProps() {
@@ -27,16 +47,16 @@ export default function Index({ data }: any) {
   const columns = [
     { name: 'Delivery', selector: 'delivery', sortable: true,},
     { name: 'Inactive', selector: 'inactive', cell: (row: any) => row.inactive ? 'Yes' : 'No', sortable: true,},
-    { 
-      name: 'Actions', 
-      cell: (row: { id: number }) => 
+    {
+      name: 'Actions',
+      cell: (row: { id: number }) =>
       (<>
           <Button onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Edit</Button>
           <Button onClick={() => remove(row.id)}>Delete</Button>
         </>),
     },
   ]
-  
+
   async function remove (id: number | string) {
     if(confirm('Você tem certeza?')) {
       await deleteData(`${moduleName}/${id}`)
@@ -47,7 +67,7 @@ export default function Index({ data }: any) {
   }
 
   return (
-    <Template 
+    <Template
     content={
       <>
       <Button onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
@@ -59,6 +79,7 @@ export default function Index({ data }: any) {
         highlightOnHover={true}
         striped={true}
         fixedHeader={true}
+        customStyles={customStyles}
       />
       </>
     }
