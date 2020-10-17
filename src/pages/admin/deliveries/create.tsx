@@ -53,14 +53,14 @@ export default function Create() {
   )
 
   return (
-    <Template 
+    <Template
     content={
       <Form ref={formRef} onSubmit={handleSubmit}>
         <h1>Entregas</h1>
         <Input name="delivery" placeholder="Entrega" />
         <InputToogle name="inactive" placeholder="Inativo"/>
-        <Button type="submit">Inserir</Button>
-      </Form>     
+        <Button typeColor='create' type="submit">Inserir</Button>
+      </Form>
     }
     slider={<AdminMenu/>}
     group={<></>}
