@@ -12,10 +12,6 @@ import { useToast } from '../../../hooks/toast'
 
 import Button from '../../../components/Button'
 
-interface UserProps {
-  id: string,
-  label: string
-}
 
 
 import { validateForm } from '../../../services/validateForm'
