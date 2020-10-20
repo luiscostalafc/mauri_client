@@ -1,11 +1,12 @@
 import React, { useRef, useCallback } from 'react'
 import { useRouter } from 'next/router'
-import { Form } from '@unform/web'
+import  {Form } from '@unform/web'
 import * as Yup from 'yup'
 import Template from '../../../components/Template'
 import AdminMenu from '../../../components/AdminMenu'
 
 import { FormHandles } from '@unform/core'
+import { Heading } from '@chakra-ui/core'
 
 import { useToast } from '../../../hooks/toast'
 
@@ -76,10 +77,10 @@ export default function Create() {
   )
 
   return (
-    <Template 
+    <Template
     content={
-      <Form ref={formRef} onSubmit={handleSubmit}>
-        <h1>Produtos</h1>
+      <Form style={{ width: '80vh'}} ref={formRef} onSubmit={handleSubmit}>
+        <Heading size="md">Produtos</Heading>
         <Input name="inactive" placeholder="inactive" />
         <Input name="group_id" placeholder="group_id" />
         <Input name="subgroup_id" placeholder="subgroup_id" />
@@ -106,9 +107,9 @@ export default function Create() {
         <Input name="color" placeholder="color" />
         <Input name="material" placeholder="material" />
         <Input name="obs" placeholder="obs" />
-        
-        <Button type="submit">Inserir</Button>
-      </Form>     
+
+        <Button typeColor="create" type="submit">Inserir</Button>
+      </Form>
     }
     slider={<AdminMenu/>}
     group={<></>}

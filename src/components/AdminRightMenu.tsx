@@ -8,6 +8,7 @@ const AdminRightMenu: React.FC = (props:any) => {
   return (
     <ButtonGroup spacing={4}>
       <Link href="/admin/deliveries">
+        <a>
       <Button
         size="sm"
         leftIcon={FaCartArrowDown}
@@ -17,9 +18,11 @@ const AdminRightMenu: React.FC = (props:any) => {
       >
         Entregas
       </Button>
+      </a>
       </Link>
 
       <Link href="/admin/operations">
+        <a>
       <Button
         size="sm"
         leftIcon={FaCartArrowDown}
@@ -30,9 +33,11 @@ const AdminRightMenu: React.FC = (props:any) => {
       >
         Operações
       </Button>
+      </a>
       </Link>
 
       <Link href="/admin/orders">
+        <a>
       <Button
         size="sm"
         leftIcon={FaCartArrowDown}
@@ -44,6 +49,7 @@ const AdminRightMenu: React.FC = (props:any) => {
       >
         Pedidos
       </Button>
+      </a>
       </Link>
     </ButtonGroup>
   )

@@ -8,6 +8,7 @@ import AdminMenu from '../../../components/AdminMenu'
 import { FormHandles } from '@unform/core'
 
 import { useToast } from '../../../hooks/toast'
+import {Heading} from '@chakra-ui/core'
 
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
@@ -88,10 +89,10 @@ export default function Create() {
   )
 
   return (
-    <Template 
+    <Template
     content={
-      <Form ref={formRef} onSubmit={handleSubmit}>
-        <h1>Produtos</h1>
+      <Form style={{ width: '80vh'}}  ref={formRef} onSubmit={handleSubmit}>
+        <Heading>Produtos</Heading>
         <Input name="inactive" placeholder="inactive" />
         <Input name="group_id" placeholder="group_id" />
         <Input name="subgroup_id" placeholder="subgroup_id" />
@@ -118,9 +119,9 @@ export default function Create() {
         <Input name="color" placeholder="color" />
         <Input name="material" placeholder="material" />
         <Input name="obs" placeholder="obs" />
-        
-        <Button type="submit">Editar</Button>
-      </Form>     
+
+        <Button typeColor="create" type="submit">Editar</Button>
+      </Form>
     }
     slider={<AdminMenu/>}
     group={<></>}

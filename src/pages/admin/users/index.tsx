@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { Button } from "@chakra-ui/core"
+import  Button  from  '../../../components/Button'
 import Template from '../../../components/Template'
 import AdminMenu from '../../../components/AdminMenu'
 import { deleteData, get } from '../../../services/api'
 import { useRouter } from 'next/router'
+import {FiEdit, FiDelete} from 'react-icons/fi'
 
 import { useToast } from '../../../hooks/toast'
 
@@ -34,12 +35,12 @@ export default function Index({ data }: any) {
     { name: 'nick', selector: 'nick', sortable: true, },
     { name: 'is_provider', selector: 'is_provider', sortable: true, },
     { name: 'inactive', selector: 'inactive', sortable: true, },
-    { 
-      name: 'Actions', 
-      cell: (row: { id: number }) => 
+    {
+      name: 'Actions',
+      cell: (row: { id: number }) =>
       (<>
-          <Button onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Edit</Button>
-          <Button onClick={() => remove(row.id)}>Delete</Button>
+          <Button typeColor="edit"  onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>< FiEdit /></Button>
+          <Button typeColor="delete" style={{marginLeft: 5}} onClick={() => remove(row.id)}>< FiDelete /></Button>
         </>),
     },
   ]
@@ -58,18 +59,19 @@ export default function Index({ data }: any) {
   }
 
   return (
-    <Template 
+    <Template
     content={
       <>
-      <Button onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
+      <Button typeColor="create" onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
       <DataTable
-        title="Users"
+        title="Usuários"
         columns={columns}
         data={dataVal}
         pagination={true}
         highlightOnHover={true}
         striped={true}
         fixedHeader={true}
+        responsive={true}
       />
       </>
     }

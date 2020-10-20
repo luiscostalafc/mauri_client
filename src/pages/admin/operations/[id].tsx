@@ -60,13 +60,13 @@ export default function Edit() {
   )
 
   return (
-    <Template 
+    <Template
     content={
-      <Form ref={formRef} onSubmit={handleSubmit}>
+      <Form style={{ width: '80vh'}} ref={formRef} onSubmit={handleSubmit}>
         <h1>Operações</h1>
         <Input name="operation" placeholder="Operação" />
-        <Button type="submit">Editar</Button>
-      </Form>     
+        <Button typeColor="create" type="submit">Editar</Button>
+      </Form>
     }
     slider={<AdminMenu/>}
     group={<></>}

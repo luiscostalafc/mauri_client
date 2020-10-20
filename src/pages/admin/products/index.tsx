@@ -1,12 +1,20 @@
 import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { Button } from "@chakra-ui/core"
+
+
+import Button from '../../../components/Button'
 import Template from '../../../components/Template'
 import AdminMenu from '../../../components/AdminMenu'
+
+import {FiEdit, FiDelete} from 'react-icons/fi'
+
+
 import { deleteData, get } from '../../../services/api'
 import { useRouter } from 'next/router'
 
 import { useToast } from '../../../hooks/toast'
+
+
 
 const moduleName = 'products'
 export async function getStaticProps() {
@@ -50,12 +58,15 @@ export default function Index({ data }: any) {
     { name: 'color', selector: 'color', sortable: true, },
     { name: 'material', selector: 'material', sortable: true, },
     { name: 'obs', selector: 'obs', sortable: true, },
-    { 
-      name: 'Actions', 
-      cell: (row: { id: number }) => 
+    {
+      name: 'Actions',
+      cell: (row: { id: number }) =>
       (<>
-          <Button onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Edit</Button>
-          <Button onClick={() => remove(row.id)}>Delete</Button>
+
+          <Button  typeColor="edit" onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}><FiEdit/></Button>
+          <Button style={{marginLeft:5}} typeColor="delete" onClick={() => remove(row.id)}><FiDelete/></Button>
+
+
         </>),
     },
   ]
@@ -74,18 +85,19 @@ export default function Index({ data }: any) {
   }
 
   return (
-    <Template 
+    <Template
     content={
       <>
-      <Button onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
+      <Button typeColor="create" onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
       <DataTable
-        title="Products"
+        title="Produtos"
         columns={columns}
         data={dataVal}
         pagination={true}
         highlightOnHover={true}
         striped={true}
         fixedHeader={true}
+        responsive={true}
       />
       </>
     }

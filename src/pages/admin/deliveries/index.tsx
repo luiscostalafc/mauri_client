@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { useToast } from '../../../hooks/toast'
 import { deletionToast } from '../../../config/toastMessages'
 
+
 const customStyles = {
   rows: {
     style: {
@@ -24,6 +25,7 @@ const customStyles = {
   },
   cells: {
     style: {
+      maxWidht:'100vh',
       paddingLeft: '10px', // override the cell padding for data cells
       paddingRight: '10px',
     },
@@ -42,6 +44,7 @@ export async function getStaticProps() {
 
 export default function Index({ data }: any) {
   const [dataVal, setData] = useState(data)
+  const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter()
   const { addToast } = useToast()
 
@@ -64,6 +67,8 @@ export default function Index({ data }: any) {
       const response = await get(moduleName)
       addToast(deletionToast.success)
       setData(response)
+
+
     }
   }
 

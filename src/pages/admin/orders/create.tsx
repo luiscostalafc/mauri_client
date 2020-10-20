@@ -10,7 +10,7 @@ import { FormHandles } from '@unform/core'
 import { useToast } from '../../../hooks/toast'
 
 import Button from '../../../components/Button'
-import Input from '../../../components/Input'
+import { Heading } from '@chakra-ui/core'
 
 import { validateForm } from '../../../services/validateForm'
 import { post, get } from '../../../services/api'
@@ -118,17 +118,18 @@ export default function Create() {
   )
 
   return (
-    <Template 
+    <Template
     content={
-      <Form ref={formRef} onSubmit={handleSubmit}>
-        <h1>Pedidos</h1>
+      <Form style={{ maxWidth: '100%'}} ref={formRef} onSubmit={handleSubmit}>
+        <Heading size="md" justifyContent="center">Pedidos</Heading>
+
         <SelectInput name="user_id" placeholder="Usuário" options={users}/>
         <SelectInput name="provider_id" placeholder="Prestador" options={providers}/>
         <SelectInput name="order_status_id" placeholder="Estatus Ordem" options={orderStatus}/>
         <SelectInput name="delivery_id" placeholder="Entrega" options={deliveries}/>
 
-        <Button type="submit">Inserir</Button>
-      </Form>     
+        <Button typeColor="create" type="submit">Inserir</Button>
+      </Form>
     }
     slider={<AdminMenu/>}
     group={<></>}

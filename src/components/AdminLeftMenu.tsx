@@ -1,14 +1,17 @@
-import React from 'react'
+import React, {MouseEvent} from 'react'
 import { Button, ButtonGroup, Flex } from '@chakra-ui/core'
 import Link from 'next/link'
 
 import { FaCartArrowDown } from 'react-icons/fa'
 
-const AdminLeftMenu: React.FC = (props:any) => {
+
+
+const AdminLeftMenu: React.FC = (props) => {
   return (
     <Flex>
       <ButtonGroup spacing={4}>
-      <Link href="/admin/products">
+      <Link  href="/admin/products">
+        <a>
         <Button
           size="sm"
           leftIcon={FaCartArrowDown}
@@ -18,9 +21,11 @@ const AdminLeftMenu: React.FC = (props:any) => {
         >
           Produtos
         </Button>
+        </a>
         </Link>
 
         <Link href="/admin/stock-operations">
+          <a>
         <Button
           size="sm"
           leftIcon={FaCartArrowDown}
@@ -31,9 +36,11 @@ const AdminLeftMenu: React.FC = (props:any) => {
         >
           Estoque
         </Button>
+        </a>
         </Link>
 
         <Link href="/admin/users">
+          <a>
         <Button
           size="sm"
           leftIcon={FaCartArrowDown}
@@ -44,6 +51,7 @@ const AdminLeftMenu: React.FC = (props:any) => {
         >
          Usuários
         </Button>
+        </a>
         </Link>
       </ButtonGroup>
     </Flex>

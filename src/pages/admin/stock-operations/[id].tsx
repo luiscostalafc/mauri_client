@@ -1,14 +1,15 @@
 import React, { useRef, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Form } from '@unform/web'
 import * as Yup from 'yup'
-import Template from '../../../components/Template'
-import AdminMenu from '../../../components/AdminMenu'
 
+import { Form } from '@unform/web'
 import { FormHandles } from '@unform/core'
+
+import { Heading } from '@chakra-ui/core'
 
 import { useToast } from '../../../hooks/toast'
 
+import Template from '../../../components/Template'
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
 
@@ -67,21 +68,19 @@ export default function Edit() {
   )
 
   return (
-    <Template 
+    <Template
     content={
-      <Form ref={formRef} onSubmit={handleSubmit}>
-        <h1>Operações de estoque</h1>
-        <Input name="quantity" placeholder="quantity" />
-        <Input name="unit_value" placeholder="unit_value" />
-        <Input name="comment" placeholder="comment" />
+      <Form style={{ width: '80vh'}} ref={formRef} onSubmit={handleSubmit}>
+        <Heading size="md">Operações de Estoque</Heading>
+        <Input name="quantity" placeholder="quantidade" />
+        <Input name="unit_value" placeholder="unidade de medida" />
+        <Input name="comment" placeholder="comentário" />
         <Input name="operation_id" placeholder="operation_id" />
         <Input name="product_id" placeholder="product_id" />
 
-        <Button type="submit">Editar</Button>
-      </Form>     
+        <Button typeColor="create" type="submit">Editar</Button>
+      </Form>
     }
-    slider={<AdminMenu/>}
-    group={<></>}
     />
   )
 }

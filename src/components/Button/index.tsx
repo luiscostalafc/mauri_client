@@ -1,5 +1,7 @@
 import React, { ButtonHTMLAttributes } from 'react'
 
+import {Spinner} from '@chakra-ui/core'
+
 import { Container } from './styles'
 import { IconBaseProps } from 'react-icons'
 
@@ -19,7 +21,14 @@ const Button: React.FC<ButtonProps> = ({ children, typeColor, icon, loading, ...
       typeColor={typeColor}
       {...rest}
     >
-      {loading ? 'Carregando...' : children}
+      {loading ?
+      <Spinner
+      thickness="4px"
+      speed="0.65s"
+      emptyColor="gray.200"
+      color="blue.500"
+      size="xl"
+      /> : children}
     </Container>
   )
 }

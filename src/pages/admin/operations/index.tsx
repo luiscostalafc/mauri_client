@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { Button } from "@chakra-ui/core"
+import  Button  from '../../../components/Button'
 import Template from '../../../components/Template'
 import AdminMenu from '../../../components/AdminMenu'
 import { deleteData, get } from '../../../services/api'
@@ -23,19 +23,19 @@ export default function Index({ data }: any) {
   const [dataVal, setData] = useState(data)
   const router = useRouter()
   const { addToast } = useToast()
-  
+
   const columns = [
     {
       name: 'Operation',
       selector: 'operation',
       sortable: true,
     },
-    { 
-      name: 'Actions', 
-      cell: (row: { id: number }) => 
+    {
+      name: 'Actions',
+      cell: (row: { id: number }) =>
       (<>
-          <Button onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Edit</Button>
-          <Button onClick={() => remove(row.id)}>Delete</Button>
+          <Button typeColor="edit" onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Edit</Button>
+          <Button style={{marginLeft: 5}} typeColor="delete" onClick={() => remove(row.id)}>Delete</Button>
         </>),
     },
   ]
@@ -50,12 +50,12 @@ export default function Index({ data }: any) {
   }
 
   return (
-    <Template 
+    <Template
     content={
       <>
-      <Button onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
+      <Button typeColor="create" onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
       <DataTable
-        title="Operation"
+        title="Operações"
         columns={columns}
         data={dataVal}
         pagination={true}

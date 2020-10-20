@@ -48,13 +48,13 @@ export default function Create() {
   const handleSubmit = useCallback(
     async (data: FormData) => {
       const validationErrors = await validateForm(schema, data)
-      
+
       if (validationErrors) {
         formRef.current?.setErrors(validationErrors)
         addToast(validationErrorToast)
         return
       }
-      
+
       data.inactive = Boolean(data.inactive)
       data.is_provider = Boolean(data.is_provider)
 
@@ -68,9 +68,9 @@ export default function Create() {
   )
 
   return (
-    <Template 
+    <Template
     content={
-      <Form ref={formRef} onSubmit={handleSubmit}>
+      <Form style={{ width: '80vh'}}  ref={formRef} onSubmit={handleSubmit}>
         <h1>Usuários</h1>
         <Input name="name" placeholder="Nome" />
         <Input name="username" placeholder="Username" />
@@ -80,11 +80,11 @@ export default function Create() {
         <Input name="rg" placeholder="RG" />
         <Input name="cpf_cnpj" placeholder="CPF ou CNPJ" />
         <Input name="nick" placeholder="Apelido" />
-        <InputToogle name="is_provider" placeholder="Fornecedor"/>
+        <InputToogle  name="is_provider" placeholder="Fornecedor"/>
         <InputToogle name="inactive" placeholder="Inativo"/>
 
-        <Button type="submit">Inserir</Button>
-      </Form>     
+        <Button typeColor="create" type="submit">Inserir</Button>
+      </Form>
     }
     slider={<AdminMenu/>}
     group={<></>}

@@ -3,30 +3,36 @@ import { shade } from 'polished'
 
 interface ContainerProps {
   isLoading: number
-  typeColor?: 'create'| 'edit' | 'delete'
+  typeColor?: 'create'| 'edit' | 'delete' | 'info'
 }
 
 const backgroundVariationColor = {
   create: css`
-   background: #48BB78;
+   background: #68D391;
   `,
   edit: css`
-  background: #4299E1;
+  background: #63B3ED;
   `,
   delete: css`
-  background: #F56565;
+  background: #FC8181;
+  `,
+  info: css`
+  background: #FF9000;
   `
 }
 
 export const Container = styled.button<ContainerProps>`
   background: #ff9000;
-  ${(props) => backgroundVariationColor[props.typeColor || '#ff9000']}
+  ${(props) => backgroundVariationColor[props.typeColor || 'info']}
   height: 56px;
   border-radius: 10px;
   border: 0;
   padding: 0 16px;
   color: #312e38;
   width: 100%;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
   font-weight: 500;
   margin-top: 16px;
   transition: background-color 0.3s;
@@ -35,4 +41,9 @@ export const Container = styled.button<ContainerProps>`
     background: ${shade(0.2, '#ff9000')};
   }
   cursor: ${({ isLoading }) => (isLoading ? 'not-allowed' : 'pointer')};
+
+  @media (max-width: 700px) {
+    width: 50%;
+  }
+
 `

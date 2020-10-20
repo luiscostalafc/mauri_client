@@ -13,10 +13,10 @@ export async function getStaticProps() {
   }
 }
 
-export default function Index({ data }) {
+export default function Index() {
 
   return (
-    <Template 
+    <Template
     content={<div>Index</div>}
     slider={<AdminMenu/>}
     group={<></>}

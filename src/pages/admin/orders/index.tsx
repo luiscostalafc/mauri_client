@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { Button } from "@chakra-ui/core"
+import  Button  from '../../../components/Button'
 import Template from '../../../components/Template'
 import AdminMenu from '../../../components/AdminMenu'
 import { deleteData, get } from '../../../services/api'
@@ -8,6 +8,28 @@ import { useRouter } from 'next/router'
 
 import { useToast } from '../../../hooks/toast'
 import { deletionToast } from '../../../config/toastMessages'
+import { loadingIndicatorCSS } from 'react-select/src/components/indicators'
+
+const customStyles = {
+  rows: {
+    style: {
+
+      minHeight: '72px', // override the row height
+    }
+  },
+  headCells: {
+    style: {
+      paddingLeft: '8px', // override the cell padding for head cells
+      paddingRight: '8px',
+    },
+  },
+  cells: {
+    style: {
+      paddingLeft: '10px', // override the cell padding for data cells
+      paddingRight: '10px',
+    },
+  },
+};
 
 const moduleName = 'orders'
 export async function getStaticProps() {
@@ -31,12 +53,12 @@ export default function Index({ data }: any) {
     { name: 'RG', selector: 'rg', sortable: true,},
     { name: 'Estatus', selector: 'order_status', sortable: true,},
     { name: 'Entrega', selector: 'delivery', sortable: true,},
-    { 
-      name: 'Actions', 
-      cell: (row: { id: number }) => 
+    {
+      name: 'Actions',
+      cell: (row: { id: number }) =>
       (<>
-        <Button onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Editar</Button>
-        <Button onClick={() => remove(row.id)}>Apagar</Button>
+        <Button typeColor="edit" onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Editar</Button>
+        <Button style={{marginLeft: 5}} typeColor="delete" onClick={() => remove(row.id)}>Apagar</Button>
       </>),
     },
   ]
@@ -51,18 +73,19 @@ export default function Index({ data }: any) {
   }
 
   return (
-    <Template 
+    <Template
     content={
       <>
-      <Button onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
+      <Button  typeColor="create" onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
       <DataTable
-        title="Orders"
+        title="Pedidos"
         columns={columns}
         data={dataVal}
         pagination={true}
         highlightOnHover={true}
         striped={true}
         fixedHeader={true}
+        customStyles={customStyles}
       />
       </>
     }

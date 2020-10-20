@@ -5,6 +5,8 @@ import * as Yup from 'yup'
 import Template from '../../../components/Template'
 import AdminMenu from '../../../components/AdminMenu'
 
+import { Heading } from '@chakra-ui/core'
+
 import { FormHandles } from '@unform/core'
 
 import { useToast } from '../../../hooks/toast'
@@ -52,7 +54,7 @@ export default function Edit() {
         addToast(validationErrorToast)
         return
       }
-      
+
       const response = await put(`${moduleName}/${id}`, data)
       if (response) {
         addToast(updateToast.success)
@@ -63,14 +65,14 @@ export default function Edit() {
   )
 
   return (
-    <Template 
+    <Template
     content={
-      <Form ref={formRef} onSubmit={handleSubmit}>
-        <h1>Entregas</h1>
+      <Form style={{ width: '80vh'}} ref={formRef} onSubmit={handleSubmit}>
+        <Heading>Entregas</Heading>
         <Input name="delivery" placeholder="Entrega" />
         <InputToogle name="inactive" placeholder="Inativo"/>
-        <Button type="submit">Editar</Button>
-      </Form>     
+        <Button typeColor='create' type="submit">Editar</Button>
+      </Form>
     }
     slider={<AdminMenu/>}
     group={<></>}
