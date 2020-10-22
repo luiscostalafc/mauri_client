@@ -5,7 +5,7 @@ import Group from '../../src/components/Group'
 import Header from '../../src/components/Header'
 import LeftMenu from '../../src/components/LeftMenu'
 import RightMenu from '../../src/components/RightMenu'
-import ProductAuto from '../../src/components/Product/ProductAuto'
+import ProductContent from '../../src/components/Product/ProductContent'
 import AutoExpandMenu from '../../src/components/ExpandMenu/AutoExpandMenu'
 import Footer from '../../src/components/Footer'
 import { Flex, Image, Grid } from '@chakra-ui/core'
@@ -55,7 +55,7 @@ export default function Index() {
         maxWidth="100vh"
         wrap="wrap"
       >
-         <ProductAuto />
+         <ProductContent/>
       </Flex>
       <Flex
         maxHeight="100vh"

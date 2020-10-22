@@ -10,7 +10,7 @@ import { FormHandles } from '@unform/core'
 import { useToast } from '../../../hooks/toast'
 
 import Button from '../../../components/Button'
-import { Heading } from '@chakra-ui/core'
+import { Heading, stringOrNumber } from '@chakra-ui/core'
 
 import { validateForm } from '../../../services/validateForm'
 import { post, get } from '../../../services/api'
@@ -22,6 +22,13 @@ interface FormData {
   provider_id: number
   order_status_id: number
   delivery_id: number
+}
+
+interface OrderProps {
+  id: string
+  name: string
+  delivery: string
+  order_status: string
 }
 
 const schema = Yup.object().shape({
@@ -45,7 +52,7 @@ export default function Create() {
 
   const getUsers = useCallback(async () => {
     const response = await get('users')
-    const input = response.map(r => {
+    const input = response.map((r: OrderProps )=> {
       return {
         value: r.id,
         label: r.name,
@@ -57,7 +64,7 @@ export default function Create() {
 
   const getProviders = useCallback(async () => {
     const response = await get('users')
-    const input = response.map(r => {
+    const input = response.map((r: OrderProps ) => {
       return {
         value: r.id,
         label: r.name,
@@ -69,7 +76,7 @@ export default function Create() {
 
   const getStatus = useCallback(async () => {
     const response = await get('order-statuses')
-    const input = response.map(r => {
+    const input = response.map((r: OrderProps ) => {
       return {
         value: r.id,
         label: r.order_status,
@@ -81,7 +88,7 @@ export default function Create() {
 
   const getDeliveries = useCallback(async () => {
     const response = await get('deliveries')
-    const input = response.map(r => {
+    const input = response.map((r: OrderProps ) => {
       return {
         value: r.id,
         label: r.delivery,

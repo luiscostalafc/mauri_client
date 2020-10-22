@@ -19,6 +19,14 @@ import { put, get } from '../../../services/api'
 import { updateToast, validationErrorToast } from '../../../config/toastMessages'
 import SelectInput from '../../../components/SelectInput'
 
+
+interface OrderProps {
+  id: string
+  name: string
+  delivery: string
+  order_status: string
+}
+
 interface FormData {
   user_id: number
   provider_id: number
@@ -47,7 +55,7 @@ export default function Edit() {
 
   const getUsers = useCallback(async () => {
     const response = await get('users')
-    const input = response.map(r => {
+    const input = response.map((r: OrderProps ) => {
       return {
         value: r.id,
         label: r.name,
@@ -59,7 +67,7 @@ export default function Edit() {
 
   const getProviders = useCallback(async () => {
     const response = await get('users')
-    const input = response.map(r => {
+    const input = response.map((r: OrderProps ) => {
       return {
         value: r.id,
         label: r.name,
@@ -71,7 +79,7 @@ export default function Edit() {
 
   const getStatus = useCallback(async () => {
     const response = await get('order-statuses')
-    const input = response.map(r => {
+    const input = response.map((r: OrderProps ) => {
       return {
         value: r.id,
         label: r.order_status,
@@ -83,7 +91,7 @@ export default function Edit() {
 
   const getDeliveries = useCallback(async () => {
     const response = await get('deliveries')
-    const input = response.map(r => {
+    const input = response.map((r: OrderProps ) => {
       return {
         value: r.id,
         label: r.delivery,
