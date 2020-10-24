@@ -1,58 +1,50 @@
-import React, {MouseEvent} from 'react'
-import { Button, ButtonGroup, Flex } from '@chakra-ui/core'
-import Link from 'next/link'
+import React from 'react'
+import { useRouter } from 'next/router';
 
+import { Button, ButtonGroup, Flex } from '@chakra-ui/core'
 import { FaCartArrowDown } from 'react-icons/fa'
 
 
-
 const AdminLeftMenu: React.FC = (props) => {
+  const router = useRouter();
+
   return (
     <Flex>
       <ButtonGroup spacing={4}>
-      <Link  href="/admin/products">
-        <a>
         <Button
-          size="sm"
+          size="xs"
           leftIcon={FaCartArrowDown}
           variantColor="green"
           variant="solid"
+          onClick={() => { router.push('/admin/products') }}
           {...props}
         >
           Produtos
         </Button>
-        </a>
-        </Link>
 
-        <Link href="/admin/stock-operations">
-          <a>
         <Button
-          size="sm"
+          size="xs"
           leftIcon={FaCartArrowDown}
           variantColor="yellow"
           variant="solid"
-          marginLeft={3}
+          marginLeft={0.5}
+          onClick={() => { router.push("/admin/stock-operations") }}
           {...props}
         >
           Estoque
         </Button>
-        </a>
-        </Link>
 
-        <Link href="/admin/users">
-          <a>
         <Button
-          size="sm"
+          size="xs"
           leftIcon={FaCartArrowDown}
           variantColor="blue"
           variant="solid"
-          marginLeft={3}
+          marginLeft={0.5}
+          onClick={() => { router.push("/admin/users") }}
           {...props}
         >
-         Usuários
+          Usuários
         </Button>
-        </a>
-        </Link>
       </ButtonGroup>
     </Flex>
   )

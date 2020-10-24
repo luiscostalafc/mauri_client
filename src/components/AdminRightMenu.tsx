@@ -1,56 +1,50 @@
 import React from 'react'
 import { Button, ButtonGroup } from '@chakra-ui/core'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { FaCartArrowDown } from 'react-icons/fa'
 
 const AdminRightMenu: React.FC = (props:any) => {
+  const router = useRouter()
+
   return (
     <ButtonGroup spacing={4}>
-      <Link href="/admin/deliveries">
-        <a>
+
       <Button
-        size="sm"
+        size="xs"
         leftIcon={FaCartArrowDown}
         variantColor="green"
         variant="solid"
+        onClick={() => {router.push("/admin/deliveries")}}
         {...props}
       >
         Entregas
       </Button>
-      </a>
-      </Link>
 
-      <Link href="/admin/operations">
-        <a>
       <Button
-        size="sm"
+        size="xs"
         leftIcon={FaCartArrowDown}
         variantColor="yellow"
         variant="solid"
-        marginLeft={3}
+        marginLeft={0.5}
+        onClick={() =>{router.push("/admin/operations")}}
         {...props}
       >
         Operações
       </Button>
-      </a>
-      </Link>
 
-      <Link href="/admin/orders">
-        <a>
       <Button
-        size="sm"
+        size="xs"
         leftIcon={FaCartArrowDown}
         variantColor="blue"
         variant="solid"
-        marginLeft={3}
-        marginRight={5}
+        marginLeft={0.5}
+        marginRight={2}
+        onClick={() =>{router.push("/admin/orders")}}
         {...props}
       >
         Pedidos
       </Button>
-      </a>
-      </Link>
     </ButtonGroup>
   )
 }

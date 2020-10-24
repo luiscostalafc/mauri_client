@@ -78,7 +78,7 @@ export default function Index({ data }: any) {
       <>
       <Button typeColor="create" onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
       <DataTable
-        title="Stock Operations"
+        title="Estoque de Produtos"
         columns={columns}
         data={data}
         pagination={true}
