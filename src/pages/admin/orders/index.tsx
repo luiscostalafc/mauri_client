@@ -8,7 +8,6 @@ import { useRouter } from 'next/router'
 
 import { useToast } from '../../../hooks/toast'
 import { deletionToast } from '../../../config/toastMessages'
-import { loadingIndicatorCSS } from 'react-select/src/components/indicators'
 
 const customStyles = {
   rows: {
@@ -51,7 +50,7 @@ export default function Index({ data }: any) {
     { name: 'Atividade', selector: 'activity', sortable: true,},
     { name: 'Email', selector: 'email', sortable: true,},
     { name: 'RG', selector: 'rg', sortable: true,},
-    { name: 'Estatus', selector: 'order_status', sortable: true,},
+    { name: 'Status', selector: 'order_status', sortable: true,},
     { name: 'Entrega', selector: 'delivery', sortable: true,},
     {
       name: 'Actions',

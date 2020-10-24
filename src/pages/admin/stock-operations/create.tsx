@@ -62,9 +62,9 @@ export default function Create() {
     content={
       <Form style={{ width: '80vh'}} ref={formRef} onSubmit={handleSubmit}>
         <Heading size="md">Operações de estoque</Heading>
-        <Input name="quantity" placeholder="quantity" />
-        <Input name="unit_value" placeholder="unit_value" />
-        <Input name="comment" placeholder="comment" />
+        <Input name="quantity" placeholder="quantidade" />
+        <Input name="unit_value" placeholder="valor unitário" />
+        <Input name="comment" placeholder="comentário" />
         <Input name="operation_id" placeholder="operation_id" />
         <Input name="product_id" placeholder="product_id" />
 

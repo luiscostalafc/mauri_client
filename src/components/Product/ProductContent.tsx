@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import ProductItem from './ProductItem';
 import ProductLoading from './loading';
 
-import { Flex } from '@chakra-ui/core'
+import { Flex, Spinner } from '@chakra-ui/core'
 
 import { get } from '../../services/api'
 
@@ -45,14 +45,15 @@ export default function ProductContent ( ) {
     mutate();
   },[queryParams])
 
-  if (error) return <div>Failed to load products</div>
-  if (!data) return <ProductLoading />
+  if (error) return <div>Ocorreu algum erro ao carregar os produtos verifique sua conexão ou atualize a página</div>
+  if (!data) return <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="orange.300" size="xl"/>
 
   return (
     <>
 
     {isValidating &&
-    <ProductLoading />
+
+    <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="orange.300" size="xl"/>
     }
 
     {!isValidating &&

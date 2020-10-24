@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from 'react'
+import React, { useRef, useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
@@ -6,13 +6,14 @@ import Template from '../../../components/Template'
 import AdminMenu from '../../../components/AdminMenu'
 
 import { FormHandles } from '@unform/core'
-import { Heading } from '@chakra-ui/core'
+import { Heading, Checkbox } from '@chakra-ui/core'
 
 import { useToast } from '../../../hooks/toast'
 
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
 import InputToogle from '../../../components/InputToogle'
+import InputMask from '../../../components/InputMask'
 
 import { validateForm } from '../../../services/validateForm'
 import { put, get } from '../../../services/api'
@@ -41,6 +42,8 @@ const schema = Yup.object().shape({
 
 const moduleName = 'users'
 export default function Edit() {
+  const [cpfNumber, setCpfNumber] = useState(true)
+  const [check, setChecked] = useState(false)
   const router = useRouter();
   const { id } = router.query;
 
@@ -54,6 +57,18 @@ export default function Edit() {
   }, [id]);
 
   const { addToast } = useToast()
+
+  const handleOptionDocument = useCallback(() => {
+    if (cpfNumber === true) {
+      setCpfNumber(false)
+      setChecked(true)
+    } else {
+      setCpfNumber(true)
+      setChecked(false)
+    }
+
+
+  }, [cpfNumber, check])
 
   const handleSubmit = useCallback(
     async (data: FormData) => {
@@ -88,7 +103,15 @@ export default function Edit() {
         <Input name="complete_name" placeholder="Nome completo" />
         <Input name="email" placeholder="E-mail" />
         <Input name="rg" placeholder="RG" />
-        <Input name="cpf_cnpj" placeholder="CPF ou CNPJ" />
+        <Checkbox variantColor="green" borderColor="#ed8936" size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
+            {
+              cpfNumber ? (
+                <InputMask  mask="999.999.999-99" name="cpf_cnpj"  placeholder="CPF" />
+              ) : (
+                  <InputMask mask="99.999.999/9999-99" name="cpf_cnpj"  placeholder="CNPJ" />
+                )
+
+            }
         <Input name="nick" placeholder="Apelido" />
         <InputToogle name="is_provider" placeholder="Fornecedor"/>
         <InputToogle name="inactive" placeholder="Inativo"/>
