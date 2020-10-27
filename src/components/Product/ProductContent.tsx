@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import ProductItem from './ProductItem';
@@ -38,8 +38,9 @@ export default function ProductContent ( ) {
   const router = useRouter();
   const queryParams = router.query;
   const { data, error, mutate, isValidating } = useSWR('products', get)
+  const [dataProduct, setDataProduct] = useState();
 
-  console.log(data)
+
 
 
   useEffect(() => {
