@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import ProductItem from './ProductItem';
 import ProductLoading from './loading';
 
+
 import { Flex, Spinner } from '@chakra-ui/core'
 
 import { get } from '../../services/api'
@@ -46,7 +47,7 @@ export default function ProductContent ( ) {
   },[queryParams])
 
   if (error) return <div>Ocorreu algum erro ao carregar os produtos verifique sua conexão ou atualize a página</div>
-  if (!data) return <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="orange.300" size="xl"/>
+  if (!data) return <ProductLoading/>
 
   return (
     <>
@@ -61,6 +62,7 @@ export default function ProductContent ( ) {
       <Flex flexDir="row" alignItems="flex-center" maxWidth="100vh" wrap="wrap">
         {data.map((item: ProductItemProps )=>(
           <ProductItem
+            key={item.id}
             group={item.group}
             name={item.name}
             obs={item.obs}

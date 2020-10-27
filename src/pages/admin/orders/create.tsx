@@ -10,7 +10,7 @@ import { FormHandles } from '@unform/core'
 import { useToast } from '../../../hooks/toast'
 
 import Button from '../../../components/Button'
-import { Heading, stringOrNumber } from '@chakra-ui/core'
+import { Heading} from '@chakra-ui/core'
 
 import { validateForm } from '../../../services/validateForm'
 import { post, get } from '../../../services/api'
