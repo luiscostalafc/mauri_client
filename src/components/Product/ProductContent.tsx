@@ -1,13 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, } from 'react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import ProductItem from './ProductItem';
 import ProductLoading from './loading';
+import ReactPaginate, { ReactPaginateProps } from 'react-paginate';
+import styles from '../../styles/pages/styles.module.css'
 
 
-import { Flex, Spinner } from '@chakra-ui/core'
+import { Flex, Spinner} from '@chakra-ui/core'
 
 import { get } from '../../services/api'
+
 
 interface ImageProduct {
   asset?: string
@@ -35,13 +38,43 @@ interface ProductItemProps {
 
 
 export default function ProductContent ( ) {
+
   const router = useRouter();
   const queryParams = router.query;
+
+  const [currentPage, setCurrentPage] = useState(0);
   const { data, error, mutate, isValidating } = useSWR('products', get)
-  const [dataProduct, setDataProduct] = useState();
+  const [dataProducts, setDataProducts ] = useState<ProductItemProps[]>([])
 
 
+ useEffect(() => {
+  async function dataProductsApi() {
+    const response = await get('products')
+    setDataProducts(response)
+  }
 
+  dataProductsApi()
+
+ }, [])
+
+
+  function handlePageClick({ selected: selectedPage }: any){
+    setCurrentPage(selectedPage);
+}
+
+  const maxPage = 9;
+  const offset = currentPage * maxPage;
+
+    const currentPageData = dataProducts
+    .slice(offset, offset + maxPage)
+    .map((item: ProductItemProps) => (<ProductItem
+      key={item.id}
+      group={item.group}
+      name={item.name}
+      obs={item.obs}
+    />))
+
+  const pageCount = Math.ceil(dataProducts.length / maxPage)
 
   useEffect(() => {
     mutate();
@@ -61,15 +94,20 @@ export default function ProductContent ( ) {
     {!isValidating &&
 
       <Flex flexDir="row" alignItems="flex-center" maxWidth="100vh" wrap="wrap">
-        {data.map((item: ProductItemProps )=>(
-          <ProductItem
-            key={item.id}
-            group={item.group}
-            name={item.name}
-            obs={item.obs}
-          />
-        ))}
+        {currentPageData}
+
+        <ReactPaginate
+        previousLabel={"← Previous"}
+        nextLabel={"Next →"}
+        pageCount={pageCount}
+        onPageChange={handlePageClick}
+        containerClassName={styles.pagination}
+        previousLinkClassName={styles.pagination__link}
+        nextLinkClassName={styles.pagination__link}
+
+      />
       </Flex>
+
 
     }
 
