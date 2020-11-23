@@ -1,16 +1,12 @@
-import { useEffect, useState, } from 'react';
+import { Flex, Spinner } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 import useSWR from 'swr';
-import ProductItem from './ProductItem';
+import { get } from '../../services/api';
+import styles from '../../styles/pages/styles.module.css';
 import ProductLoading from './loading';
-import ReactPaginate, { ReactPaginateProps } from 'react-paginate';
-import styles from '../../styles/pages/styles.module.css'
-
-
-import { Flex, Spinner} from '@chakra-ui/core'
-
-import { get } from '../../services/api'
-
+import ProductItem from './ProductItem';
 
 interface ImageProduct {
   asset?: string
@@ -65,7 +61,7 @@ export default function ProductContent ( ) {
   const maxPage = 9;
   const offset = currentPage * maxPage;
 
-    const currentPageData = dataProducts
+  const currentPageData = dataProducts.length ? dataProducts
     .slice(offset, offset + maxPage)
     .map((item: ProductItemProps) => (<ProductItem
       key={item.id}
@@ -73,6 +69,7 @@ export default function ProductContent ( ) {
       name={item.name}
       obs={item.obs}
     />))
+    : 'Não há produtos para exibir'
 
   const pageCount = Math.ceil(dataProducts.length / maxPage)
 
@@ -97,9 +94,11 @@ export default function ProductContent ( ) {
         {currentPageData}
 
         <ReactPaginate
+        pageCount={pageCount ?? 1}
+        pageRangeDisplayed={pageCount ?? 1}
+        marginPagesDisplayed={pageCount ?? 1}
         previousLabel={"← Previous"}
         nextLabel={"Next →"}
-        pageCount={pageCount}
         onPageChange={handlePageClick}
         containerClassName={styles.pagination}
         previousLinkClassName={styles.pagination__link}

@@ -1,21 +1,22 @@
-import React, { useRef, useCallback, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import * as Yup from 'yup'
-
-import { Form } from '@unform/web'
-import { FormHandles } from '@unform/core'
-
 import { Heading } from '@chakra-ui/core'
-
-import { useToast } from '../../../hooks/toast'
-
-import Template from '../../../components/Template'
+import { FormHandles } from '@unform/core'
+import { Form } from '@unform/web'
+import { useRouter } from 'next/router'
+import React, { useCallback, useEffect, useRef } from 'react'
+import * as Yup from 'yup'
+import Bread from '../../../components/Breadcrumb'
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
-
-import { validateForm } from '../../../services/validateForm'
-import { put, get } from '../../../services/api'
+import Template from '../../../components/Template'
 import { updateToast, validationErrorToast } from '../../../config/toastMessages'
+import { useToast } from '../../../hooks/toast'
+import { get, put } from '../../../services/api'
+import { validateForm } from '../../../services/validateForm'
+
+
+
+
+
 
 interface FormData {
   quantity: number
@@ -66,11 +67,15 @@ export default function Edit() {
     },
     [router, addToast, id]
   )
-
+  const breads = [
+    { href: 'stock-operations', label: 'Operações de Estoque lista' },
+    { href: '#', label: 'Operações de Estoque editar' },
+  ]
   return (
     <Template
     content={
       <Form style={{ width: '80vh'}} ref={formRef} onSubmit={handleSubmit}>
+        <Bread admin breads={breads}/>
         <Heading size="md">Operações de Estoque</Heading>
         <Input name="quantity" placeholder="quantidade" />
         <Input name="unit_value" placeholder="unidade de medida" />

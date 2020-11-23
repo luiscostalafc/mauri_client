@@ -1,21 +1,22 @@
-import React, { useRef, useCallback } from 'react'
-import { useRouter } from 'next/router'
-import { Form } from '@unform/web'
-import * as Yup from 'yup'
-import Template from '../../../components/Template'
-import AdminMenu from '../../../components/AdminMenu'
-
 import { FormHandles } from '@unform/core'
-
-import { useToast } from '../../../hooks/toast'
-
+import { Form } from '@unform/web'
+import { useRouter } from 'next/router'
+import React, { useCallback, useRef } from 'react'
+import * as Yup from 'yup'
+import AdminMenu from '../../../components/AdminMenu'
+import Bread from '../../../components/Breadcrumb'
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
-
-import { validateForm } from '../../../services/validateForm'
-import { post } from '../../../services/api'
 import InputToogle from '../../../components/InputToogle'
+import Template from '../../../components/Template'
 import { creationToast, validationErrorToast } from '../../../config/toastMessages'
+import { useToast } from '../../../hooks/toast'
+import { post } from '../../../services/api'
+import { validateForm } from '../../../services/validateForm'
+
+
+
+
 
 interface FormData {
   delivery: string
@@ -51,11 +52,15 @@ export default function Create() {
     },
     [router, addToast]
   )
-
+  const breads = [
+    { href: 'deliveries', label: 'Entregas lista' },
+    { href: '#', label: 'Entregas criar' },
+  ]
   return (
     <Template
     content={
-      <Form ref={formRef} onSubmit={handleSubmit}>
+      <Form style={{ width: '80vh'}} ref={formRef} onSubmit={handleSubmit}>
+        <Bread admin breads={breads}/>
         <h1>Entregas</h1>
         <Input name="delivery" placeholder="Entrega" />
         <InputToogle name="inactive" placeholder="Inativo"/>

@@ -1,21 +1,22 @@
-import React, { useRef, useCallback, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { Form } from '@unform/web'
-import * as Yup from 'yup'
-import Template from '../../../components/Template'
-import AdminMenu from '../../../components/AdminMenu'
-
+import { Heading } from '@chakra-ui/core'
 import { FormHandles } from '@unform/core'
-
-import { useToast } from '../../../hooks/toast'
-import {Heading} from '@chakra-ui/core'
-
+import { Form } from '@unform/web'
+import { useRouter } from 'next/router'
+import React, { useCallback, useEffect, useRef } from 'react'
+import * as Yup from 'yup'
+import AdminMenu from '../../../components/AdminMenu'
+import Bread from '../../../components/Breadcrumb'
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
-
-import { validateForm } from '../../../services/validateForm'
-import { put, get } from '../../../services/api'
+import Template from '../../../components/Template'
 import { updateToast, validationErrorToast } from '../../../config/toastMessages'
+import { useToast } from '../../../hooks/toast'
+import { get, put } from '../../../services/api'
+import { validateForm } from '../../../services/validateForm'
+
+
+
+
 
 interface FormData {
   inactive: boolean
@@ -87,11 +88,15 @@ export default function Create() {
     },
     [router, addToast, id]
   )
-
+  const breads = [
+    { href: 'products', label: 'Produtos lista' },
+    { href: '#', label: 'Produtos editar' },
+  ]
   return (
     <Template
     content={
       <Form style={{ width: '80vh'}}  ref={formRef} onSubmit={handleSubmit}>
+        <Bread admin breads={breads}/>
         <Heading>Produtos</Heading>
         <Input name="inactive" placeholder="inactive" />
         <Input name="group_id" placeholder="group_id" />

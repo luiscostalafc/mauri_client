@@ -1,13 +1,13 @@
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
-import  Button from '../../../components/Button'
+import Button from '../../../components/Button'
 import Template from '../../../components/Template'
+import { deletionToast } from '../../../config/toastMessages'
+import { useToast } from '../../../hooks/toast'
 //import AdminMenu from '../../../components/AdminMenu'
 import { deleteData, get } from '../../../services/api'
-import { useRouter } from 'next/router'
 
-import { useToast } from '../../../hooks/toast'
-import { deletionToast } from '../../../config/toastMessages'
 
 
 const customStyles = {
@@ -49,14 +49,14 @@ export default function Index({ data }: any) {
   const { addToast } = useToast()
 
   const columns = [
-    { name: 'Delivery', selector: 'delivery', sortable: true,},
-    { name: 'Inactive', selector: 'inactive', cell: (row: any) => row.inactive ? 'Yes' : 'No', sortable: true,},
+    { name: 'Entrega', selector: 'delivery', sortable: true,},
+    { name: 'Inactivo', selector: 'inactive', cell: (row: any) => row.inactive ? 'Sim' : 'Não', sortable: true,},
     {
       name: 'Actions',
       cell: (row: { id: number }) =>
       (<>
-          <Button typeColor='edit' onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Edit</Button>
-          <Button style={{ marginLeft: 5}} typeColor='delete'  onClick={() => remove(row.id)}>Delete</Button>
+          <Button typeColor='edit' onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Editar</Button>
+          <Button style={{ marginLeft: 5}} typeColor='delete'  onClick={() => remove(row.id)}>Apagar</Button>
         </>),
     },
   ]
@@ -67,8 +67,6 @@ export default function Index({ data }: any) {
       const response = await get(moduleName)
       addToast(deletionToast.success)
       setData(response)
-
-
     }
   }
 

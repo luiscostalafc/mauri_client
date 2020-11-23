@@ -1,9 +1,9 @@
+import { Flex, Grid, Image } from '@chakra-ui/core'
 import React from 'react'
-
-import Header from '../../src/components/Header'
 import AdminLeftMenu from '../../src/components/AdminLeftMenu'
 import AdminRightMenu from '../../src/components/AdminRightMenu'
-import { Flex, Image, Grid } from '@chakra-ui/core'
+import Header from '../../src/components/Header'
+
 
 declare interface TemplateInterface {
   logo?: JSX.Element

@@ -1,23 +1,24 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { Form } from '@unform/web'
-import * as Yup from 'yup'
-import Template from '../../../components/Template'
-import AdminMenu from '../../../components/AdminMenu'
-
+import { Heading } from '@chakra-ui/core'
 import { FormHandles } from '@unform/core'
-import { Heading} from  '@chakra-ui/core'
-
-import { useToast } from '../../../hooks/toast'
-
+import { Form } from '@unform/web'
+import { useRouter } from 'next/router'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import * as Yup from 'yup'
+import AdminMenu from '../../../components/AdminMenu'
+import Bread from '../../../components/Breadcrumb'
 import Button from '../../../components/Button'
-
-
-
-import { validateForm } from '../../../services/validateForm'
-import { put, get } from '../../../services/api'
-import { updateToast, validationErrorToast } from '../../../config/toastMessages'
 import SelectInput from '../../../components/SelectInput'
+import Template from '../../../components/Template'
+import { updateToast, validationErrorToast } from '../../../config/toastMessages'
+import { useToast } from '../../../hooks/toast'
+import { get, put } from '../../../services/api'
+import { validateForm } from '../../../services/validateForm'
+
+
+
+
+
+
 
 
 interface OrderProps {
@@ -132,11 +133,15 @@ export default function Edit() {
     },
     [router, addToast, id]
   )
-
+  const breads = [
+    { href: 'orders', label: 'Pedidos lista' },
+    { href: '#', label: 'Pedidos editar' },
+  ]
   return (
     <Template
     content={
       <Form style={{ maxWidth: '100%'}}ref={formRef} onSubmit={handleSubmit}>
+        <Bread admin breads={breads}/>
         <Heading>Pedidos</Heading>
         <SelectInput name="user_id" placeholder="Usuário" options={users}/>
         <SelectInput name="provider_id" placeholder="Prestador" options={providers}/>
