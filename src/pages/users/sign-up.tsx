@@ -25,7 +25,6 @@ import {
   Content,
   AnimationContainer,
   Background,
-  Image,
   ImageCart,
 } from '../../styles/pages/sign-up'
 
