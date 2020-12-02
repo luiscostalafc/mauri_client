@@ -11,16 +11,17 @@ import Slider from '../../src/components/Slider'
 
 
 export default function Index() {
-  const [transform, setTransform] = useState('scaleX(0)')
+  // const [transform, setTransform] = useState('scaleX(0)')
+  const [group, setGroup] = useState(1)
 
 
   function handleClick(e: number) {
-    console.log(e)
-    if (transform === 'scaleX(0)') {
-      setTransform('scaleX(1)')
-    } else {
-      setTransform('scaleX(0)')
-    }
+    setGroup(e)
+    // if (transform === 'scaleX(0)') {
+    //   setTransform('scaleX(1)')
+    // } else {
+    //   setTransform('scaleX(0)')
+    // }
   }
 
   return (
@@ -52,6 +53,7 @@ export default function Index() {
       <Flex
         gridArea="products"
         flexDir="row"
+        paddingTop={10} // seccond line of filter
         alignItems="flex-center"
         maxWidth="100vh"
         wrap="wrap"
@@ -118,7 +120,7 @@ export default function Index() {
         flexDirection="row"
         position="relative"
       >
-        <AutoExpandMenu /*transform={transform}*/ />
+        <AutoExpandMenu group={group}/*transform={transform}*/ />
       </Flex>
 
       <Flex gridArea="footer" flexDir="row" alignItems="flex-start">

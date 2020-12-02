@@ -1,27 +1,30 @@
-import React from 'react'
-
-
 import {
-  Box,
-  Flex,
-  Badge,
-  Button,
-  Link,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
   AccordionHeader,
-  AccordionItem,
-  AccordionIcon,
-  AccordionPanel,
-  Image,
+
+  AccordionIcon, AccordionItem,
+
+  AccordionPanel, Badge, Box,
+
+
+  Button, Flex,
+
+
+  Link,
+
+
+
+
+  NumberDecrementStepper, NumberIncrementStepper, NumberInput,
+  NumberInputField,
+  NumberInputStepper
 } from '@chakra-ui/core'
+import React from 'react'
+import { FaCartArrowDown } from 'react-icons/fa'
 
 
 
-import Filter from '../Filter'
+
+
 
 
 
@@ -49,7 +52,6 @@ interface ProductItemProps {
   image?: ImageProduct[]
 }
 
-import { FaCartArrowDown } from 'react-icons/fa'
 
 export default function ProductItem(props: ProductItemProps) {
 
@@ -101,19 +103,19 @@ export default function ProductItem(props: ProductItemProps) {
           </AccordionItem>
         </Box>
 
-        <Box marginTop={2}>
+        {/* <Box marginTop={2}>
           <AccordionItem>
             <AccordionHeader _expanded={{ bg: 'tomato', color: 'white' }}>
               <Box flex="1" textAlign="left">
                 Filtro Avançado
-        </Box>
+              </Box>
               <AccordionIcon />
             </AccordionHeader>
             <AccordionPanel>
               <Filter />
             </AccordionPanel>
           </AccordionItem>
-        </Box>
+        </Box> */}
 
         <Box marginTop={5}>
           <NumberInput size="sm" maxW="60px" min={0}>
