@@ -23,8 +23,9 @@ const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
             draft.items.push({
               product,
               quantity: 1,
-            })  
+            })
           }
+
         break
 
       }
@@ -32,6 +33,38 @@ const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
         draft.failedStockCheck.push(action.payload.productId)
 
         break
+      }
+
+      case ActionTypes.removeProductToCartRequest: {
+        const { productId } = action.payload;
+
+        const productInCartIndex = draft.items.findIndex(item =>
+          item.product.id === productId);
+
+          if (productInCartIndex >= 0) {
+            draft.items.splice(productInCartIndex, 1);
+          }
+
+          break
+      }
+
+      case ActionTypes.updateAmountProductToCartRequest: {
+        const { quantity, productId } = action.payload;
+
+        if (quantity <= 0) {
+          return state
+        }
+
+        return produce<ICartState>(state, draft => {
+          const productInCartIndex = draft.items.findIndex(
+            item => item.product.id === productId
+          );
+
+          if (productInCartIndex >= 0) {
+            const product = draft.items[productInCartIndex];
+            product.quantity = Number(quantity)
+          }
+        })
       }
       default: {
         return draft;

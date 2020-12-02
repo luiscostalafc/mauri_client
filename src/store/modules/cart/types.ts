@@ -2,7 +2,13 @@ export enum ActionTypes {
   addProductToCartRequest = 'ADD_PRODUCT_TO_CART_REQUEST',
   addProductToCartSuccess = 'ADD_PRODUCT_TO_CART_SUCCESS',
   addProductToCartFailure = 'ADD_PRODUCT_TO_CART_FAILURE',
+  removeProductToCartRequest = 'REMOVE_PRODUCT_TO_CART_REQUEST',
+  removeProductToCartSuccess = 'REMOVE_PRODUCT_TO_CART_SUCCESS',
+  removeProductToCartFailure = 'REMOVE_PRODUCT_TO_CART_FAILURE',
+  updateAmountProductToCartRequest = 'UPDATE_AMOUNT_PRODUCT_TO_CART_REQUEST',
 }
+
+
 
 
 export interface IProduct {
@@ -20,3 +26,5 @@ export interface ICartState {
   items: ICartItem[];
   failedStockCheck: number[];
 }
+
+
