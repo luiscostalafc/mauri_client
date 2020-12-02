@@ -61,7 +61,7 @@ export default function ProductContent ( ) {
   const maxPage = 9;
   const offset = currentPage * maxPage;
 
-  const currentPageData = dataProducts.length ? dataProducts
+  const currentPageData = dataProducts?.length ? dataProducts
     .slice(offset, offset + maxPage)
     .map((item: ProductItemProps) => (<ProductItem
       key={item.id}
@@ -71,7 +71,7 @@ export default function ProductContent ( ) {
     />))
     : 'Não há produtos para exibir'
 
-  const pageCount = Math.ceil(dataProducts.length / maxPage)
+  const pageCount = Math.ceil(dataProducts?.length / maxPage)
 
   useEffect(() => {
     mutate();

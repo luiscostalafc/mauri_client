@@ -1,30 +1,22 @@
 import {
   AccordionHeader,
-
-  AccordionIcon, AccordionItem,
-
-  AccordionPanel, Badge, Box,
-
-
-  Button, Flex,
-
-
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Badge,
+  Box,
+  Button,
+  Flex,
   Link,
-
-
-
-
-  NumberDecrementStepper, NumberIncrementStepper, NumberInput,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
   NumberInputField,
-  NumberInputStepper
+  NumberInputStepper,
+  Image,
 } from '@chakra-ui/core'
 import React from 'react'
 import { FaCartArrowDown } from 'react-icons/fa'
-
-
-
-
-
 
 
 
@@ -65,12 +57,15 @@ export default function ProductItem(props: ProductItemProps) {
       rounded="lg"
       overflow="hidden"
     >
-      {/* <Link href="#">
-        <Image src="/home.png" alt="teste" />
-      </Link> */}
 
       <Box p="6">
         <Flex align="center" justify="center" marginBottom={5}>
+        <Box>
+         <Link href="#">
+        <Image maxHeight="100px" maxWidth="200px"  src="/home.png" alt="teste" />
+        </Link>
+         </Box>
+
           <Box d="flex" alignItems="baseline">
             <Badge rounded="full" px="2" variantColor="orange">
               {props.group}
