@@ -1,20 +1,21 @@
+import { Flex, Grid, Image } from '@chakra-ui/core'
 import React, { useState } from 'react'
-
-import Slider from '../../src/components/Slider'
+import AutoExpandMenu from '../../src/components/ExpandMenu/AutoExpandMenu'
+import Footer from '../../src/components/Footer'
 import Group from '../../src/components/Group'
 import Header from '../../src/components/Header'
 import LeftMenu from '../../src/components/LeftMenu'
-import RightMenu from '../../src/components/RightMenu'
 import ProductContent from '../../src/components/Product/ProductContent'
-import AutoExpandMenu from '../../src/components/ExpandMenu/AutoExpandMenu'
-import Footer from '../../src/components/Footer'
-import { Flex, Image, Grid } from '@chakra-ui/core'
+import RightMenu from '../../src/components/RightMenu'
+import Slider from '../../src/components/Slider'
+
 
 export default function Index() {
   const [transform, setTransform] = useState('scaleX(0)')
 
 
-  function handleClick() {
+  function handleClick(e: number) {
+    console.log(e)
     if (transform === 'scaleX(0)') {
       setTransform('scaleX(1)')
     } else {
@@ -107,7 +108,7 @@ export default function Index() {
         flexDir="column"
         alignItems="flex-start"
       >
-        <Slider onClick={handleClick} />
+        <Slider onClick={(e: { target: { value: number } }) => handleClick(e.target.value)} />
       </Flex>
 
       <Flex
@@ -117,7 +118,7 @@ export default function Index() {
         flexDirection="row"
         position="relative"
       >
-        <AutoExpandMenu transform={transform} />
+        <AutoExpandMenu /*transform={transform}*/ />
       </Flex>
 
       <Flex gridArea="footer" flexDir="row" alignItems="flex-start">
