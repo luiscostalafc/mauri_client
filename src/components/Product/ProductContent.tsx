@@ -44,14 +44,15 @@ export default function ProductContent ( ) {
 
 
  useEffect(() => {
-  async function dataProductsApi() {
-    const response = await get('products')
+  async function dataProductsApi(queryParams: any) {
+    const query = new URLSearchParams(queryParams).toString()
+    const response = queryParams ? await get(`products?${query}`) : await get('products')
     setDataProducts(response)
   }
 
-  dataProductsApi()
+  dataProductsApi(queryParams)
 
- }, [])
+ }, [queryParams])
 
 
   function handlePageClick({ selected: selectedPage }: any){

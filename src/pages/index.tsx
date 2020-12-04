@@ -1,4 +1,5 @@
 import { Flex, Grid, Image } from '@chakra-ui/core'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import AutoExpandMenu from '../../src/components/ExpandMenu/AutoExpandMenu'
 import Footer from '../../src/components/Footer'
@@ -11,9 +12,14 @@ import Slider from '../../src/components/Slider'
 
 
 export default function Index() {
+  const router = useRouter()
   // const [transform, setTransform] = useState('scaleX(0)')
   const [group, setGroup] = useState(1)
 
+  function handleProduct (filter: any) {
+    const queryParams = new URLSearchParams(filter).toString()
+    router.push({ pathname: '/', query: queryParams },)
+  }
 
   function handleClick(e: number) {
     setGroup(e)
@@ -120,7 +126,7 @@ export default function Index() {
         flexDirection="row"
         position="relative"
       >
-        <AutoExpandMenu group={group}/*transform={transform}*/ />
+        <AutoExpandMenu group={group}/*transform={transform}*/ onSearch={handleProduct} />
       </Flex>
 
       <Flex gridArea="footer" flexDir="row" alignItems="flex-start">

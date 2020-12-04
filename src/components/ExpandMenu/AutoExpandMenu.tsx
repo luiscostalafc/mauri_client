@@ -50,9 +50,9 @@ const qualities:Options[] = [
   { value: "original", label: "Original" },
 ]
 
-const AutoExpandMenu = (props: any) => {
-  const { group } = props
+const AutoExpandMenu = ({group, onSearch, ...props}) => {
   const [selectedGroup, setGroup] = useState(1)
+  const [filter, setFilter] = useState({})
 
   useEffect(() => {
     setGroup(group)
@@ -61,6 +61,18 @@ const AutoExpandMenu = (props: any) => {
   function hasInGroup (values: number[]) {
     return values.indexOf(Number(selectedGroup)) != -1 ? true : false
   }
+
+  const handleChange = (event: { target: { name: string | number; value: any; }; }) => {
+		if (event?.target?.name) {
+      const auxValues = { ...filter }
+      const name = event.target.name
+			auxValues[name] = event.target.value
+			console.log(auxValues)
+			setFilter(auxValues)
+		}
+		return
+  }
+  
 
   return (
     <Flex backgroundColor="transparent" paddingLeft={5}  flexDirection="column" position="relative">
@@ -84,6 +96,8 @@ const AutoExpandMenu = (props: any) => {
           alignItems="center"
           justifyContent="center"
           variant="unstyled"
+          name="automaker"
+          onChange={handleChange}
         >
           {automakers.length && automakers.map(({value, label}, index) => (
             <option key={index} value={value}>{label}</option>
@@ -101,6 +115,8 @@ const AutoExpandMenu = (props: any) => {
           color="gray.700"
           alignItems="center"
           justifyContent="center"
+          name="model"
+          onChange={handleChange}
         >
           {models.length && models.map(({value, label}, index) => (
             <option key={index} value={value}>{label}</option>
@@ -118,6 +134,8 @@ const AutoExpandMenu = (props: any) => {
           color="gray.700"
           alignItems="center"
           justifyContent="center"
+          name="year_start"
+          onChange={handleChange}
         >
           {yearFab.length && yearFab.map(({value, label}, index) => (
             <option key={index} value={value}>{label}</option>
@@ -135,6 +153,8 @@ const AutoExpandMenu = (props: any) => {
           color="gray.700"
           alignItems="center"
           justifyContent="center"
+          onChange={handleChange}
+          name="year_start"
         >
           {yearModel.length && yearModel.map(({value, label}, index) => (
             <option key={index} value={value}>{label}</option>
@@ -152,6 +172,8 @@ const AutoExpandMenu = (props: any) => {
           color="gray.700"
           alignItems="center"
           justifyContent="center"
+          name="engine"
+          onChange={handleChange}
         >
           {motors.length && motors.map(({value, label}, index) => (
             <option key={index} value={value}>{label}</option>
@@ -169,6 +191,8 @@ const AutoExpandMenu = (props: any) => {
           color="gray.700"
           alignItems="center"
           justifyContent="center"
+          name="fuel"
+          onChange={handleChange}
         >
           {fuel.length && fuel.map(({value, label}, index) => (
             <option key={index} value={value}>{label}</option>
@@ -186,14 +210,16 @@ const AutoExpandMenu = (props: any) => {
             color="gray.700"
             alignItems="center"
             justifyContent="center"
+            name="chassi"
+            onChange={handleChange}
           >
             {chassis.length && chassis.map(({value, label}, index) => (
               <option key={index} value={value}>{label}</option>
             ))}
           </Select>
         }
-        <Input maxW="120px" size="md" />
-        <Button children size="md" leftIcon={FaSearch} />
+        <Input name="name" onChange={handleChange} maxW="120px" size="md" />
+        <Button onClick={() => onSearch(filter)} children size="md" leftIcon={FaSearch} />
       </Box>
       <Box
         display="fixed"
@@ -209,6 +235,8 @@ const AutoExpandMenu = (props: any) => {
           marginBottom={1}
           variant="filled"
           placeholder="Posição"
+          name="position"
+          onChange={handleChange}
         >
           {positions.length && positions.map(({value, label}, index) => (
             <option key={index} value={value}>{label}</option>
@@ -219,6 +247,8 @@ const AutoExpandMenu = (props: any) => {
           marginBottom={1}
           variant="filled"
           placeholder="Sistema"
+          name="system"
+          onChange={handleChange}
         >
           {systems.length && systems.map(({value, label}, index) => (
             <option key={index} value={value}>{label}</option>
@@ -229,6 +259,8 @@ const AutoExpandMenu = (props: any) => {
           marginBottom={1}
           variant="filled"
           placeholder="Material"
+          name="material"
+          onChange={handleChange}
         >
           {materials.length && materials.map(({value, label}, index) => (
             <option key={index} value={value}>{label}</option>
@@ -239,6 +271,8 @@ const AutoExpandMenu = (props: any) => {
           marginBottom={1}
           variant="filled"
           placeholder="Cor"
+          name="color"
+          onChange={handleChange}
         >
           {colors.length && colors.map(({value, label}, index) => (
             <option key={index} value={value}>{label}</option>
@@ -250,12 +284,20 @@ const AutoExpandMenu = (props: any) => {
           marginBottom={1}
           variant="filled"
           placeholder="Medida"
+          name="width"
+          onChange={handleChange}
         >
           {widths.length && widths.map(({value, label}, index) => (
             <option key={index} value={value}>{label}</option>
           ))}
         </Select>}
-        {hasInGroup([1,2]) && <Select color="gray.500" variant="filled" placeholder="Qualidade">
+        {hasInGroup([1,2]) && <Select 
+          color="gray.500" 
+          variant="filled" 
+          placeholder="Qualidade" 
+          name="quality"
+          onChange={handleChange}
+          >
           {qualities.length && qualities.map(({value, label}, index) => (
             <option key={index} value={value}>{label}</option>
           ))}
