@@ -28,7 +28,7 @@ interface ProductItemProps {
   type?: string //combust.
   complement?: string //chassi
   obs?: string //descrição
-  formattedPrice?: number //valor
+  price?: number //valor
   image?: ImageProduct[]
 }
 

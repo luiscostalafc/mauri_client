@@ -9,6 +9,7 @@ import LeftMenu from '../../src/components/LeftMenu'
 import ProductContent from '../../src/components/Product/ProductContent'
 import RightMenu from '../../src/components/RightMenu'
 import Slider from '../../src/components/Slider'
+import CartHeader from '../../src/components/CartHeader'
 
 
 export default function Index() {
@@ -47,12 +48,14 @@ export default function Index() {
       justifyContent="center"
       justifyItems="center"
     >
+
       <Flex
         gridArea="header"
         flexDir="row"
         alignItems="flex-start"
         width={{ sm: '68%', md: '100%' }}
       >
+
           <Header />
       </Flex>
 
@@ -92,11 +95,7 @@ export default function Index() {
         />
       </Flex>
       <Flex gridArea="logoR" alignItems="flex-start" justify="center">
-        <Image
-          size="70%"
-          src="/liconnection.svg"
-          alt="Liconnection"
-        />
+        <CartHeader />
       </Flex>
       <Flex
         marginTop={-8}
