@@ -1,11 +1,8 @@
 import React from 'react';
-
-import { MdShoppingBasket } from 'react-icons/md'
+import { MdShoppingBasket } from 'react-icons/md';
 import { connect } from 'react-redux';
-import ReturnType from 'typescript';
-import { Container, Cart} from './styles';
-import { RootState } from '../../store/modules/rootReducer'
-
+import { RootState } from '../../store/modules/rootReducer';
+import { Cart, Container } from './styles';
 
 const mapStateToProps = (state: RootState) => ({
   cartAmount: state.cart.items.length,

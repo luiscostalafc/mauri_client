@@ -1,18 +1,18 @@
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
-
-
+import { FiDelete, FiEdit } from 'react-icons/fi'
+import AdminMenu from '../../../components/AdminMenu'
 import Button from '../../../components/Button'
 import Template from '../../../components/Template'
-import AdminMenu from '../../../components/AdminMenu'
-
-import {FiEdit, FiDelete} from 'react-icons/fi'
-
-
-import { deleteData, get } from '../../../services/api'
-import { useRouter } from 'next/router'
-
 import { useToast } from '../../../hooks/toast'
+import { deleteData, get } from '../../../services/api'
+
+
+
+
+
+
 
 
 
@@ -89,6 +89,7 @@ export default function Index({ data }: any) {
     content={
       <>
       <Button typeColor="create" onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
+      <Button typeColor="create" onClick={() => router.push(`/admin/${moduleName}/excel`)}>Inserção via Excel</Button>
       <DataTable
         title="Produtos"
         columns={columns}
