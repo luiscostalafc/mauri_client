@@ -41,29 +41,27 @@ interface ProductItemProps {
   type?: string //combust.
   complement?: string //chassi
   obs?: string //descrição
-  price: number //valor
+  price: number  //valor
   image?: ImageProduct[]
 }
 
 
 export default function ProductItem(props: ProductItemProps) {
 
-
-
   return (
     <Flex
-      marginLeft={3}
-      marginRight={3}
+      margin={1}
       borderWidth="1px"
       rounded="lg"
       overflow="hidden"
+      maxWidth="30%"
     >
 
       <Box p="6">
         <Flex align="center" justify="center" marginBottom={5}>
         <Box>
          <Link href="#">
-        <Image maxHeight="100px" maxWidth="200px"  src={!props.image ? '/home.png': 'não tem imagem'} alt="teste" />
+        <Image maxHeight="100px" maxWidth="200px"  src={!props.image ? '/home.png': 'não tem imagem'} alt="Imagem do produto" />
         </Link>
          </Box>
 

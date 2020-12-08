@@ -93,7 +93,7 @@ export default function ProductContent ( ) {
 
     {!isValidating &&
 
-      <Flex flexDir="row" alignItems="flex-center" maxWidth="100vh" wrap="wrap">
+      <Flex flexDir="row" marginLeft={-20}  maxWidth="100vh" wrap="wrap">
         {currentPageData}
 
         <ReactPaginate

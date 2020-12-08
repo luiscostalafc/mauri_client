@@ -10,6 +10,12 @@ return (
    <ProductItem />
    <ProductItem />
    <ProductItem />
+   <ProductItem />
+   <ProductItem />
+   <ProductItem />
+   <ProductItem />
+   <ProductItem />
+   <ProductItem />
 
    </>
 

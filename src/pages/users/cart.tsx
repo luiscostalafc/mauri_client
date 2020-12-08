@@ -64,7 +64,7 @@ function Cart(props: Props) {
               </td>
               <td>
       <strong>{item.product.name}</strong>
-      <span>{item.product.priceFormatted}</span>
+      <span>{item.product.price}</span>
               </td>
 
               <td>
