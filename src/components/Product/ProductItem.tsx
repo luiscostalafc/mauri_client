@@ -17,13 +17,14 @@ import {
 } from '@chakra-ui/core'
 import React from 'react'
 import { FaCartArrowDown } from 'react-icons/fa'
+import { formatPrice } from '../../utils/formatPrice'
 
 
 
 interface ImageProduct {
-  asset?: string
-  mine?: string
-  path?: string
+  asset: object | string
+  mine: object | string
+  path: object | string
 }
 
 interface ProductItemProps {
@@ -40,7 +41,7 @@ interface ProductItemProps {
   type?: string //combust.
   complement?: string //chassi
   obs?: string //descrição
-  price?: number //valor
+  price: number //valor
   image?: ImageProduct[]
 }
 
@@ -62,7 +63,7 @@ export default function ProductItem(props: ProductItemProps) {
         <Flex align="center" justify="center" marginBottom={5}>
         <Box>
          <Link href="#">
-        <Image maxHeight="100px" maxWidth="200px"  src="/home.png" alt="teste" />
+        <Image maxHeight="100px" maxWidth="200px"  src={!props.image ? '/home.png': 'não tem imagem'} alt="teste" />
         </Link>
          </Box>
 
@@ -121,7 +122,7 @@ export default function ProductItem(props: ProductItemProps) {
             </NumberInputStepper>
           </NumberInput>
         </Box>
-        <Box marginTop={3}>R$99,00</Box>
+      <Box marginTop={3}>{formatPrice(props.price)}</Box>
         <Box marginTop={5}>
           <Button
             size="md"

@@ -9,9 +9,9 @@ import ProductLoading from './loading';
 import ProductItem from './ProductItem';
 
 interface ImageProduct {
-  asset?: string
-  mine?: string
-  path?: string
+  asset: object | string
+  mine: object | string
+  path: object | string
 }
 
 interface ProductItemProps {
@@ -28,7 +28,7 @@ interface ProductItemProps {
   type?: string //combust.
   complement?: string //chassi
   obs?: string //descrição
-  price?: number //valor
+  price: number //valor
   image?: ImageProduct[]
 }
 
@@ -69,6 +69,8 @@ export default function ProductContent ( ) {
       group={item.group}
       name={item.name}
       obs={item.obs}
+      image={item.image}
+      price={item.price}
     />))
     : 'Não há produtos para exibir'
 
@@ -95,7 +97,7 @@ export default function ProductContent ( ) {
         {currentPageData}
 
         <ReactPaginate
-        pageCount={pageCount ?? 1}
+        pageCount={10}
         pageRangeDisplayed={pageCount ?? 1}
         marginPagesDisplayed={pageCount ?? 1}
         previousLabel={"← Previous"}

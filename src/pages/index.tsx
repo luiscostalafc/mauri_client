@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import AutoExpandMenu from '../../src/components/ExpandMenu/AutoExpandMenu'
 import Footer from '../../src/components/Footer'
-//import Group from '../../src/components/Group'
+import Group from '../../src/components/Group'
 import Header from '../../src/components/Header'
 import LeftMenu from '../../src/components/LeftMenu'
 import ProductContent from '../../src/components/Product/ProductContent'
@@ -69,7 +69,7 @@ export default function Index() {
       >
          <ProductContent/>
       </Flex>
-      {/* <Flex
+       <Flex
         maxHeight="100vh"
         gridArea="group"
         flexDir="row"
@@ -77,7 +77,7 @@ export default function Index() {
         justifyContent="flex-start"
       >
         <Group />
-      </Flex> */}
+      </Flex>
       <Flex
         marginTop={-8}
         gridArea="menuL"
