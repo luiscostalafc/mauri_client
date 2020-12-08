@@ -8,18 +8,19 @@ import {
   Button,
   Flex,
   Link,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
   Image,
 } from '@chakra-ui/core'
 import React from 'react'
-import { FaCartArrowDown } from 'react-icons/fa'
 import { formatPrice } from '../../utils/formatPrice'
+import {FaCartArrowDown, FaPlusSquare} from 'react-icons/fa'
+//import ProductList from '../ProductList'
+import { connect, DispatchProp } from 'react-redux'
+import ReturnType from 'typescript'
+import { IProduct } from '../../types'
 
-
+import { RootState } from '../../store/modules/rootReducer'
+import { addProductToCartRequest } from '../../store/modules/cart/actions'
+import { ICartItem } from '../../store/modules/cart/types'
 
 interface ImageProduct {
   asset: object | string
@@ -28,7 +29,7 @@ interface ImageProduct {
 }
 
 interface ProductItemProps {
-  id?: number
+  id: number
   group?: string
   group_id?: number
   subgroup?: string
@@ -45,8 +46,33 @@ interface ProductItemProps {
   image?: ImageProduct[]
 }
 
+type quantityProduct = { [key: number]: any };
+const quantityObject : quantityProduct = {}
 
-export default function ProductItem(props: ProductItemProps) {
+const mapStateToProps = (state: RootState) => ({
+  cart: state.cart.items,
+  quantity: state.cart.items.reduce((quantity, currentValue) => {
+    quantity[currentValue.product.id] = currentValue.quantity
+    return quantity
+  }, quantityObject)
+});
+
+type StateProps = ReturnType<typeof mapStateToProps>
+
+type Props = StateProps & DispatchProp;
+
+
+export function ProductItem(props: ProductItemProps) {
+
+  function handleAddProduct(product: IProduct) {
+    const { price, id } = props
+
+    addProductToCartRequest({
+      ...product,
+      id,
+      price
+    })
+  }
 
   return (
     <Flex
@@ -112,13 +138,18 @@ export default function ProductItem(props: ProductItemProps) {
         </Box> */}
 
         <Box marginTop={5}>
-          <NumberInput size="sm" maxW="60px" min={0}>
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+           {/* <Button
+           leftIcon={<FaPlusSquare/>}
+           variant="solid"
+           colorScheme="#F6AD55"
+           onClick={() => handleAddProduct()}
+          >
+          <div>
+            {props.quantity[props.id] || 0}
+          </div>
+          Adicionar ao Carrinho
+          </Button> */}
+
         </Box>
       <Box marginTop={3}>{formatPrice(props.price)}</Box>
         <Box marginTop={5}>
@@ -139,5 +170,7 @@ export default function ProductItem(props: ProductItemProps) {
 
   )
 }
+
+export default connect(mapStateToProps)(ProductItem)
 
 
