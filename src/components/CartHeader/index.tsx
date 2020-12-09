@@ -1,17 +1,20 @@
 import React from 'react';
 
 import { MdShoppingBasket } from 'react-icons/md'
-import { connect } from 'react-redux';
-import ReturnType from 'typescript';
+import { useSelector } from 'react-redux';
 import { Container, Cart} from './styles';
-import { RootState } from '../../store/modules/rootReducer'
+import { IState } from  '../../store'
+import { ICartItem } from '../../store/modules/cart/types'
 
 
-const mapStateToProps = (state: RootState) => ({
-  cartAmount: state.cart.items.length,
-});
 
-function CartHeader({ cartAmount }: ReturnType<typeof mapStateToProps>) {
+// const mapStateToProps = (state: RootState) => ({
+//   cartAmount: state.cart.items.length,
+// });
+
+ const  CartHeader: React.FC = () => {
+  const cartAmount = useSelector<IState, ICartItem[]>(state => Array(state.cart.items.length))
+
   return (
 
     <Container>
@@ -31,4 +34,4 @@ function CartHeader({ cartAmount }: ReturnType<typeof mapStateToProps>) {
   )
 }
 
-export default connect(mapStateToProps)(CartHeader);
+export default CartHeader;
