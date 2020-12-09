@@ -17,7 +17,7 @@ interface ImageProduct {
 
 interface ProductItemProps {
   id: string | any
-  group: string
+  group: string | any
   group_id?: number
   subgroup?: string
   name: string
@@ -34,7 +34,7 @@ interface ProductItemProps {
 }
 
 
-export default function ProductContent ( ) {
+const ProductContent: React.FC<ProductItemProps> = () => {
 
   const router = useRouter();
   const queryParams = router.query;
@@ -118,3 +118,5 @@ export default function ProductContent ( ) {
 
   )
 }
+
+export default ProductContent

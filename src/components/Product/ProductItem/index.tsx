@@ -1,3 +1,4 @@
+import React, { useCallback } from 'react'
 import {
   AccordionHeader,
   AccordionIcon,
@@ -10,76 +11,44 @@ import {
   Link,
   Image,
 } from '@chakra-ui/core'
-import React from 'react'
 import { formatPrice } from '../../../utils/formatPrice'
 import { FaCartArrowDown } from 'react-icons/fa'
-import { MdAddShoppingCart } from 'react-icons/md';
+//import { MdAddShoppingCart } from 'react-icons/md';
 //import ProductList from '../ProductList'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 //import ReturnType from 'typescript'
 import { IProduct } from '../../../types'
 
-import { RootState } from '../../../store/modules/rootReducer'
+//import { RootState } from '../../../store/modules/rootReducer'
 import { addProductToCartRequest } from '../../../store/modules/cart/actions'
+import { IState } from '../../../store';
 //import { ICartItem } from '../../store/modules/cart/types'
 
 
-interface ImageProduct {
-  asset: object | string
-  mine: object | string
-  path: object | string
-}
-
 interface ProductItemProps {
-  id: number | any
-  group?: string
-  group_id?: number
-  subgroup?: string
-  name?: string
-  automaker?: string //montadora
-  model?: string //modelo
-  year_start?: string //ano-fab
-  year_end?: string // ano-mod
-  engine?: string // motor
-  type?: string //combust.
-  complement?: string //chassi
-  obs?: string //descrição
-  price: number  //valor
-  image?: ImageProduct[]
-  quantity: quantityProduct
+  id: number;
+  name: string;
+  price: number;
+  quantity?: number;
+  group: string;
+  obs: string
+  image: string
+  product: IProduct
 }
 
-type quantityProduct = { [key: number]: any };
-const quantityObject: quantityProduct = {}
-
-const mapStateToProps = (state: RootState) => ({
-  cart: state.cart.items,
-  quantity: state.cart.items.reduce((quantity, currentValue) => {
-    quantity[currentValue.product.id] = currentValue.quantity
-    return quantity
-  }, quantityObject)
-});
-
-//type StateProps = ReturnType<typeof mapStateToProps>
-
-//type Props = StateProps & DispatchProp;
 
 
-export function ProductItem(props: ProductItemProps) {
+const  ProductItem: React.FC<ProductItemProps> = ({ id, name, price, quantity, group, obs, image, product }) => {
+   const dispatch = useDispatch();
 
-  function handleAddProduct({ image, id, name, price, quantity, obs, group }: IProduct) {
+    const hasFailedStockCheck = useSelector<IState, boolean>(state => {
+     return state.cart.failedStockCheck.includes(id)
+   })
 
+  const handleAddProductToCart = useCallback(() => {
+    dispatch(addProductToCartRequest(product))
+  },[dispatch, product])
 
-    addProductToCartRequest({
-      image,
-      id,
-      name,
-      price,
-      quantity,
-      obs,
-      group
-    })
-  }
 
   return (
     <Flex
@@ -94,13 +63,13 @@ export function ProductItem(props: ProductItemProps) {
         <Flex align="center" justify="center" marginBottom={5}>
           <Box>
             <Link href="#">
-              <Image maxHeight="100px" maxWidth="200px" src={!props.image ? '/home.png' : 'não tem imagem'} alt="Imagem do produto" />
+              <Image maxHeight="100px" maxWidth="200px" src={'/home.png'} alt="Imagem do produto" />
             </Link>
           </Box>
 
           <Box d="flex" alignItems="baseline">
             <Badge rounded="full" px="2" variantColor="orange">
-              {props.group}
+              {group}
             </Badge>
           </Box>
         </Flex>
@@ -114,7 +83,7 @@ export function ProductItem(props: ProductItemProps) {
           isTruncated
         >
           <Link color="blue.500" href="#">
-            {props.name}
+            {name}
           </Link>
         </Box>
 
@@ -126,7 +95,7 @@ export function ProductItem(props: ProductItemProps) {
              </Box>
               <AccordionIcon />
             </AccordionHeader>
-            <AccordionPanel>{props.obs}</AccordionPanel>
+            <AccordionPanel>{obs}</AccordionPanel>
           </AccordionItem>
         </Box>
 
@@ -145,17 +114,18 @@ export function ProductItem(props: ProductItemProps) {
         </Box> */}
 
 
-        <Box marginTop={3}>{formatPrice(props.price)}</Box>
+        <Box marginTop={3}>{formatPrice(price)}</Box>
         <Box marginTop={5} alignItems="center" justifyContent="center">
           <Button
+            type="button"
             marginLeft={-3}
-            onClick={() => handleAddProduct(props.id)}
+            onClick={handleAddProductToCart}
             size="sm"
             leftIcon={FaCartArrowDown}
             variantColor="green"
             variant="solid"
           >
-            <Box marginLeft={-1} marginRight={2}>{props.quantity[props.id] || 0}</Box>
+             <Box marginLeft={-1} marginRight={2}>{ hasFailedStockCheck && <span style={{ color: 'red'}}>Falta de estoque</span>}</Box>
 
               Adicionar ao Carrinho
     </Button>
@@ -169,6 +139,6 @@ export function ProductItem(props: ProductItemProps) {
   )
 }
 
-export default connect(mapStateToProps)(ProductItem)
+export default ProductItem
 
 

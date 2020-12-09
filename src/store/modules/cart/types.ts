@@ -18,7 +18,7 @@ export interface IProduct {
   quantity: number;
   group: string;
   obs: string
-  image: ImageProduct
+  image: string
 }
 
 export interface ICartItem {
