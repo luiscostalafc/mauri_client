@@ -63,7 +63,7 @@ const  ProductItem: React.FC<ProductItemProps> = ({ id, name, price, quantity, g
         <Flex align="center" justify="center" marginBottom={5}>
           <Box>
             <Link href="#">
-              <Image maxHeight="100px" maxWidth="200px" src={'/home.png'} alt="Imagem do produto" />
+              <Image maxHeight="100px" maxWidth="200px" src={image ||'/home.png'} alt="Imagem do produto" />
             </Link>
           </Box>
 
