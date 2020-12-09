@@ -34,13 +34,13 @@ function Cart(props: Props) {
 
   function incrementProduct(product: IProduct) {
     dispatch(
-      updateAmountProductToCartRequest(product.id, product.quantity +1)
+      updateAmountProductToCartRequest(product.id, Number(product.quantity +1))
     );
   }
 
   function decrementProduct(product: IProduct) {
     dispatch(
-      updateAmountProductToCartRequest(product.id, product.quantity -1)
+      updateAmountProductToCartRequest(product.id, Number(product.quantity -1))
     );
   }
 
@@ -77,7 +77,7 @@ function Cart(props: Props) {
                   >
                     <MdRemoveCircleOutline
                        size={20}
-                       color="#7159c2"
+                       color="#ff9000"
                        />
                   </button>
                   <input
@@ -93,7 +93,7 @@ function Cart(props: Props) {
                        >
                          <MdAddCircleOutline
                             size={20}
-                            color="#7159c2"
+                            color="#ff9000"
                          />
                        </button>
                 </div>
@@ -110,7 +110,7 @@ function Cart(props: Props) {
                    )
                 }
                 >
-                  <MdDelete size={20} color="#7159c1" />
+                  <MdDelete size={20} color="#ff9000" />
                 </button>
               </td>
             </tr>

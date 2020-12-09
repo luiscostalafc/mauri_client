@@ -11,16 +11,18 @@ import {
   Image,
 } from '@chakra-ui/core'
 import React from 'react'
-import { formatPrice } from '../../utils/formatPrice'
-import {FaCartArrowDown, FaPlusSquare} from 'react-icons/fa'
+import { formatPrice } from '../../../utils/formatPrice'
+import { FaCartArrowDown } from 'react-icons/fa'
+import { MdAddShoppingCart } from 'react-icons/md';
 //import ProductList from '../ProductList'
-import { connect, DispatchProp } from 'react-redux'
-import ReturnType from 'typescript'
-import { IProduct } from '../../types'
+import { connect } from 'react-redux'
+//import ReturnType from 'typescript'
+import { IProduct } from '../../../types'
 
-import { RootState } from '../../store/modules/rootReducer'
-import { addProductToCartRequest } from '../../store/modules/cart/actions'
-import { ICartItem } from '../../store/modules/cart/types'
+import { RootState } from '../../../store/modules/rootReducer'
+import { addProductToCartRequest } from '../../../store/modules/cart/actions'
+//import { ICartItem } from '../../store/modules/cart/types'
+
 
 interface ImageProduct {
   asset: object | string
@@ -29,7 +31,7 @@ interface ImageProduct {
 }
 
 interface ProductItemProps {
-  id: number
+  id: number | any
   group?: string
   group_id?: number
   subgroup?: string
@@ -44,10 +46,11 @@ interface ProductItemProps {
   obs?: string //descrição
   price: number  //valor
   image?: ImageProduct[]
+  quantity: quantityProduct
 }
 
 type quantityProduct = { [key: number]: any };
-const quantityObject : quantityProduct = {}
+const quantityObject: quantityProduct = {}
 
 const mapStateToProps = (state: RootState) => ({
   cart: state.cart.items,
@@ -57,20 +60,24 @@ const mapStateToProps = (state: RootState) => ({
   }, quantityObject)
 });
 
-type StateProps = ReturnType<typeof mapStateToProps>
+//type StateProps = ReturnType<typeof mapStateToProps>
 
-type Props = StateProps & DispatchProp;
+//type Props = StateProps & DispatchProp;
 
 
 export function ProductItem(props: ProductItemProps) {
 
-  function handleAddProduct(product: IProduct) {
-    const { price, id } = props
+  function handleAddProduct({ image, id, name, price, quantity, obs, group }: IProduct) {
+
 
     addProductToCartRequest({
-      ...product,
+      image,
       id,
-      price
+      name,
+      price,
+      quantity,
+      obs,
+      group
     })
   }
 
@@ -85,11 +92,11 @@ export function ProductItem(props: ProductItemProps) {
 
       <Box p="6">
         <Flex align="center" justify="center" marginBottom={5}>
-        <Box>
-         <Link href="#">
-        <Image maxHeight="100px" maxWidth="200px"  src={!props.image ? '/home.png': 'não tem imagem'} alt="Imagem do produto" />
-        </Link>
-         </Box>
+          <Box>
+            <Link href="#">
+              <Image maxHeight="100px" maxWidth="200px" src={!props.image ? '/home.png' : 'não tem imagem'} alt="Imagem do produto" />
+            </Link>
+          </Box>
 
           <Box d="flex" alignItems="baseline">
             <Badge rounded="full" px="2" variantColor="orange">
@@ -137,29 +144,20 @@ export function ProductItem(props: ProductItemProps) {
           </AccordionItem>
         </Box> */}
 
-        <Box marginTop={5}>
-           {/* <Button
-           leftIcon={<FaPlusSquare/>}
-           variant="solid"
-           colorScheme="#F6AD55"
-           onClick={() => handleAddProduct()}
-          >
-          <div>
-            {props.quantity[props.id] || 0}
-          </div>
-          Adicionar ao Carrinho
-          </Button> */}
 
-        </Box>
-      <Box marginTop={3}>{formatPrice(props.price)}</Box>
-        <Box marginTop={5}>
+        <Box marginTop={3}>{formatPrice(props.price)}</Box>
+        <Box marginTop={5} alignItems="center" justifyContent="center">
           <Button
-            size="md"
+            marginLeft={-3}
+            onClick={() => handleAddProduct(props.id)}
+            size="sm"
             leftIcon={FaCartArrowDown}
             variantColor="green"
             variant="solid"
           >
-            Comprar
+            <Box marginLeft={-1} marginRight={2}>{props.quantity[props.id] || 0}</Box>
+
+              Adicionar ao Carrinho
     </Button>
         </Box>
       </Box>

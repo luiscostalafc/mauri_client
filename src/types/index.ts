@@ -2,10 +2,10 @@ export interface IProduct {
   id: number;
   name: string;
   price: number;
-  quantity: string;
+  quantity: number;
   group: string;
   obs: string
-  image: string
+  image: ImageProduct
 }
 
 interface ImageProduct {

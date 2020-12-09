@@ -6,7 +6,8 @@ import useSWR from 'swr';
 import { get } from '../../services/api';
 import styles from '../../styles/pages/styles.module.css';
 import ProductLoading from './loading';
-import ProductItem from './ProductItem';
+import ProductItem from '../Product/ProductItem';
+import { IProduct } from '../../types'
 
 interface ImageProduct {
   asset: object | string
@@ -15,11 +16,11 @@ interface ImageProduct {
 }
 
 interface ProductItemProps {
-  id?: number
-  group?: string
+  id: string | any
+  group: string
   group_id?: number
   subgroup?: string
-  name?: string
+  name: string
   automaker?: string //montadora
   model?: string //modelo
   year_start?: string //ano-fab
@@ -27,9 +28,9 @@ interface ProductItemProps {
   engine?: string // motor
   type?: string //combust.
   complement?: string //chassi
-  obs?: string //descrição
+  obs: string //descrição
   price: number //valor
-  image?: ImageProduct[]
+  image: ImageProduct | any
 }
 
 
@@ -64,7 +65,7 @@ export default function ProductContent ( ) {
 
   const currentPageData = dataProducts?.length ? dataProducts
     .slice(offset, offset + maxPage)
-    .map((item: ProductItemProps) => (<ProductItem
+    .map((item) => (<ProductItem
       key={item.id}
       group={item.group}
       name={item.name}

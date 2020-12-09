@@ -16,7 +16,7 @@ function CartHeader({ cartAmount }: ReturnType<typeof mapStateToProps>) {
 
     <Container>
 
-     <Cart href="/cart">
+     <Cart href="/users/cart">
        <a>
       <div>
         <strong>Meu carrinho</strong>
@@ -24,6 +24,7 @@ function CartHeader({ cartAmount }: ReturnType<typeof mapStateToProps>) {
       </div>
        <MdShoppingBasket size={36} color="#ff9000" />
        </a>
+
      </Cart>
     </Container>
 
