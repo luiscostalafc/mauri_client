@@ -29,11 +29,11 @@ const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
         break
 
       }
-      case ActionTypes.addProductToCartFailure: {
-        draft.failedStockCheck.push(action.payload.productId)
+      // case ActionTypes.addProductToCartFailure: {
+      //   draft.failedStockCheck.push(action.payload.productId)
 
-        break
-      }
+      //   break
+      // }
 
       case ActionTypes.removeProductToCartRequest: {
         const { productId } = action.payload;

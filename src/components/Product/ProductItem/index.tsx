@@ -36,9 +36,9 @@ interface ProductItemProps {
 const  ProductItem: React.FC<ProductItemProps> = ({ id, name, price, quantity, group, obs, image, product }) => {
    const dispatch = useDispatch();
 
-    const hasFailedStockCheck = useSelector<IState, boolean>(state => {
-     return state.cart.failedStockCheck.includes(id)
-   })
+  //   const hasFailedStockCheck = useSelector<IState, boolean>(state => {
+  //    return state.cart.failedStockCheck.includes(id)
+  //  })
 
   const handleAddProductToCart = useCallback(() => {
     dispatch(addProductToCartRequest(product))
@@ -120,7 +120,7 @@ const  ProductItem: React.FC<ProductItemProps> = ({ id, name, price, quantity, g
             variantColor="green"
             variant="solid"
           >
-             <Box marginLeft={-1} marginRight={2}>{ hasFailedStockCheck && <span style={{ color: 'red'}}>Falta de estoque</span>}</Box>
+             {/* <Box marginLeft={-1} marginRight={2}>{ hasFailedStockCheck && <span style={{ color: 'red'}}>Falta de estoque</span>}</Box> */}
 
               Adicionar ao Carrinho
     </Button>
