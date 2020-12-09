@@ -7,11 +7,6 @@ import { IState } from  '../../store'
 import { ICartItem } from '../../store/modules/cart/types'
 
 
-
-// const mapStateToProps = (state: RootState) => ({
-//   cartAmount: state.cart.items.length,
-// });
-
  const  CartHeader: React.FC = () => {
   const cartAmount = useSelector<IState, ICartItem[]>(state => Array(state.cart.items.length))
 

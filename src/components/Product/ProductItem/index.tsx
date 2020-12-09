@@ -13,16 +13,11 @@ import {
 } from '@chakra-ui/core'
 import { formatPrice } from '../../../utils/formatPrice'
 import { FaCartArrowDown } from 'react-icons/fa'
-//import { MdAddShoppingCart } from 'react-icons/md';
-//import ProductList from '../ProductList'
 import { useDispatch, useSelector } from 'react-redux'
-//import ReturnType from 'typescript'
 import { IProduct } from '../../../types'
 
-//import { RootState } from '../../../store/modules/rootReducer'
 import { addProductToCartRequest } from '../../../store/modules/cart/actions'
 import { IState } from '../../../store';
-//import { ICartItem } from '../../store/modules/cart/types'
 
 
 interface ProductItemProps {
