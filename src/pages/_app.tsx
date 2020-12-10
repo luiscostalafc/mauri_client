@@ -6,7 +6,7 @@ import AppProvider from '../hooks'
 import { CookiesProvider } from 'react-cookie'
 import { AppProps } from 'next/app'
 
-import '../config/ReactotronConfig';
+// import '../config/ReactotronConfig';
 
 import Router from 'next/router'
 import NProgress from 'nprogress'
