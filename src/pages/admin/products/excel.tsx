@@ -3,7 +3,6 @@ import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import { useRouter } from 'next/router'
 import React, { useCallback, useRef } from 'react'
-import xlsxParser from 'xls-parser'
 import * as Yup from 'yup'
 import AdminMenu from '../../../components/AdminMenu'
 import Bread from '../../../components/Breadcrumb'
@@ -14,6 +13,7 @@ import { creationToast, validationErrorToast } from '../../../config/toastMessag
 import { useToast } from '../../../hooks/toast'
 import { post } from '../../../services/api'
 import { validateForm } from '../../../services/validateForm'
+import { checkExtension, checkFormat, formatSheet, sheetToJson } from '../../../utils/uploadExcel'
 
 interface FormData {
   excel: File
@@ -50,20 +50,36 @@ export default function Excel() {
 
   const handleInput = async (e: any) => {
     const file = e.target.files[0]
-    console.log(file)
-    const authorizedExtensions = ['text/csv','application/vnd.oasis.opendocument.spreadsheet','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/vnd.ms-excel']
-    if (!authorizedExtensions.includes(file.type)) {
+    const validExtension = checkExtension(file)
+    console.log(validExtension)
+    if (!validExtension) {
       const msg = 'Extenção inválida! deve ser: csv, ods, xlsx, xls'
       addToast({
         type: 'error',
         title: 'ERRO!',
         description: msg
       })
-      return
+      return 
+    }  
+    const parsedData = await sheetToJson(file)
+
+    const validFormat = checkFormat(parsedData)
+    if (!validFormat) {
+      addToast({
+        type: 'error',
+        title: 'ERRO!',
+        description: 'Formato das colunas da planilha inválido! Verifique o formato padrão'
+      })
+      addToast({
+        type: 'error',
+        title: 'ERRO!',
+        description: formatSheet.join(', ')
+      })
+      return 
     }
-    const parsedData = await xlsxParser.onFileSelection(file)
-    console.log(parsedData)
   }
+  
+  
   const breads = [
     { href: 'products', label: 'Produtos lista' },
     { href: '#', label: 'Produtos criar' },
