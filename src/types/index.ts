@@ -1,8 +1,15 @@
 export interface IProduct {
-  image: string;
   id: number;
   name: string;
-  priceFormatted: string;
   price: number;
   quantity: number;
+  group: string;
+  obs: string
+  image: string
+}
+
+interface ImageProduct {
+  asset: object | string
+  mine: object | string
+  path: object | string
 }

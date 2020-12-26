@@ -1,52 +1,47 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   MdRemoveCircleOutline,
   MdAddCircleOutline,
   MdDelete,
 } from 'react-icons/md';
 
-import { connect, DispatchProp } from 'react-redux';
-import ReturnType from 'typescript';
-import { Container, ProductTable, Total } from '../../styles/pages/cart';
-import { RootState } from '../../store/modules/rootReducer';
-import { updateAmountProductToCartRequest, removeProductToCartRequest } from '../../store/modules/cart/actions'
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from '../../store';
+import { ICartItem } from '../../store/modules/cart/types'
 import { IProduct } from '../../types';
+import { Container, ProductTable, Total } from '../../styles/pages/cart';
+import { updateAmountProductToCartRequest, removeProductToCartRequest } from '../../store/modules/cart/actions'
 import { formatPrice } from '../../utils/formatPrice';
 
-const mapStateToProps = (state: RootState) => ({
-  items: state.cart.items.map(product => ({
-    ...product,
-    subtotal: formatPrice(product.quantity * product.product.price),
-  })),
-  total: formatPrice(
-    state.cart.items.reduce((total, product) => {
-      return total + product.product.price * product.quantity;
-    }, 0)
-  ),
-});
 
-type StateProps = ReturnType<typeof mapStateToProps>;
+interface CartProductProps {
+  product: IProduct
+}
 
-type Props = StateProps & DispatchProp;
+const Cart: React.FC<CartProductProps> = ({ product }) => {
 
-function Cart(props: Props) {
-  const { items, dispatch, total }= props;
+  const cart = useSelector<IState, ICartItem[]>(state => state.cart.items)
 
-  function incrementProduct(product: IProduct) {
-    dispatch(
-      updateAmountProductToCartRequest(product.id, product.quantity +1)
-    );
-  }
+  const total = cart.reduce((total, items) => {
+     return total + items.product.price * items.product.quantity
+  }, 0)
 
-  function decrementProduct(product: IProduct) {
-    dispatch(
-      updateAmountProductToCartRequest(product.id, product.quantity -1)
-    );
-  }
+  const dispatch = useDispatch();
+
+  const incrementProduct = useCallback(() => {
+    dispatch(updateAmountProductToCartRequest(product.id, Number(product.quantity +1)))
+  },[ dispatch, product])
+
+  const decrementProduct = useCallback(() => {
+    dispatch(updateAmountProductToCartRequest(product.id, Number(product.quantity -1)))
+  },[ dispatch, product])
+
+
+
 
   return (
     <Container>
-      {items.map(item => (
+      {cart.map(item => (
         <ProductTable>
           <thead>
             <tr>
@@ -64,7 +59,7 @@ function Cart(props: Props) {
               </td>
               <td>
       <strong>{item.product.name}</strong>
-      <span>{item.product.priceFormatted}</span>
+      <span>{formatPrice(item.product.price)}</span>
               </td>
 
               <td>
@@ -72,12 +67,12 @@ function Cart(props: Props) {
                   <button
                     type="button"
                     onClick={() =>
-                      decrementProduct(item.product)
+                      decrementProduct()
                     }
                   >
                     <MdRemoveCircleOutline
                        size={20}
-                       color="#7159c2"
+                       color="#ff9000"
                        />
                   </button>
                   <input
@@ -88,18 +83,18 @@ function Cart(props: Props) {
                        <button
                          type="button"
                          onClick={() =>
-                             incrementProduct(item.product)
+                             incrementProduct()
                         }
                        >
                          <MdAddCircleOutline
                             size={20}
-                            color="#7159c2"
+                            color="#ff9000"
                          />
                        </button>
                 </div>
               </td>
               <td>
-                      <strong>{item.subtotal}</strong>
+                      <strong>{((item.product.price) * item.quantity).toFixed(2)}</strong>
               </td>
               <td>
                 <button
@@ -110,7 +105,7 @@ function Cart(props: Props) {
                    )
                 }
                 >
-                  <MdDelete size={20} color="#7159c1" />
+                  <MdDelete size={20} color="#ff9000" />
                 </button>
               </td>
             </tr>
@@ -121,11 +116,11 @@ function Cart(props: Props) {
         <button type="button">Finalizar pedido</button>
         <Total>
           <span>Total</span>
-              <strong>{total}</strong>
+              <strong>{formatPrice(total)}</strong>
         </Total>
       </footer>
     </Container>
   )
 }
 
-export default connect(mapStateToProps)(Cart)
+export default Cart

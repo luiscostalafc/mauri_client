@@ -6,20 +6,21 @@ import useSWR from 'swr';
 import { get } from '../../services/api';
 import styles from '../../styles/pages/styles.module.css';
 import ProductLoading from './loading';
-import ProductItem from './ProductItem';
+import ProductItem from '../Product/ProductItem';
+import { IProduct } from '../../types'
 
 interface ImageProduct {
-  asset?: string
-  mine?: string
-  path?: string
+  asset: object | string
+  mine: object | string
+  path: object | string
 }
 
 interface ProductItemProps {
-  id?: number
-  group?: string
+  id: string | any
+  group: string | any
   group_id?: number
   subgroup?: string
-  name?: string
+  name: string
   automaker?: string //montadora
   model?: string //modelo
   year_start?: string //ano-fab
@@ -27,13 +28,13 @@ interface ProductItemProps {
   engine?: string // motor
   type?: string //combust.
   complement?: string //chassi
-  obs?: string //descrição
-  price?: number //valor
-  image?: ImageProduct[]
+  obs: string //descrição
+  price: number //valor
+  image: ImageProduct | any
 }
 
 
-export default function ProductContent ( ) {
+const ProductContent: React.FC<ProductItemProps> = () => {
 
   const router = useRouter();
   const queryParams = router.query;
@@ -64,11 +65,13 @@ export default function ProductContent ( ) {
 
   const currentPageData = dataProducts?.length ? dataProducts
     .slice(offset, offset + maxPage)
-    .map((item: ProductItemProps) => (<ProductItem
+    .map((item) => (<ProductItem
       key={item.id}
       group={item.group}
       name={item.name}
       obs={item.obs}
+      image={item.image}
+      price={item.price}
     />))
     : 'Não há produtos para exibir'
 
@@ -91,11 +94,11 @@ export default function ProductContent ( ) {
 
     {!isValidating &&
 
-      <Flex flexDir="row" alignItems="flex-center" maxWidth="100vh" wrap="wrap">
+      <Flex flexDir="row" marginLeft={-20}  maxWidth="100vh" wrap="wrap">
         {currentPageData}
 
         <ReactPaginate
-        pageCount={pageCount ?? 1}
+        pageCount={10}
         pageRangeDisplayed={pageCount ?? 1}
         marginPagesDisplayed={pageCount ?? 1}
         previousLabel={"← Previous"}
@@ -115,3 +118,5 @@ export default function ProductContent ( ) {
 
   )
 }
+
+export default ProductContent

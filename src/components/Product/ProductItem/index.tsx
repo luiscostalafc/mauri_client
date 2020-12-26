@@ -1,3 +1,4 @@
+import React, { useCallback } from 'react'
 import {
   AccordionHeader,
   AccordionIcon,
@@ -8,67 +9,62 @@ import {
   Button,
   Flex,
   Link,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
   Image,
 } from '@chakra-ui/core'
-import React from 'react'
+import { formatPrice } from '../../../utils/formatPrice'
 import { FaCartArrowDown } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux'
+import { IProduct } from '../../../types'
 
+import { addProductToCartRequest } from '../../../store/modules/cart/actions'
+import { IState } from '../../../store';
 
-
-interface ImageProduct {
-  asset?: string
-  mine?: string
-  path?: string
-}
 
 interface ProductItemProps {
-  id?: number
-  group?: string
-  group_id?: number
-  subgroup?: string
-  name?: string
-  automaker?: string //montadora
-  model?: string //modelo
-  year_start?: string //ano-fab
-  year_end?: string // ano-mod
-  engine?: string // motor
-  type?: string //combust.
-  complement?: string //chassi
-  obs?: string //descrição
-  price?: number //valor
-  image?: ImageProduct[]
+  id: number;
+  name: string;
+  price: number;
+  quantity?: number;
+  group: string;
+  obs: string
+  image: string
+  product: IProduct
 }
 
 
-export default function ProductItem(props: ProductItemProps) {
 
+const  ProductItem: React.FC<ProductItemProps> = ({ id, name, price, quantity, group, obs, image, product }) => {
+   const dispatch = useDispatch();
+
+  //   const hasFailedStockCheck = useSelector<IState, boolean>(state => {
+  //    return state.cart.failedStockCheck.includes(id)
+  //  })
+
+  const handleAddProductToCart = useCallback(() => {
+    dispatch(addProductToCartRequest(product))
+  },[dispatch, product])
 
 
   return (
     <Flex
-      marginLeft={3}
-      marginRight={3}
+      margin={1}
       borderWidth="1px"
       rounded="lg"
       overflow="hidden"
+      maxWidth="30%"
     >
 
       <Box p="6">
         <Flex align="center" justify="center" marginBottom={5}>
-        <Box>
-         <Link href="#">
-        <Image maxHeight="100px" maxWidth="200px"  src="/home.png" alt="teste" />
-        </Link>
-         </Box>
+          <Box>
+            <Link href="#">
+              <Image maxHeight="100px" maxWidth="200px" src={image ||'/home.png'} alt="Imagem do produto" />
+            </Link>
+          </Box>
 
           <Box d="flex" alignItems="baseline">
             <Badge rounded="full" px="2" variantColor="orange">
-              {props.group}
+              {group}
             </Badge>
           </Box>
         </Flex>
@@ -82,7 +78,7 @@ export default function ProductItem(props: ProductItemProps) {
           isTruncated
         >
           <Link color="blue.500" href="#">
-            {props.name}
+            {name}
           </Link>
         </Box>
 
@@ -94,7 +90,7 @@ export default function ProductItem(props: ProductItemProps) {
              </Box>
               <AccordionIcon />
             </AccordionHeader>
-            <AccordionPanel>{props.obs}</AccordionPanel>
+            <AccordionPanel>{obs}</AccordionPanel>
           </AccordionItem>
         </Box>
 
@@ -112,24 +108,21 @@ export default function ProductItem(props: ProductItemProps) {
           </AccordionItem>
         </Box> */}
 
-        <Box marginTop={5}>
-          <NumberInput size="sm" maxW="60px" min={0}>
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-        </Box>
-        <Box marginTop={3}>R$99,00</Box>
-        <Box marginTop={5}>
+
+        <Box marginTop={3}>{formatPrice(price)}</Box>
+        <Box marginTop={5} alignItems="center" justifyContent="center">
           <Button
-            size="md"
+            type="button"
+            marginLeft={-3}
+            onClick={handleAddProductToCart}
+            size="sm"
             leftIcon={FaCartArrowDown}
             variantColor="green"
             variant="solid"
           >
-            Comprar
+             {/* <Box marginLeft={-1} marginRight={2}>{ hasFailedStockCheck && <span style={{ color: 'red'}}>Falta de estoque</span>}</Box> */}
+
+              Adicionar ao Carrinho
     </Button>
         </Box>
       </Box>
@@ -140,5 +133,7 @@ export default function ProductItem(props: ProductItemProps) {
 
   )
 }
+
+export default ProductItem
 
 

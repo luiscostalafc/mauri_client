@@ -15,7 +15,10 @@ export interface IProduct {
   id: number;
   name: string;
   price: number;
-  image: string;
+  quantity: number;
+  group: string;
+  obs: string
+  image: string
 }
 
 export interface ICartItem {
@@ -26,6 +29,12 @@ export interface ICartItem {
 export interface ICartState {
   items: ICartItem[];
   failedStockCheck: number[];
+}
+
+interface ImageProduct {
+  asset: object | string
+  mine: object | string
+  path: object | string
 }
 
 

@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@chakra-ui/core": "^0.8.0",
+    "@chakra-ui/icons": "^1.0.1",
     "@emersonbraun/pretty-log": "^1.1.0",
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",

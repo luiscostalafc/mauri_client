@@ -1,27 +1,37 @@
 import { createStore, applyMiddleware } from 'redux'
-import {composeWithDevTools } from 'redux-devtools-extension'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import createSagaMiddleware from 'redux-saga'
 
-import {rootReducer} from './modules/rootReducer'
+import rootReducer from './modules/rootReducer'
 import rootSaga from './modules/rootSaga'
+import persistReducer from './persistReducer'
 
 import { ICartState } from './modules/cart/types'
+import { persistStore } from 'redux-persist'
 
 export interface IState {
   cart: ICartState
 }
 
-const sagaMiddleware = createSagaMiddleware()
+// const sagaMonitor =
+// process.env.NODE_ENV === 'development'
+// ? console.tron.createSagaMonitor()
+// : null;
+
+const sagaMiddleware = createSagaMiddleware({ })
 
 const midddlewares = [sagaMiddleware]
 
+
 const store = createStore(
-  rootReducer,
+  persistReducer(rootReducer),
   composeWithDevTools(
     applyMiddleware(...midddlewares)
   )
   )
 
+const persistor = persistStore(store)
+
   sagaMiddleware.run(rootSaga)
 
-export default store
+export { store, persistor}

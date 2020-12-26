@@ -37,10 +37,10 @@ export default function Index() {
       height="100vh"
       width="100vh"
       templateColumns="100% 50% 100% 50%"
-      templateRows="200px 50px auto 0px 80px"
+      templateRows="200px 80px auto 0px 80px"
       templateAreas="
     '. logo header logoR'
-    '. menuL filter menuR'
+    '. menuL filter  menuR'
     '. slider products products'
     '. . . .'
     '. . footer .'
@@ -63,13 +63,12 @@ export default function Index() {
         gridArea="products"
         flexDir="row"
         paddingTop={10} // seccond line of filter
-        alignItems="flex-center"
-        maxWidth="80%"
+        maxWidth="100vh"
         wrap="wrap"
       >
          <ProductContent/>
       </Flex>
-      {/* <Flex
+       {/* <Flex
         maxHeight="100vh"
         gridArea="group"
         flexDir="row"
