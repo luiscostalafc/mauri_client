@@ -12,6 +12,7 @@ interface User {
   rg: string
   cpf_cnpj: string
   inactive: boolean
+  avatar_url: string
 }
 
 interface AuthState {
@@ -84,7 +85,7 @@ const AuthProvider: React.FC = ({ children }) => {
         user
       })
     },
-    [setData]
+    [setData, data.token]
   )
 
   return (
