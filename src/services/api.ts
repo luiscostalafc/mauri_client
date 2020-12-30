@@ -6,7 +6,7 @@ import PrettyLog from '@emersonbraun/pretty-log'
 const completeURL = (URL: string) => {
   const cleanURL = URL.charAt(0) === '/' ? URL.slice(1, URL.length) : URL
   return `http://127.0.0.1:3333/api/${cleanURL}`
-} 
+}
 
 declare type Headers = {
   Accept: string,
@@ -137,7 +137,7 @@ export async function deleteData (URL: string, silent = false, debug = false) {
 
  /* ------ original ------*/
 const api = axios.create({
-  baseURL: 'http://localhost:3333/api'
+  baseURL: 'http://localhost:3333'
 })
 
 export default api

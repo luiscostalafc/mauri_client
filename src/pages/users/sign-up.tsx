@@ -10,7 +10,7 @@ import * as Yup from 'yup'
 import { Checkbox, Progress } from "@chakra-ui/core";
 
 
-import api from '../../services/api'
+import { post } from '../../services/api'
 
 import { useToast } from '../../hooks/toast'
 
@@ -38,6 +38,7 @@ interface SignUpFormData {
   password: string
 }
 
+
 const SignUp: React.FC = () => {
   const [cpfNumber, setCpfNumber] = useState(true)
   const [check, setChecked] = useState(false)
@@ -59,7 +60,6 @@ const SignUp: React.FC = () => {
   }, [cpfNumber, check])
 
 
-
   const handleSubmit = useCallback(
     async (data: SignUpFormData) => {
       try {
@@ -68,7 +68,7 @@ const SignUp: React.FC = () => {
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome completo'),
           username: Yup.string().required('Nome de usuário obrigatório'),
-          activity: Yup.string().required('Preencha sua ocupação profissional'),
+          activity: Yup.string().optional(),
           rg: Yup.string().required('Preencha seu RG').max(14),
           cpf_cnpj: Yup.string().required('Preencha o CNPJ ou RG'),
           email: Yup.string()
@@ -79,13 +79,13 @@ const SignUp: React.FC = () => {
         await schema.validate(data, {
           abortEarly: false
         })
-        const response = await api.post('users', data)
 
-        const { id } = response.data
+        const response = await post('users', data)
+
 
         let expires = new Date()
-        expires.setTime(expires.getTime() + (response.data.expires_in * 1000))
-        Cookies.set('@Liconnection:user', id, { path: '/', expires },)
+        expires.setTime(expires.getTime() + (response.expires_in * 1000))
+        Cookies.set('@Liconnection:user', JSON.stringify(response.id), { path: '/', expires })
 
         router.push('phone-sign-up')
 
@@ -132,7 +132,7 @@ const SignUp: React.FC = () => {
             <Checkbox variantColor="green" borderColor="#ed8936" size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
             {
               cpfNumber ? (
-                <InputMask  mask="999.999.999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CPF" />
+                <InputMask mask="999.999.999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CPF" />
               ) : (
                   <InputMask mask="99.999.999/9999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CNPJ" />
                 )

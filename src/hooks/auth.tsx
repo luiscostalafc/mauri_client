@@ -33,8 +33,6 @@ interface AuthContextData {
 }
 
 
-
-
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 const AuthProvider: React.FC = ({ children }) => {
