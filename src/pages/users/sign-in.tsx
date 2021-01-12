@@ -57,15 +57,15 @@ const SignIn: React.FC = () => {
           password: data.password
         })
 
-        if (user.inactive) {
-          addToast({
-            type: 'info',
-            title: 'Cadastro em análise',
-            description: 'Seu cadastro está em fase de análise, em breve você receberá um e-mail. Obrigado!'
-          })
-        } else {
+        // if (user.inactive === true) {
+        //   addToast({
+        //     type: 'info',
+        //     title: 'Cadastro em análise',
+        //     description: 'Seu cadastro está em fase de análise, em breve você receberá um e-mail. Obrigado!'
+        //   })
+        // } else {
           router.push('/')
-        }
+        // }
 
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -108,14 +108,18 @@ const SignIn: React.FC = () => {
             <Link href="forgot-password">
               <a>Esqueci minha senha</a>
             </Link>
+
           </Form>
 
-          <Link href="sign-up">
-            <a>
-              <FiLogIn />
+              <Link href="sign-up">
+              <a>
+                <FiLogIn />
               Criar conta
             </a>
-          </Link>
+            </Link>
+
+
+
         </AnimationContainer>
       </Content>
 

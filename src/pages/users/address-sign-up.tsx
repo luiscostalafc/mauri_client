@@ -18,7 +18,7 @@ import {
   ImageCart,
 } from '../../styles/pages/address-sign-up'
 
-import api from '../../services/api'
+import { post } from '../../services/api'
 
 import { useToast } from '../../hooks/toast'
 
@@ -74,7 +74,7 @@ const AddressSignUp: React.FC = () => {
        const userData = { ...data, user_id: userId}
 
 
-        const response= await api.post('addresses', userData)
+        const response= await post('addresses', userData)
         console.log(response)
 
         router.push('sign-in')

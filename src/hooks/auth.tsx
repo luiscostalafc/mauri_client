@@ -12,6 +12,7 @@ interface User {
   rg: string
   cpf_cnpj: string
   inactive: boolean
+  avatar_url: string
 }
 
 interface AuthState {
@@ -30,8 +31,6 @@ interface AuthContextData {
   signOut(): void
   updateUser(user: User): void
 }
-
-
 
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -84,7 +83,7 @@ const AuthProvider: React.FC = ({ children }) => {
         user
       })
     },
-    [setData]
+    [setData, data.token]
   )
 
   return (

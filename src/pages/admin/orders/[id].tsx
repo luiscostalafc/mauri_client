@@ -17,10 +17,6 @@ import { validateForm } from '../../../services/validateForm'
 
 
 
-
-
-
-
 interface OrderProps {
   id: string
   name: string

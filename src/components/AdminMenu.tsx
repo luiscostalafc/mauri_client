@@ -1,12 +1,12 @@
-import React, { ReactNode } from 'react'
-import { Button, Box, ButtonGroup } from '@chakra-ui/core'
+import { Box, Button, ButtonGroup } from '@chakra-ui/core'
 import Link from 'next/link'
-
+import React from 'react'
 import { AiFillCar } from 'react-icons/ai'
-import { GrBike, GrBook } from 'react-icons/gr'
 import { FaMotorcycle } from 'react-icons/fa'
-import { GoTools } from 'react-icons/go'
 import { GiScissors } from 'react-icons/gi'
+import { GoTools } from 'react-icons/go'
+import { GrBike, GrBook } from 'react-icons/gr'
+
 
 
 

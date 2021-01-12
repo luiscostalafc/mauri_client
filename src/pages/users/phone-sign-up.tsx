@@ -18,7 +18,7 @@ import {
   ImageCart,
 } from '../../styles/pages/phone-sign-up'
 
-import api from '../../services/api'
+import { post } from '../../services/api'
 
 import { useToast } from '../../hooks/toast'
 
@@ -93,7 +93,7 @@ const PhoneSignUp: React.FC = () => {
 
         console.log(dataUser)
 
-        const response = await api.post('phones', dataUser)
+        const response = await post('phones', dataUser)
 
         console.log(response)
 
