@@ -93,7 +93,7 @@ export default function Excel() {
   ];
   return (
     <Template
-      content={(
+      content={
         <Form style={{ width: '80vh' }} ref={formRef} onSubmit={handleSubmit}>
           <Bread admin breads={breads} />
           <Heading size="md">Upload de produtos via Excel</Heading>
@@ -107,7 +107,7 @@ export default function Excel() {
             Inserir
           </Button>
         </Form>
-      )}
+      }
       slider={<AdminMenu />}
       group={<></>}
     />
