@@ -2,64 +2,49 @@ import { Heading } from '@chakra-ui/core';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRouter } from 'next/router';
-import React, { useCallback, useRef } from 'react';
-import * as Yup from 'yup';
+import React, { useCallback, useRef, useState } from 'react';
 import AdminMenu from '../../../components/AdminMenu';
 import Bread from '../../../components/Breadcrumb';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import Template from '../../../components/Template';
-import {
-  creationToast,
-  validationErrorToast
-} from '../../../config/toastMessages';
+import { creationToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
 import { post } from '../../../services/api';
-import { validateForm } from '../../../services/validateForm';
 import {
   checkExtension,
   checkFormat,
+  formatSend,
   formatSheet,
   sheetToJson
 } from '../../../utils/uploadExcel';
 
-interface FormData {
-  excel: File;
-}
-
-const schema = Yup.object().shape({
-  excel: Yup.string().required('Excel é obrigatório'),
-});
-
 export default function Excel() {
   const formRef = useRef<FormHandles>(null);
-
+  const [excel, setExcel] = useState();
   const { addToast } = useToast();
 
   const router = useRouter();
 
-  const handleSubmit = useCallback(
-    async (data: FormData) => {
-      const validationErrors = await validateForm(schema, data);
-      if (validationErrors) {
-        formRef.current?.setErrors(validationErrors);
-        addToast(validationErrorToast);
-        return;
-      }
+  const handleSubmit = useCallback(async () => {
+    if (!excel) {
+      addToast({
+        title: 'Erro',
+        description: 'Excel é obrigatório',
+      });
+      return;
+    }
 
-      const response = await post('products', data);
-      if (response) {
-        addToast(creationToast.success);
-        router.push('/admin/products');
-      }
-    },
-    [router, addToast],
-  );
+    const response = await post('products/excel', excel);
+    if (response) {
+      addToast(creationToast.success);
+      router.push('/admin/products');
+    }
+  }, [excel, router, addToast]);
 
   const handleInput = async (e: any) => {
     const file = e.target.files[0];
     const validExtension = checkExtension(file);
-    console.log(validExtension);
     if (!validExtension) {
       const msg = 'Extenção inválida! deve ser: csv, ods, xlsx, xls';
       addToast({
@@ -70,7 +55,6 @@ export default function Excel() {
       return;
     }
     const parsedData = await sheetToJson(file);
-
     const validFormat = checkFormat(parsedData);
     if (!validFormat) {
       addToast({
@@ -84,7 +68,11 @@ export default function Excel() {
         title: 'ERRO!',
         description: formatSheet.join(', '),
       });
+      return;
     }
+
+    const excel = formatSend(parsedData);
+    setExcel(excel);
   };
 
   const breads = [
@@ -93,7 +81,7 @@ export default function Excel() {
   ];
   return (
     <Template
-      content={
+      content={(
         <Form style={{ width: '80vh' }} ref={formRef} onSubmit={handleSubmit}>
           <Bread admin breads={breads} />
           <Heading size="md">Upload de produtos via Excel</Heading>
@@ -107,7 +95,7 @@ export default function Excel() {
             Inserir
           </Button>
         </Form>
-      }
+      )}
       slider={<AdminMenu />}
       group={<></>}
     />
