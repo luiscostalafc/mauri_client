@@ -1,13 +1,13 @@
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
-import  Button  from  '../../../components/Button'
-import Template from '../../../components/Template'
+import { FiDelete, FiEdit } from 'react-icons/fi'
 import AdminMenu from '../../../components/AdminMenu'
-import { deleteData, get } from '../../../services/api'
-import { useRouter } from 'next/router'
-import {FiEdit, FiDelete} from 'react-icons/fi'
-
+import Button from '../../../components/Button'
+import Template from '../../../components/Template'
 import { useToast } from '../../../hooks/toast'
+import { deleteData, get } from '../../../services/api'
+
 
 const moduleName = 'users'
 export async function getStaticProps() {

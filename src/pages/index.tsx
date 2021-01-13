@@ -1,29 +1,28 @@
-import { Flex, Grid, Image } from '@chakra-ui/core'
-import { useRouter } from 'next/router'
-import React, { useState } from 'react'
-import AutoExpandMenu from '../../src/components/ExpandMenu/AutoExpandMenu'
-import Footer from '../../src/components/Footer'
-//import Group from '../../src/components/Group'
-import Header from '../../src/components/Header'
-import LeftMenu from '../../src/components/LeftMenu'
-import ProductContent from '../../src/components/Product/ProductContent'
-import RightMenu from '../../src/components/RightMenu'
-import Slider from '../../src/components/Slider'
-import CartHeader from '../../src/components/CartHeader'
-
+import { Flex, Grid, Image } from '@chakra-ui/core';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import CartHeader from '../components/CartHeader';
+import AutoExpandMenu from '../components/ExpandMenu/AutoExpandMenu';
+import Footer from '../components/Footer';
+// import Group from '../../src/components/Group'
+import Header from '../components/Header';
+import LeftMenu from '../components/LeftMenu';
+import ProductContent from '../components/Product/ProductContent';
+import RightMenu from '../components/RightMenu';
+import Slider from '../components/Slider';
 
 export default function Index() {
-  const router = useRouter()
+  const router = useRouter();
   // const [transform, setTransform] = useState('scaleX(0)')
-  const [group, setGroup] = useState(1)
+  const [group, setGroup] = useState(1);
 
-  function handleProduct (filter: any) {
-    const queryParams = new URLSearchParams(filter).toString()
-    router.push({ pathname: '/', query: queryParams },)
+  function handleProduct(filter: any) {
+    const queryParams = new URLSearchParams(filter).toString();
+    router.push({ pathname: '/', query: queryParams });
   }
 
   function handleClick(e: number) {
-    setGroup(e)
+    setGroup(e);
     // if (transform === 'scaleX(0)') {
     //   setTransform('scaleX(1)')
     // } else {
@@ -48,15 +47,13 @@ export default function Index() {
       justifyContent="center"
       justifyItems="center"
     >
-
       <Flex
         gridArea="header"
         flexDir="row"
         alignItems="flex-start"
         width={{ sm: '68%', md: '100%' }}
       >
-
-          <Header />
+        <Header />
       </Flex>
 
       <Flex
@@ -66,9 +63,9 @@ export default function Index() {
         maxWidth="100vh"
         wrap="wrap"
       >
-         <ProductContent/>
+        <ProductContent />
       </Flex>
-       {/* <Flex
+      {/* <Flex
         maxHeight="100vh"
         gridArea="group"
         flexDir="row"
@@ -87,11 +84,7 @@ export default function Index() {
         <LeftMenu />
       </Flex>
       <Flex gridArea="logo" alignItems="flex-start" justify="center">
-        <Image
-          size="70%"
-          src="/liconnection.svg"
-          alt="Liconnection"
-        />
+        <Image size="70%" src="/liconnection.svg" alt="Liconnection" />
       </Flex>
       <Flex gridArea="logoR" alignItems="flex-start" justify="center">
         <CartHeader />
@@ -114,7 +107,11 @@ export default function Index() {
         flexDir="column"
         alignItems="flex-start"
       >
-        <Slider onClick={(e: { target: { value: number } }) => handleClick(e.target.value)} />
+        <Slider
+          onClick={(e: { target: { value: number } }) =>
+            handleClick(e.target.value)
+          }
+        />
       </Flex>
 
       <Flex
@@ -124,12 +121,15 @@ export default function Index() {
         flexDirection="row"
         position="relative"
       >
-        <AutoExpandMenu group={group}/*transform={transform}*/ onSearch={handleProduct} />
+        <AutoExpandMenu
+          group={group}
+          /* transform={transform} */ onSearch={handleProduct}
+        />
       </Flex>
 
       <Flex gridArea="footer" flexDir="row" alignItems="flex-start">
         <Footer />
       </Flex>
     </Grid>
-  )
+  );
 }
