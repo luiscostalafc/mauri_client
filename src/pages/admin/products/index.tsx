@@ -99,6 +99,12 @@ export default function Index({ data }: any) {
           >
             Criar
           </Button>
+          <Button
+            typeColor="create"
+            onClick={() => router.push(`/admin/${moduleName}/excel`)}
+          >
+            Inserção via Excel
+          </Button>
           <DataTable
             title="Produtos"
             columns={columns}
