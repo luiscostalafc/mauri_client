@@ -59,7 +59,7 @@ export default function Index() {
       <Flex
         gridArea="products"
         flexDir="row"
-        paddingTop={10} // seccond line of filter
+        // paddingTop={10} // seccond line of filter
         maxWidth="100vh"
         wrap="wrap"
       >
@@ -109,8 +109,7 @@ export default function Index() {
       >
         <Slider
           onClick={(e: { target: { value: number } }) =>
-            handleClick(e.target.value)
-          }
+            handleClick(e.target.value)}
         />
       </Flex>
 

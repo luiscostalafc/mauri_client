@@ -1,11 +1,11 @@
 import React from 'react';
-import DashboardAdminButtons from '../../components/DashboardAdminButtons';
-import DashboardAdminTable from '../../components/DashboardAdminTable';
-import Template from '../../components/Template';
-import { get } from '../../services/api';
+import DashboardAdminButtons from '../../../components/DashboardAdminButtons';
+import DashboardAdminTable from '../../../components/DashboardAdminTable';
+import Template from '../../../components/Template';
+import { get } from '../../../services/api';
 
 const moduleName = 'users';
-export async function getStaticProps(): any {
+export async function getStaticProps() {
   const response = await get(moduleName);
   return {
     props: {
@@ -14,7 +14,7 @@ export async function getStaticProps(): any {
   };
 }
 
-export default function Index({ data }: any): any {
+export default function Index({ data }: any) {
   const columns = [
     { name: 'Pedido (data/hs)', selector: 'name', sortable: true },
     { name: 'Faturado (data/hs)', selector: 'username', sortable: true },
@@ -38,18 +38,16 @@ export default function Index({ data }: any): any {
 
   return (
     <Template
-      content={
+      content={(
         <>
-          (
           <DashboardAdminButtons />
           <DashboardAdminTable
             data={data}
             columns={columns}
-            title="Painel Administrativo - Preparando"
+            title="Painel Administrativo - Completadas"
           />
-          )
         </>
-      }
+      )}
     />
   );
 }
