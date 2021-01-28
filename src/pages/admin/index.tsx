@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import DashboardAdminButtons from '../../components/DashboardAdminButtons';
 import DashboardAdminTable from '../../components/DashboardAdminTable';
@@ -5,7 +8,7 @@ import Template from '../../components/Template';
 import { get } from '../../services/api';
 
 const moduleName = 'users';
-export async function getStaticProps(): any {
+export async function getStaticProps() {
   const response = await get(moduleName);
   return {
     props: {

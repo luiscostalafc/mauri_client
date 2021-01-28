@@ -9,6 +9,5 @@ export const Label = styled.label`
     margin-right: 33px;
     align-self: auto;
     width: 136px;
-
   }
 `;

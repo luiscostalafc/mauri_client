@@ -1,7 +1,6 @@
-import React from 'react'
-import { Button, ButtonGroup } from '@chakra-ui/core'
-
-import { FaCartArrowDown } from 'react-icons/fa'
+import { Button, ButtonGroup } from '@chakra-ui/core';
+import React from 'react';
+import { FaCartArrowDown } from 'react-icons/fa';
 
 const RightMenu: React.FC = () => {
   return (
@@ -33,7 +32,7 @@ const RightMenu: React.FC = () => {
         Vendas
       </Button>
     </ButtonGroup>
-  )
-}
+  );
+};
 
-export default RightMenu
+export default RightMenu;

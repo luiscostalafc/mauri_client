@@ -1,7 +1,6 @@
-import React from 'react'
-import { Button, ButtonGroup, Flex } from '@chakra-ui/core'
-
-import { FaCartArrowDown } from 'react-icons/fa'
+import { Button, ButtonGroup, Flex } from '@chakra-ui/core';
+import React from 'react';
+import { FaCartArrowDown } from 'react-icons/fa';
 
 const LeftMenu: React.FC = () => {
   return (
@@ -35,7 +34,7 @@ const LeftMenu: React.FC = () => {
         </Button>
       </ButtonGroup>
     </Flex>
-  )
-}
+  );
+};
 
-export default LeftMenu
+export default LeftMenu;

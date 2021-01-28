@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, InputHTMLAttributes } from 'react';
+/* eslint-disable no-param-reassign */
 import { useField } from '@unform/core';
-
+import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 import { Label } from './styles';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {

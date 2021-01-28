@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Button, ButtonGroup } from '@material-ui/core';
-import { AnyAaaaRecord } from 'dns';
 import Link from 'next/link';
 import React from 'react';
 // import { Container } from './styles';
@@ -12,7 +15,7 @@ const DashboardAdminButtons: React.FC = () => {
 
     const columnDelimiter = ',';
     const lineDelimiter = '\n';
-    const keys = Object.keys(data[0]);
+    const keys = Object.keys(array[0]);
 
     result = '';
     result += keys.join(columnDelimiter);
@@ -49,9 +52,10 @@ const DashboardAdminButtons: React.FC = () => {
     // link.click();
   }
 
-  const Export = ({ onExport }) => (
-    <Button onClick={e => onExport(e.target.value)}>Export</Button>
-  );
+  // const Export = ({ onExport }: any) => (
+  //   <Button onClick={e => onExport(e?.target?.value ?? '')}>Export</Button>
+  // );
+
   function importRequests(value: any) {
     console.log(value);
   }
@@ -67,7 +71,7 @@ const DashboardAdminButtons: React.FC = () => {
 
   // const actionsMemo = React.useMemo(() => downloadCSV(data), []);
   return (
-    <ButtonGroup variant="outlined" spacing="6">
+    <ButtonGroup variant="outlined">
       <Link href="/admin">
         <Button size="large" type="button">
           Preparando

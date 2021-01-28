@@ -1,44 +1,38 @@
-import React, { useRef, useCallback } from 'react'
-import Link from 'next/link'
-import { Form } from '@unform/web'
-import * as Yup from 'yup'
-
+/* eslint-disable no-restricted-globals */
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import { useRouter } from 'next/router';
+import React, { useCallback, useRef } from 'react';
+import { FiLock } from 'react-icons/fi';
+// @ts-ignore
 import querySearch from 'stringquery';
-
-
-import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
-import { FormHandles } from '@unform/core'
-
-import { useRouter } from 'next/router'
-import { useToast } from '../../hooks/toast'
-import getValidationErrors from '../../utils/getValidationErrors'
-
-import Button from '../../components/Button'
-import Input from '../../components/Input'
-
+import * as Yup from 'yup';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import { useToast } from '../../hooks/toast';
+import api from '../../services/api';
 import {
+  AnimationContainer,
+  Background,
   Container,
   Content,
-  Background,
   Image,
-  ImageCart,
-  AnimationContainer
-} from '../../styles/pages/sign-in'
-import api from '../../services/api'
+  // eslint-disable-next-line prettier/prettier
+  ImageCart
+} from '../../styles/pages/sign-in';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 interface ResetPasswordFormData {
-  password: string
+  password: string;
   password_confirmation: string;
 }
 
-
 const ResetPassword: React.FC = () => {
-  const formRef = useRef<FormHandles>(null)
+  const formRef = useRef<FormHandles>(null);
 
   const { addToast } = useToast();
 
   const router = useRouter();
-
 
   const handleSubmit = useCallback(
     async (data: ResetPasswordFormData) => {
@@ -56,11 +50,11 @@ const ResetPassword: React.FC = () => {
           abortEarly: false,
         });
 
-         const {  password, password_confirmation} = data;
+        const { password, password_confirmation } = data;
 
-         const query = querySearch(location.search);
+        const query = querySearch(location.search);
 
-         const token = new URLSearchParams(query).get('token');
+        const token = new URLSearchParams(query).get('token');
 
         if (!token) {
           throw new Error();
@@ -73,24 +67,23 @@ const ResetPassword: React.FC = () => {
         });
 
         router.push('/users/login');
-
       } catch (err) {
-       if (err instanceof Yup.ValidationError) {
-         const errors = getValidationErrors(err);
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
 
-         formRef.current?.setErrors(errors);
+          formRef.current?.setErrors(errors);
 
-         return;
-       }
+          return;
+        }
 
-       addToast({
-         type: 'error',
-         title: 'Erro ao resetar  senha',
-         description: 'Ocorreu um erro ao resetar usa senha, tente novamente',
-       });
+        addToast({
+          type: 'error',
+          title: 'Erro ao resetar  senha',
+          description: 'Ocorreu um erro ao resetar usa senha, tente novamente',
+        });
       }
     },
-    [addToast, router, location.search],
+    [addToast, router],
   );
 
   return (
@@ -124,9 +117,7 @@ const ResetPassword: React.FC = () => {
         <Image src="../home.png" />
       </Background>
     </Container>
-  )
-}
+  );
+};
 
-export default ResetPassword
-
-
+export default ResetPassword;

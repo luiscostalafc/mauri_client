@@ -22,7 +22,7 @@ export default function Login() {
           borderWidth="1px"
         >
           <Box w="100%" height="30px" bg="tomato">
-            <Avatar size="lg" bg="tomato"/>
+            <Avatar size="lg" bg="tomato" />
           </Box>
           <Box w="100%" padding={50}>
             <Text fontSize="25px">Já tenho cadastro</Text>

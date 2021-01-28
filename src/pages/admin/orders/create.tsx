@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Heading } from '@chakra-ui/core';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -11,6 +13,7 @@ import SelectInput from '../../../components/SelectInput';
 import Template from '../../../components/Template';
 import {
   creationToast,
+  // eslint-disable-next-line prettier/prettier
   validationErrorToast
 } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
@@ -59,7 +62,7 @@ export default function Create() {
       };
     });
     setUsers(input);
-  }, [users]);
+  }, []);
 
   const getProviders = useCallback(async () => {
     const response = await get('users');
@@ -70,7 +73,7 @@ export default function Create() {
       };
     });
     setProviders(input);
-  }, [users]);
+  }, []);
 
   const getStatus = useCallback(async () => {
     const response = await get('order-statuses');
@@ -81,7 +84,7 @@ export default function Create() {
       };
     });
     setOrderStatus(input);
-  }, [users]);
+  }, []);
 
   const getDeliveries = useCallback(async () => {
     const response = await get('deliveries');
@@ -92,14 +95,14 @@ export default function Create() {
       };
     });
     setDeliveries(input);
-  }, [users]);
+  }, []);
 
   useEffect(() => {
     getUsers();
     getProviders();
     getStatus();
     getDeliveries();
-  }, []);
+  }, [getDeliveries, getProviders, getStatus, getUsers]);
 
   const handleSubmit = useCallback(
     async (data: FormData) => {

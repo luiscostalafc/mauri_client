@@ -1,143 +1,140 @@
-import React, { useCallback, useRef, useState } from 'react'
-import { Switch, Flex, Progress } from "@chakra-ui/core";
-import Cookies from 'js-cookie'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { FiArrowLeft, FiPhone, FiSmartphone, FiFileText } from 'react-icons/fi'
-import { FaWhatsapp } from 'react-icons/fa'
-import { FormHandles } from '@unform/core'
-import { Form } from '@unform/web'
-import * as Yup from 'yup'
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import { Flex, Progress, Switch } from '@chakra-ui/core';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import Cookies from 'js-cookie';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useCallback, useRef, useState } from 'react';
+import { FaWhatsapp } from 'react-icons/fa';
+import { FiArrowLeft, FiFileText, FiPhone, FiSmartphone } from 'react-icons/fi';
+import * as Yup from 'yup';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import InputMask from '../../components/InputMask';
+import SelectInput from '../../components/SelectInput';
+import { useToast } from '../../hooks/toast';
+import { post } from '../../services/api';
 import {
-  DivContainer, Container,
-  Content,
   AnimationContainer,
-  SelectContainer,
   Background,
+  Container,
+  Content,
+  DivContainer,
   ImageCart,
-} from '../../styles/pages/phone-sign-up'
-
-import { post } from '../../services/api'
-
-import { useToast } from '../../hooks/toast'
-
-import getValidationErrors from '../../utils/getValidationErrors'
-
-import Button from '../../components/Button'
-import Input from '../../components/Input'
-import InputMask from '../../components/InputMask'
-import SelectInput from '../../components/SelectInput'
-
-
+  // eslint-disable-next-line prettier/prettier
+  SelectContainer
+} from '../../styles/pages/phone-sign-up';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 interface PhoneFormData {
-  user_id: string
-  type: string
-  phone: string
-  whatsapp: boolean
-  obs?: string
+  user_id: string;
+  type: string;
+  phone: string;
+  whatsapp: boolean;
+  obs?: string;
 }
-
 
 const PhoneSignUp: React.FC = () => {
   const [searchOption, setSearchOption] = useState('residencial');
   const [optionSelected, setOptionSelected] = useState<string>('');
   const [withWhatsapp, setWithWhatsapp] = useState(true);
 
-
-  const formRef = useRef<FormHandles>(null)
-  const { addToast } = useToast()
-  const router = useRouter()
-
+  const formRef = useRef<FormHandles>(null);
+  const { addToast } = useToast();
+  const router = useRouter();
 
   const optionsSelect = [
     { value: 'residencial', label: 'residencial' },
     { value: 'comercial', label: 'comercial' },
   ];
 
-
   const toggleOption = useCallback(() => {
-    setSearchOption(state => (state === 'residencial' ? 'comercial' : 'residencial'));
+    setSearchOption(state =>
+      state === 'residencial' ? 'comercial' : 'residencial',
+    );
     setOptionSelected('');
     formRef.current?.clearField('residencial');
   }, []);
 
   function handleWhatsapp() {
-    withWhatsapp ? setWithWhatsapp(false) : setWithWhatsapp(true)
+    withWhatsapp ? setWithWhatsapp(false) : setWithWhatsapp(true);
   }
-  console.log(withWhatsapp)
-
-
 
   const handleSubmit = useCallback(
-
     async (data: PhoneFormData) => {
       try {
-        const userId = Cookies.get('@Liconnection:user')
+        const userId = Cookies.get('@Liconnection:user');
 
-        formRef.current?.setErrors({})
+        formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
           type: Yup.string().required('Tipo do telefone deve ser selecionado'),
           phone: Yup.string().required('Preencha o telefone com o DDD'),
           whatsapp: Yup.boolean().default(true),
           obs: Yup.string().optional(),
-          user_id: Yup.string().default(userId)
-        })
+          user_id: Yup.string().default(userId),
+        });
         await schema.validate(data, {
-          abortEarly: false
-        })
+          abortEarly: false,
+        });
 
-        const dataUser = { ...data, user_id: userId, whatsapp: withWhatsapp }
+        const dataUser = { ...data, user_id: userId, whatsapp: withWhatsapp };
 
-        console.log(dataUser)
+        await post('phones', dataUser);
 
-        const response = await post('phones', dataUser)
-
-        console.log(response)
-
-        router.push('address-sign-up')
+        router.push('address-sign-up');
 
         addToast({
           type: 'success',
           title: 'Cadastro dos dados telefônicos realizado com sucesso!',
-          description: 'Agora falta pouco... Preencha seu dados de endereço'
-        })
+          description: 'Agora falta pouco... Preencha seu dados de endereço',
+        });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
-          const errors = getValidationErrors(err)
+          const errors = getValidationErrors(err);
 
-          formRef.current?.setErrors(errors)
+          formRef.current?.setErrors(errors);
 
-          console.log(err)
-          return
-
+          return;
         }
 
         addToast({
           type: 'info',
           title: 'Erro no cadastro',
           description:
-            'Ocorreu um erro ao fazer seu cadastro. Verifique seus dados e tente novamente.'
-        })
+            'Ocorreu um erro ao fazer seu cadastro. Verifique seus dados e tente novamente.',
+        });
       }
     },
-    [addToast, router]
-  )
+    [addToast, router, withWhatsapp],
+  );
 
   return (
     <Container>
       <Content>
         <AnimationContainer>
-
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Contatos</h1>
 
-            <Progress margin={5} hasStripe isAnimated value={50} size="sm" color="green" />
+            <Progress
+              margin={5}
+              hasStripe
+              isAnimated
+              value={50}
+              size="sm"
+              color="green"
+            />
 
             <DivContainer>
-              <InputMask mask="(99) 9999-9999" name="phone" icon={FiPhone} placeholder="número com o DDD" />
+              <InputMask
+                mask="(99) 9999-9999"
+                name="phone"
+                icon={FiPhone}
+                placeholder="número com o DDD"
+              />
               <SelectContainer>
                 <SelectInput
                   name="type"
@@ -149,18 +146,31 @@ const PhoneSignUp: React.FC = () => {
             </DivContainer>
 
             <DivContainer>
-              <InputMask mask="(99) 99999-9999" name="phone" icon={FiSmartphone} placeholder="número com o DDD" />
+              <InputMask
+                mask="(99) 99999-9999"
+                name="phone"
+                icon={FiSmartphone}
+                placeholder="número com o DDD"
+              />
               <Flex justify="center" align="center" width={200}>
-                <FaWhatsapp style={{ marginTop: 10 }} size="50px" color="128c7e" />
-                <Switch color="green" name="whatsapp" id="whatsapp" onChange={handleWhatsapp} isChecked={withWhatsapp} />
+                <FaWhatsapp
+                  style={{ marginTop: 10 }}
+                  size="50px"
+                  color="128c7e"
+                />
+                <Switch
+                  color="green"
+                  name="whatsapp"
+                  id="whatsapp"
+                  onChange={handleWhatsapp}
+                  isChecked={withWhatsapp}
+                />
               </Flex>
             </DivContainer>
 
             <Input name="obs" icon={FiFileText} placeholder="Observações" />
 
-            <Button type="submit">
-              Avançar para endereço {'>>'}
-            </Button>
+            <Button type="submit">Avançar para endereço {'>>'}</Button>
           </Form>
           <Link href="sign-up">
             <a>
@@ -175,8 +185,7 @@ const PhoneSignUp: React.FC = () => {
         <ImageCart src="../cart_no_background.png" />
       </Background>
     </Container>
-  )
-}
+  );
+};
 
-export default PhoneSignUp
-
+export default PhoneSignUp;

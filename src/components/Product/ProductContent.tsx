@@ -1,3 +1,7 @@
+/* eslint-disable no-shadow */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable react/react-in-jsx-scope */
 import { Flex, Spinner } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -6,117 +10,120 @@ import useSWR from 'swr';
 import { get } from '../../services/api';
 import styles from '../../styles/pages/styles.module.css';
 import ProductLoading from './loading';
-import ProductItem from '../Product/ProductItem';
-import { IProduct } from '../../types'
+import ProductItem from './ProductItem';
 
 interface ImageProduct {
-  asset: object | string
-  mine: object | string
-  path: object | string
+  asset: object | string;
+  mine: object | string;
+  path: object | string;
 }
 
 interface ProductItemProps {
-  id: string | any
-  group: string | any
-  group_id?: number
-  subgroup?: string
-  name: string
-  automaker?: string //montadora
-  model?: string //modelo
-  year_start?: string //ano-fab
-  year_end?: string // ano-mod
-  engine?: string // motor
-  type?: string //combust.
-  complement?: string //chassi
-  obs: string //descrição
-  price: number //valor
-  image: ImageProduct | any
+  id?: string | any;
+  group?: string | any;
+  group_id?: number;
+  subgroup?: string;
+  name?: string;
+  automaker?: string; // montadora
+  model?: string; // modelo
+  year_start?: string; // ano-fab
+  year_end?: string; // ano-mod
+  engine?: string; // motor
+  type?: string; // combust.
+  complement?: string; // chassi
+  obs?: string; // descrição
+  price?: number; // valor
+  image?: ImageProduct | any;
 }
 
-
 const ProductContent: React.FC<ProductItemProps> = () => {
-
   const router = useRouter();
   const queryParams = router.query;
 
   const [currentPage, setCurrentPage] = useState(0);
-  const { data, error, mutate, isValidating } = useSWR('products', get)
-  const [dataProducts, setDataProducts ] = useState<ProductItemProps[]>([])
+  const { data, error, mutate, isValidating } = useSWR('products', get);
+  const [dataProducts, setDataProducts] = useState<ProductItemProps[]>([]);
 
+  useEffect(() => {
+    async function dataProductsApi(queryParams: any) {
+      const query = new URLSearchParams(queryParams).toString();
+      const response = queryParams
+        ? await get(`products?${query}`)
+        : await get('products');
+      setDataProducts(response);
+    }
 
- useEffect(() => {
-  async function dataProductsApi(queryParams: any) {
-    const query = new URLSearchParams(queryParams).toString()
-    const response = queryParams ? await get(`products?${query}`) : await get('products')
-    setDataProducts(response)
-  }
+    dataProductsApi(queryParams);
+  }, [queryParams]);
 
-  dataProductsApi(queryParams)
-
- }, [queryParams])
-
-
-  function handlePageClick({ selected: selectedPage }: any){
+  function handlePageClick({ selected: selectedPage }: any) {
     setCurrentPage(selectedPage);
-}
+  }
 
   const maxPage = 9;
   const offset = currentPage * maxPage;
 
-  const currentPageData = dataProducts?.length ? dataProducts
-    .slice(offset, offset + maxPage)
-    .map((item) => (<ProductItem
-      key={item.id}
-      group={item.group}
-      name={item.name}
-      obs={item.obs}
-      image={item.image}
-      price={item.price}
-    />))
-    : 'Não há produtos para exibir'
+  const currentPageData = dataProducts?.length
+    ? dataProducts
+        .slice(offset, offset + maxPage)
+        .map(item => (
+          <ProductItem
+            key={item.id}
+            group={item.group}
+            name={item.name}
+            obs={item.obs}
+            image={item.image}
+            price={item.price}
+          />
+        ))
+    : 'Não há produtos para exibir';
 
-  const pageCount = Math.ceil(dataProducts?.length / maxPage)
+  const pageCount = Math.ceil(dataProducts?.length / maxPage);
 
   useEffect(() => {
     mutate();
-  },[queryParams])
+  }, [mutate, queryParams]);
 
-  if (error) return <div>Ocorreu algum erro ao carregar os produtos verifique sua conexão ou atualize a página</div>
-  if (!data) return <ProductLoading/>
+  if (error)
+    return (
+      <div>
+        Ocorreu algum erro ao carregar os produtos verifique sua conexão ou
+        atualize a página
+      </div>
+    );
+  if (!data) return <ProductLoading />;
 
   return (
     <>
+      {isValidating && (
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="orange.300"
+          size="xl"
+        />
+      )}
 
-    {isValidating &&
+      {!isValidating && (
+        <Flex flexDir="row" marginLeft={-20} maxWidth="100vh" wrap="wrap">
+          {currentPageData}
 
-    <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="orange.300" size="xl"/>
-    }
+          <ReactPaginate
+            pageCount={10}
+            pageRangeDisplayed={pageCount ?? 1}
+            marginPagesDisplayed={pageCount ?? 1}
+            previousLabel="← Previous"
+            nextLabel="Next →"
+            onPageChange={handlePageClick}
+            containerClassName={styles.pagination}
+            previousLinkClassName={styles.pagination__link}
+            nextLinkClassName={styles.pagination__link}
+          />
+        </Flex>
+      )}
+    </>
+  );
+};
 
-    {!isValidating &&
-
-      <Flex flexDir="row" marginLeft={-20}  maxWidth="100vh" wrap="wrap">
-        {currentPageData}
-
-        <ReactPaginate
-        pageCount={10}
-        pageRangeDisplayed={pageCount ?? 1}
-        marginPagesDisplayed={pageCount ?? 1}
-        previousLabel={"← Previous"}
-        nextLabel={"Next →"}
-        onPageChange={handlePageClick}
-        containerClassName={styles.pagination}
-        previousLinkClassName={styles.pagination__link}
-        nextLinkClassName={styles.pagination__link}
-
-      />
-      </Flex>
-
-
-    }
-
-</>
-
-  )
-}
-
-export default ProductContent
+export default ProductContent;

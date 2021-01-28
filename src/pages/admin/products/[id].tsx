@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Heading } from '@chakra-ui/core';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -11,6 +14,7 @@ import Input from '../../../components/Input';
 import Template from '../../../components/Template';
 import {
   updateToast,
+  // eslint-disable-next-line prettier/prettier
   validationErrorToast
 } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';

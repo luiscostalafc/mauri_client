@@ -1,29 +1,29 @@
-import styled, { css} from 'styled-components'
-import { shade } from 'polished'
+import { shade } from 'polished';
+import styled, { css } from 'styled-components';
 
 interface ContainerProps {
-  isLoading: number
-  typeColor?: 'create'| 'edit' | 'delete' | 'info'
+  isLoading: number;
+  typeColor?: 'create' | 'edit' | 'delete' | 'info';
 }
 
 const backgroundVariationColor = {
   create: css`
-   background: #68D391;
+    background: #68d391;
   `,
   edit: css`
-  background: #63B3ED;
+    background: #63b3ed;
   `,
   delete: css`
-  background: #FC8181;
+    background: #fc8181;
   `,
   info: css`
-  background: #FF9000;
-  `
-}
+    background: #ff9000;
+  `,
+};
 
 export const Container = styled.button<ContainerProps>`
   background: #ff9000;
-  ${(props) => backgroundVariationColor[props.typeColor || 'info']}
+  ${props => backgroundVariationColor[props.typeColor || 'info']}
   height: 56px;
   border-radius: 10px;
   border: 0;
@@ -45,5 +45,4 @@ export const Container = styled.button<ContainerProps>`
   @media (max-width: 700px) {
     width: 50%;
   }
-
-`
+`;

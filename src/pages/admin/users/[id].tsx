@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Checkbox, Heading } from '@chakra-ui/core';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -11,10 +14,8 @@ import Input from '../../../components/Input';
 import InputMask from '../../../components/InputMask';
 import InputToogle from '../../../components/InputToogle';
 import Template from '../../../components/Template';
-import {
-  updateToast,
-  validationErrorToast
-} from '../../../config/toastMessages';
+// eslint-disable-next-line prettier/prettier
+import { updateToast, validationErrorToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
 import { get, put } from '../../../services/api';
 import { validateForm } from '../../../services/validateForm';
@@ -69,7 +70,7 @@ export default function Edit() {
       setCpfNumber(true);
       setChecked(false);
     }
-  }, [cpfNumber, check]);
+  }, [cpfNumber]);
 
   const handleSubmit = useCallback(
     async (data: FormData) => {
@@ -97,8 +98,8 @@ export default function Edit() {
   ];
   return (
     <Template
-      content={(
-          <Form style={{ width: '80vh'}} ref={formRef} onSubmit={handleSubmit}>
+      content={
+        <Form style={{ width: '80vh' }} ref={formRef} onSubmit={handleSubmit}>
           <Bread admin breads={breads} />
           <Heading>Usuários</Heading>
           <Input name="name" placeholder="Nome" />
@@ -116,14 +117,17 @@ export default function Edit() {
           >
             Mudar para CNPJ
           </Checkbox>
-        {
-              cpfNumber ? (
+          {cpfNumber ? (
             <InputMask
               mask="999.999.999-99"
               name="cpf_cnpj"
               placeholder="CPF"
             />
-                <InputMask mask="99.999.999/9999-99" name="cpf_cnpj" placeholder="CNPJ" />
+          ) : (
+            <InputMask
+              mask="99.999.999/9999-99"
+              name="cpf_cnpj"
+              placeholder="CNPJ"
             />
           )}
           <Input name="nick" placeholder="Apelido" />
@@ -135,7 +139,7 @@ export default function Edit() {
           </Button>
         </Form>
       }
-      slider={<AdminMenu  />}
+      slider={<AdminMenu />}
       group={<></>}
     />
   );

@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Heading } from '@chakra-ui/core';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -10,10 +13,8 @@ import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import InputToogle from '../../../components/InputToogle';
 import Template from '../../../components/Template';
-import {
-  updateToast,
-  validationErrorToast
-} from '../../../config/toastMessages';
+// eslint-disable-next-line prettier/prettier
+import { updateToast, validationErrorToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
 import { get, put } from '../../../services/api';
 import { validateForm } from '../../../services/validateForm';
@@ -69,7 +70,7 @@ export default function Edit() {
   return (
     <Template
       content={
-        (<Form style={{ width: '80vh' }} ref={formRef} onSubmit={handleSubmit}>
+        <Form style={{ width: '80vh' }} ref={formRef} onSubmit={handleSubmit}>
           <Bread admin breads={breads} />
           <Heading>Entregas</Heading>
           <Input name="delivery" placeholder="Entrega" />
@@ -77,7 +78,7 @@ export default function Edit() {
           <Button typeColor="create" type="submit">
             Editar
           </Button>
-        </Form>)
+        </Form>
       }
       slider={<AdminMenu />}
       group={<></>}

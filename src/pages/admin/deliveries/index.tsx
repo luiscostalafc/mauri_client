@@ -1,3 +1,10 @@
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable no-alert */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable react/display-name */
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
@@ -41,7 +48,7 @@ export async function getStaticProps() {
 
 export default function Index({ data }: any) {
   const [dataVal, setData] = useState(data);
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const { addToast } = useToast();
 
@@ -86,7 +93,7 @@ export default function Index({ data }: any) {
 
   return (
     <Template
-      content={(
+      content={
         <>
           <Button
             typeColor="create"
@@ -106,7 +113,7 @@ export default function Index({ data }: any) {
             customStyles={customStyles}
           />
         </>
-      )}
+      }
     />
   );
 }

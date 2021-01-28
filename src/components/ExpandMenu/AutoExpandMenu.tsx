@@ -1,3 +1,8 @@
+/* eslint-disable react/no-children-prop */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Button, Flex, Input, Select } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
@@ -46,7 +51,7 @@ const qualities: Options[] = [
   { value: 'original', label: 'Original' },
 ];
 
-const AutoExpandMenu = ({ group, onSearch, ...props }) => {
+const AutoExpandMenu = ({ group, onSearch, ...props }: any) => {
   const [selectedGroup, setGroup] = useState(1);
   const [filter, setFilter] = useState({});
 
@@ -55,17 +60,14 @@ const AutoExpandMenu = ({ group, onSearch, ...props }) => {
   }, [group]);
 
   function hasInGroup(values: number[]) {
-    return values.indexOf(Number(selectedGroup)) != -1;
+    return values.indexOf(Number(selectedGroup)) !== -1;
   }
 
-  const handleChange = (event: {
-    target: { name: string | number; value: any };
-  }) => {
+  const handleChange = (event: any) => {
     if (event?.target?.name) {
-      const auxValues = { ...filter };
+      const auxValues: any = { ...filter };
       const { name } = event.target;
       auxValues[name] = event.target.value;
-      console.log(auxValues);
       setFilter(auxValues);
     }
   };
@@ -255,10 +257,15 @@ const AutoExpandMenu = ({ group, onSearch, ...props }) => {
               ))}
           </Select>
         )}
-        <Input name="name" onChange={handleChange} maxW="120px" size="md" />
+        <Input
+          name="name"
+          onChange={(e: any) => handleChange(e)}
+          maxW="120px"
+          size="md"
+        />
         <Button
-          onClick={() => onSearch(filter)}
           children
+          onClick={() => onSearch(filter)}
           size="md"
           leftIcon={FaSearch}
         />

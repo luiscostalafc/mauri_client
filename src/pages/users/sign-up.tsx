@@ -1,69 +1,59 @@
-import React, { useCallback, useRef, useState } from 'react'
-import Cookies from 'js-cookie'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { FiArrowLeft, FiMail, FiUser, FiLock, FiTrello } from 'react-icons/fi'
-import { FormHandles } from '@unform/core'
-import { Form } from '@unform/web'
-import * as Yup from 'yup'
-
-import { Checkbox, Progress } from "@chakra-ui/core";
-
-
-import { post } from '../../services/api'
-
-import { useToast } from '../../hooks/toast'
-
-import getValidationErrors from '../../utils/getValidationErrors'
-
-import Button from '../../components/Button'
-import Input from '../../components/Input'
-import InputMask from '../../components/InputMask'
-
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { Checkbox, Progress } from '@chakra-ui/core';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import Cookies from 'js-cookie';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useCallback, useRef, useState } from 'react';
+import { FiArrowLeft, FiLock, FiMail, FiTrello, FiUser } from 'react-icons/fi';
+import * as Yup from 'yup';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import InputMask from '../../components/InputMask';
+import { useToast } from '../../hooks/toast';
+import { post } from '../../services/api';
 import {
-  Container,
-  Content,
   AnimationContainer,
   Background,
-  ImageCart,
-} from '../../styles/pages/sign-up'
+  Container,
+  Content,
+  // eslint-disable-next-line prettier/prettier
+  ImageCart
+} from '../../styles/pages/sign-up';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 interface SignUpFormData {
-  name: string
-  username: string
-  activity: string
-  email: string
-  rg: string
-  cpf_cnpj: string
-  password: string
+  name: string;
+  username: string;
+  activity: string;
+  email: string;
+  rg: string;
+  cpf_cnpj: string;
+  password: string;
 }
 
-
 const SignUp: React.FC = () => {
-  const [cpfNumber, setCpfNumber] = useState(true)
-  const [check, setChecked] = useState(false)
-  const formRef = useRef<FormHandles>(null)
-  const { addToast } = useToast()
-  const router = useRouter()
-
+  const [cpfNumber, setCpfNumber] = useState(true);
+  const [check, setChecked] = useState(false);
+  const formRef = useRef<FormHandles>(null);
+  const { addToast } = useToast();
+  const router = useRouter();
 
   const handleOptionDocument = useCallback(() => {
     if (cpfNumber === true) {
-      setCpfNumber(false)
-      setChecked(true)
+      setCpfNumber(false);
+      setChecked(true);
     } else {
-      setCpfNumber(true)
-      setChecked(false)
+      setCpfNumber(true);
+      setChecked(false);
     }
-
-
-  }, [cpfNumber, check])
-
+  }, [cpfNumber]);
 
   const handleSubmit = useCallback(
     async (data: SignUpFormData) => {
       try {
-        formRef.current?.setErrors({})
+        formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome completo'),
@@ -74,70 +64,96 @@ const SignUp: React.FC = () => {
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
-          password: Yup.string().min(6, 'No mínimo 6 dígitos')
-        })
+          password: Yup.string().min(6, 'No mínimo 6 dígitos'),
+        });
         await schema.validate(data, {
-          abortEarly: false
-        })
+          abortEarly: false,
+        });
 
-        const response = await post('users', data)
+        const response = await post('users', data);
 
+        const expires = new Date();
+        expires.setTime(expires.getTime() + response.expires_in * 1000);
+        Cookies.set('@Liconnection:user', JSON.stringify(response.id), {
+          path: '/',
+          expires,
+        });
 
-        let expires = new Date()
-        expires.setTime(expires.getTime() + (response.expires_in * 1000))
-        Cookies.set('@Liconnection:user', JSON.stringify(response.id), { path: '/', expires })
-
-        router.push('phone-sign-up')
+        router.push('phone-sign-up');
 
         addToast({
           type: 'success',
           title: 'Dados de usuário preenchidos com sucesso!',
-          description: 'Você agora preencherá os dados telefônicos'
-        })
+          description: 'Você agora preencherá os dados telefônicos',
+        });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
-          const errors = getValidationErrors(err)
+          const errors = getValidationErrors(err);
 
-          formRef.current?.setErrors(errors)
+          formRef.current?.setErrors(errors);
 
-          return
+          return;
         }
 
         addToast({
           type: 'info',
           title: 'Erro no cadastro',
           description:
-            'Ocorreu um erro ao fazer seu cadastro. Verifique seus dados e tente novamente.'
-        })
+            'Ocorreu um erro ao fazer seu cadastro. Verifique seus dados e tente novamente.',
+        });
       }
     },
-    [addToast, router]
-  )
+    [addToast, router],
+  );
 
   return (
     <Container>
       <Content>
         <AnimationContainer>
-
-
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Dados do usuário</h1>
 
-            <Progress margin={5} hasStripe isAnimated value={1} size="sm" color="green" />
+            <Progress
+              margin={5}
+              hasStripe
+              isAnimated
+              value={1}
+              size="sm"
+              color="green"
+            />
 
             <Input name="name" icon={FiUser} placeholder="Nome completo" />
             <Input name="username" icon={FiUser} placeholder="Usuário" />
-            <Input name="activity" icon={FiUser} placeholder="Ocupação Profissional" />
+            <Input
+              name="activity"
+              icon={FiUser}
+              placeholder="Ocupação Profissional"
+            />
             <Input name="rg" icon={FiTrello} placeholder="RG" />
-            <Checkbox variantColor="green" borderColor="#ed8936" size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
-            {
-              cpfNumber ? (
-                <InputMask mask="999.999.999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CPF" />
-              ) : (
-                  <InputMask mask="99.999.999/9999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CNPJ" />
-                )
-
-            }
+            <Checkbox
+              variantColor="green"
+              borderColor="#ed8936"
+              size="sm"
+              onChange={handleOptionDocument}
+              defaultIsChecked={check}
+            >
+              Mudar para CNPJ
+            </Checkbox>
+            {cpfNumber ? (
+              <InputMask
+                mask="999.999.999-99"
+                name="cpf_cnpj"
+                icon={FiTrello}
+                placeholder="CPF"
+              />
+            ) : (
+              <InputMask
+                mask="99.999.999/9999-99"
+                name="cpf_cnpj"
+                icon={FiTrello}
+                placeholder="CNPJ"
+              />
+            )}
 
             <Input name="email" icon={FiMail} placeholder="E-mail" />
             <Input
@@ -147,9 +163,7 @@ const SignUp: React.FC = () => {
               placeholder="Senha"
             />
 
-            <Button type="submit">
-              Avançar {'>>'}
-            </Button>
+            <Button type="submit">Avançar {'>>'}</Button>
           </Form>
           <Link href="sign-in">
             <a>
@@ -163,8 +177,7 @@ const SignUp: React.FC = () => {
         <ImageCart src="../cart_no_background.png" />
       </Background>
     </Container>
-  )
-}
+  );
+};
 
-export default SignUp
-
+export default SignUp;

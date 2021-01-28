@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import {
   AccordionHeader,
   AccordionIcon,
@@ -7,8 +9,9 @@ import {
   Box,
   Button,
   Flex,
-
-  Image, Link
+  Image,
+  // eslint-disable-next-line prettier/prettier
+  Link
 } from '@chakra-ui/core';
 import React, { useCallback } from 'react';
 import { FaCartArrowDown } from 'react-icons/fa';
@@ -18,16 +21,15 @@ import { IProduct } from '../../../types';
 import { formatPrice } from '../../../utils/formatPrice';
 import Filter from '../../Filter';
 
-
 interface ProductItemProps {
-  id: number;
-  name: string;
-  price: number;
+  id?: number;
+  name?: string;
+  price?: number;
   quantity?: number;
-  group: string;
-  obs: string;
-  image: string;
-  product: IProduct;
+  group?: string;
+  obs?: string;
+  image?: string;
+  product?: IProduct;
 }
 
 const ProductItem: React.FC<ProductItemProps> = ({
@@ -46,9 +48,10 @@ const ProductItem: React.FC<ProductItemProps> = ({
   //    return state.cart.failedStockCheck.includes(id)
   //  })
 
-  const handleAddProductToCart = useCallback(() => {
-    dispatch(addProductToCartRequest(product));
-  }, [dispatch, product]);
+  const handleAddProductToCart = useCallback(
+    () => dispatch(addProductToCartRequest(product)),
+    [dispatch, product],
+  );
 
   return (
     <Flex
@@ -117,7 +120,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
           </AccordionItem>
         </Box>
 
-        <Box marginTop={3}>{formatPrice(price)}</Box>
+        <Box marginTop={3}>{formatPrice(price ?? 2)}</Box>
         <Box marginTop={5} alignItems="center" justifyContent="center">
           <Button
             type="button"

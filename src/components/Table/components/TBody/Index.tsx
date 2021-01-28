@@ -1,3 +1,3 @@
-import TBody from './TBody'
+import TBody from './TBody';
 
-export default TBody
+export default TBody;

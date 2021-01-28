@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/jsx-curly-newline */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Flex, Grid, Image } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -109,7 +112,8 @@ export default function Index() {
       >
         <Slider
           onClick={(e: { target: { value: number } }) =>
-            handleClick(e.target.value)}
+            handleClick(e.target.value)
+          }
         />
       </Flex>
 

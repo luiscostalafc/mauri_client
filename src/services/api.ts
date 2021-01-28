@@ -1,11 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable no-console */
+/* eslint-disable consistent-return */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import PrettyLog from '@emersonbraun/pretty-log';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import PrettyLog from '@emersonbraun/pretty-log';
 import { useToast } from '../hooks/toast';
 
 const completeURL = (URL: string) => {
   const cleanURL = URL.charAt(0) === '/' ? URL.slice(1, URL.length) : URL;
-  return `${process.env.REACT_APP_API_URL}/api/${cleanURL}`;
+  const baseUrl = process.env.REACT_APP_API_URL ?? 'http://localhost:3333';
+  return `${baseUrl}/api/${cleanURL}`;
 };
 
 declare type Headers = {
@@ -14,7 +20,7 @@ declare type Headers = {
   Authorization: string | null;
 };
 
-const headers = {
+let headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
   Authorization: null,
@@ -72,7 +78,7 @@ function logResponse(response: any) {
     status: response.status,
     returntype: response.headers.returntype,
     message: response.headers.message,
-    'data (count)': response.data.length || 0,
+    'data (count)': response?.data?.length || 0,
   };
   PrettyLog.success(`Response ${mainData.path}:`);
   console.table(mainData);
@@ -82,11 +88,11 @@ function setResponse(response: any, silent = false, debug = false) {
   redirectIfNotLogged(response);
   if (debug) logResponse(response);
   if (!silent) showNotify(response);
-  return response.data;
+  return response.data ?? [];
 }
 
 export async function get(URL: string, silent = true, debug = false) {
-  const headers = setHeaders();
+  headers = setHeaders();
   if (debug) console.time('⌚️ time to get request');
   try {
     const response = await axios.get(completeURL(URL), { headers });
@@ -105,7 +111,7 @@ export async function post(
   silent = false,
   debug = false,
 ) {
-  const headers = setHeaders(file);
+  headers = setHeaders(file);
   if (debug) console.time('⌚️ time to post request');
   try {
     const response = await axios.post(completeURL(URL), data, { headers });
@@ -123,7 +129,7 @@ export async function put(
   silent = false,
   debug = false,
 ) {
-  const headers = setHeaders();
+  headers = setHeaders();
   if (debug) console.time('⌚️ time to put request');
   try {
     const response = await axios.put(completeURL(URL), data, { headers });
@@ -136,7 +142,7 @@ export async function put(
 }
 
 export async function deleteData(URL: string, silent = false, debug = false) {
-  const headers = setHeaders();
+  headers = setHeaders();
   if (debug) console.time('⌚️ time to delete request');
   try {
     const response = await axios.delete(completeURL(URL), { headers });

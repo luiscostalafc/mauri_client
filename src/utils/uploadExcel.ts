@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-restricted-syntax */
+// @ts-ignore
 import xlsxParser from 'xls-parser';
 
 export const formatSheet = [
@@ -89,7 +92,7 @@ export const checkExtension = (file: { type: string }): boolean =>
 
 export const checkFormat = (file: any): unknown => {
   let isValid = true;
-  const sheets = Object.entries(file);
+  const sheets: Array<{ 0: string; 1: string[] }> = Object.entries(file);
   for (const sheet of sheets) {
     const firstline = sheet[1][0]; // sheet[0] is the name of sheet
     const keys = Object.keys(firstline);
@@ -108,7 +111,7 @@ export const checkFormat = (file: any): unknown => {
   return isValid;
 };
 
-const getSynonyms = (s: string | null): unknown[] => {
+const getSynonyms = (s: string | null) => {
   if (s?.includes('|') || s?.length) {
     if (!s?.includes('|')) return s;
     return s.split('|');
@@ -181,7 +184,7 @@ const getProductsData = (s: { [x: string]: any }) => {
 };
 
 export const formatSend = (file: any) => {
-  const sheet = Object.entries(file)[0][1];
+  const sheet: any = Object.entries(file)[0][1];
   const products = [];
   let nulableLines = 0;
 

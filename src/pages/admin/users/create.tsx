@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable react/jsx-wrap-multilines */
 import { Checkbox } from '@chakra-ui/core';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -11,10 +14,8 @@ import Input from '../../../components/Input';
 import InputMask from '../../../components/InputMask';
 import InputToogle from '../../../components/InputToogle';
 import Template from '../../../components/Template';
-import {
-  creationToast,
-  validationErrorToast
-} from '../../../config/toastMessages';
+// eslint-disable-next-line prettier/prettier
+import { creationToast, validationErrorToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
 import { post } from '../../../services/api';
 import { validateForm } from '../../../services/validateForm';
@@ -59,7 +60,7 @@ export default function Create() {
       setCpfNumber(true);
       setChecked(false);
     }
-  }, [cpfNumber, check]);
+  }, [cpfNumber]);
 
   const handleSubmit = useCallback(
     async (data: FormData) => {
@@ -80,7 +81,7 @@ export default function Create() {
         router.push('/admin/users');
       }
     },
-    [router, addToast],
+    [router, schema, addToast],
   );
   const breads = [
     { href: 'users', label: 'Usuários lista' },
@@ -88,8 +89,8 @@ export default function Create() {
   ];
   return (
     <Template
-      content={(
-          <Form style={{ width: '80vh'}} ref={formRef} onSubmit={handleSubmit}>
+      content={
+        <Form style={{ width: '80vh' }} ref={formRef} onSubmit={handleSubmit}>
           <Bread admin breads={breads} />
           <h1>Usuários</h1>
           <Input name="name" placeholder="Nome" />
@@ -107,15 +108,17 @@ export default function Create() {
           >
             Mudar para CNPJ
           </Checkbox>
-        {
-              cpfNumber ? (
+          {cpfNumber ? (
             <InputMask
               mask="999.999.999-99"
               name="cpf_cnpj"
               placeholder="CPF"
             />
           ) : (
-                <InputMask mask="99.999.999/9999-99" name="cpf_cnpj" placeholder="CNPJ" />
+            <InputMask
+              mask="99.999.999/9999-99"
+              name="cpf_cnpj"
+              placeholder="CNPJ"
             />
           )}
           <Input name="nick" placeholder="Apelido" />

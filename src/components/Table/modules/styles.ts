@@ -1,4 +1,6 @@
-import { css } from '@emotion/core'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import { css } from '@emotion/core';
 
 export const cell = ({ theme }: any) => css`
   text-align: left;
@@ -11,4 +13,4 @@ export const cell = ({ theme }: any) => css`
   &:last-child {
     padding-right: ${theme.space[4]}};
   }
-`
+`;

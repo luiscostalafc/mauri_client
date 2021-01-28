@@ -1,3 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable no-alert */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable react/display-name */
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
@@ -91,7 +98,7 @@ export default function Index({ data }: any) {
 
   return (
     <Template
-      content={(
+      content={
         <>
           <Button
             typeColor="create"
@@ -116,7 +123,7 @@ export default function Index({ data }: any) {
             responsive
           />
         </>
-      )}
+      }
       slider={<AdminMenu />}
       group={<></>}
     />

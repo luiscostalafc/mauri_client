@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRouter } from 'next/router';
@@ -11,6 +13,7 @@ import InputToogle from '../../../components/InputToogle';
 import Template from '../../../components/Template';
 import {
   creationToast,
+  // eslint-disable-next-line prettier/prettier
   validationErrorToast
 } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
@@ -56,7 +59,7 @@ export default function Create() {
   ];
   return (
     <Template
-      content={(
+      content={
         <Form style={{ width: '80vh' }} ref={formRef} onSubmit={handleSubmit}>
           <Bread admin breads={breads} />
           <h1>Entregas</h1>
@@ -66,7 +69,7 @@ export default function Create() {
             Inserir
           </Button>
         </Form>
-      )}
+      }
       slider={<AdminMenu />}
       group={<></>}
     />

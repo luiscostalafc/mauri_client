@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React from 'react';
 import DashboardAdminButtons from '../../../components/DashboardAdminButtons';
 import DashboardAdminTable from '../../../components/DashboardAdminTable';
@@ -38,7 +41,7 @@ export default function Index({ data }: any) {
 
   return (
     <Template
-      content={(
+      content={
         <>
           <DashboardAdminButtons />
           <DashboardAdminTable
@@ -47,7 +50,7 @@ export default function Index({ data }: any) {
             title="Painel Administrativo - Garantia"
           />
         </>
-      )}
+      }
     />
   );
 }

@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Heading } from '@chakra-ui/core';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -16,6 +19,7 @@ import {
   checkFormat,
   formatSend,
   formatSheet,
+  // eslint-disable-next-line prettier/prettier
   sheetToJson
 } from '../../../utils/uploadExcel';
 
@@ -71,8 +75,8 @@ export default function Excel() {
       return;
     }
 
-    const excel = formatSend(parsedData);
-    setExcel(excel);
+    const excelData: any = formatSend(parsedData);
+    setExcel(excelData);
   };
 
   const breads = [
@@ -81,7 +85,7 @@ export default function Excel() {
   ];
   return (
     <Template
-      content={(
+      content={
         <Form style={{ width: '80vh' }} ref={formRef} onSubmit={handleSubmit}>
           <Bread admin breads={breads} />
           <Heading size="md">Upload de produtos via Excel</Heading>
@@ -95,7 +99,7 @@ export default function Excel() {
             Inserir
           </Button>
         </Form>
-      )}
+      }
       slider={<AdminMenu />}
       group={<></>}
     />

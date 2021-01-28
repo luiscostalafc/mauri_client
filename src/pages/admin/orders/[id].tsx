@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable react/jsx-wrap-multilines */
 import { Heading } from '@chakra-ui/core';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -11,6 +13,7 @@ import SelectInput from '../../../components/SelectInput';
 import Template from '../../../components/Template';
 import {
   updateToast,
+  // eslint-disable-next-line prettier/prettier
   validationErrorToast
 } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
@@ -58,9 +61,8 @@ export default function Edit() {
         label: r.name,
       };
     });
-    console.log(input);
     setUsers(input);
-  }, [users]);
+  }, []);
 
   const getProviders = useCallback(async () => {
     const response = await get('users');
@@ -70,9 +72,8 @@ export default function Edit() {
         label: r.name,
       };
     });
-    console.log(input);
     setProviders(input);
-  }, [users]);
+  }, []);
 
   const getStatus = useCallback(async () => {
     const response = await get('order-statuses');
@@ -82,9 +83,8 @@ export default function Edit() {
         label: r.order_status,
       };
     });
-    console.log(input);
     setOrderStatus(input);
-  }, [users]);
+  }, []);
 
   const getDeliveries = useCallback(async () => {
     const response = await get('deliveries');
@@ -94,9 +94,8 @@ export default function Edit() {
         label: r.delivery,
       };
     });
-    console.log(input);
     setDeliveries(input);
-  }, [users]);
+  }, []);
 
   useEffect(() => {
     getUsers();
@@ -108,7 +107,7 @@ export default function Edit() {
         formRef.current?.setData({ ...response }),
       );
     }
-  }, [id]);
+  }, [getDeliveries, getProviders, getStatus, getUsers, id]);
 
   const { addToast } = useToast();
 
@@ -135,8 +134,12 @@ export default function Edit() {
   ];
   return (
     <Template
-      content={(
-          <Form style={{ maxWidth: '100%'}} ref={formRef} onSubmit={handleSubmit}>
+      content={
+        <Form
+          style={{ maxWidth: '100%' }}
+          ref={formRef}
+          onSubmit={handleSubmit}
+        >
           <Bread admin breads={breads} />
           <Heading>Pedidos</Heading>
           <SelectInput name="user_id" placeholder="Usuário" options={users} />

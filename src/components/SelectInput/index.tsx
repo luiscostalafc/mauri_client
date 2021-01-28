@@ -1,11 +1,14 @@
-import React, { useRef, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-param-reassign */
+import { useField } from '@unform/core';
+import React, { useEffect, useRef } from 'react';
 import ReactSelect, {
   OptionTypeBase,
   Props as SelectProps,
   StylesConfig,
-  Theme,
+  // eslint-disable-next-line prettier/prettier
+  Theme
 } from 'react-select';
-import { useField } from '@unform/core';
 
 interface Props extends SelectProps<OptionTypeBase> {
   name: string;
@@ -23,9 +26,8 @@ const SelectInput: React.FC<Props> = ({ name, ...rest }) => {
       fontSize: 18,
       height: 62,
       width: 200,
-      marginTop:7,
-      paddingRight:5,
-
+      marginTop: 7,
+      paddingRight: 5,
     }),
     option: styels => ({
       ...styels,

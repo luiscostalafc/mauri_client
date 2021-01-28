@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Button, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
@@ -6,7 +8,7 @@ import DataTable from 'react-data-table-component';
 export default function DashboardAdminTable({ data, columns, title }: any) {
   const [dataVal, setData] = useState(data);
 
-  const FilterComponent = ({ filterText, onFilter, onClear }) => (
+  const FilterComponent = ({ filterText, onFilter, onClear }: any) => (
     <>
       <TextField
         id="search"
@@ -27,7 +29,7 @@ export default function DashboardAdminTable({ data, columns, title }: any) {
     false,
   );
   const filteredItems = dataVal.filter(
-    item =>
+    (item: { name: string }) =>
       item.name && item.name.toLowerCase().includes(filterText.toLowerCase()),
   );
 
@@ -41,7 +43,8 @@ export default function DashboardAdminTable({ data, columns, title }: any) {
 
     return (
       <FilterComponent
-        onFilter={e => setFilterText(e.target.value)}
+        onFilter={(e: { target: { value: React.SetStateAction<string> } }) =>
+          setFilterText(e.target.value)}
         onClear={handleClear}
         filterText={filterText}
       />

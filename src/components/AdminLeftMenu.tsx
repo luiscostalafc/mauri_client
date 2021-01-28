@@ -1,11 +1,9 @@
-import React from 'react'
+import { Button, ButtonGroup, Flex } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
+import React from 'react';
+import { FaCartArrowDown } from 'react-icons/fa';
 
-import { Button, ButtonGroup, Flex } from '@chakra-ui/core'
-import { FaCartArrowDown } from 'react-icons/fa'
-
-
-const AdminLeftMenu: React.FC = (props) => {
+const AdminLeftMenu: React.FC = props => {
   const router = useRouter();
 
   return (
@@ -16,7 +14,9 @@ const AdminLeftMenu: React.FC = (props) => {
           leftIcon={FaCartArrowDown}
           variantColor="green"
           variant="solid"
-          onClick={() => { router.push('/admin/products') }}
+          onClick={() => {
+            router.push('/admin/products');
+          }}
           {...props}
         >
           Produtos
@@ -28,7 +28,9 @@ const AdminLeftMenu: React.FC = (props) => {
           variantColor="yellow"
           variant="solid"
           marginLeft={0.5}
-          onClick={() => { router.push("/admin/stock-operations") }}
+          onClick={() => {
+            router.push('/admin/stock-operations');
+          }}
           {...props}
         >
           Estoque
@@ -40,14 +42,16 @@ const AdminLeftMenu: React.FC = (props) => {
           variantColor="blue"
           variant="solid"
           marginLeft={0.5}
-          onClick={() => { router.push("/admin/users") }}
+          onClick={() => {
+            router.push('/admin/users');
+          }}
           {...props}
         >
           Usuários
         </Button>
       </ButtonGroup>
     </Flex>
-  )
-}
+  );
+};
 
-export default AdminLeftMenu
+export default AdminLeftMenu;

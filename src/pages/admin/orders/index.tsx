@@ -1,3 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-alert */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable react/display-name */
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable react/jsx-wrap-multilines */
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
@@ -7,7 +14,6 @@ import Template from '../../../components/Template';
 import { deletionToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
 import { deleteData, get } from '../../../services/api';
-
 
 const customStyles = {
   rows: {
@@ -55,9 +61,20 @@ export default function Index({ data }: any) {
       name: 'Actions',
       cell: (row: { id: number }) => (
         <>
-  <Button typeColor="edit" onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}>Editar</Button>
-  <Button style={{marginLeft: 5}} typeColor="delete" onClick={() => remove(row.id)}>Apagar</Button>
-</>
+          <Button
+            typeColor="edit"
+            onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}
+          >
+            Editar
+          </Button>
+          <Button
+            style={{ marginLeft: 5 }}
+            typeColor="delete"
+            onClick={() => remove(row.id)}
+          >
+            Apagar
+          </Button>
+        </>
       ),
     },
   ];
@@ -73,9 +90,14 @@ export default function Index({ data }: any) {
 
   return (
     <Template
-      content={(
-          <>
-        <Button typeColor="create" onClick={() => router.push(`/admin/${moduleName}/create`)}>Criar</Button>
+      content={
+        <>
+          <Button
+            typeColor="create"
+            onClick={() => router.push(`/admin/${moduleName}/create`)}
+          >
+            Criar
+          </Button>
           <DataTable
             title="Pedidos"
             columns={columns}
