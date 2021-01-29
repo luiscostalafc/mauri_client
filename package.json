@@ -43,7 +43,6 @@
     "next": "^10.0.6",
     "next-compose-plugins": "^2.2.0",
     "next-images": "^1.4.1",
-    "next-on-netlify": "^2.8.6",
     "next-optimized-images": "^2.6.1",
     "next-redux-saga": "^4.1.2",
     "nprogress": "^0.2.0",
