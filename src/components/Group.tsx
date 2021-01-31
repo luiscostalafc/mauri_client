@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Image,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
-  // eslint-disable-next-line prettier/prettier
   Tabs
 } from '@chakra-ui/core';
 import React from 'react';

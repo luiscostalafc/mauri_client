@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 /* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import PrettyLog from '@emersonbraun/pretty-log';
+//import PrettyLog from '@emersonbraun/pretty-log';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useToast } from '../hooks/toast';
@@ -80,8 +80,8 @@ function logResponse(response: any) {
     message: response.headers.message,
     'data (count)': response?.data?.length || 0,
   };
-  PrettyLog.success(`Response ${mainData.path}:`);
-  console.table(mainData);
+  // PrettyLog.success(`Response ${mainData.path}:`);
+  // console.table(mainData);
 }
 
 function setResponse(response: any, silent = false, debug = false) {
@@ -100,7 +100,7 @@ export async function get(URL: string, silent = true, debug = false) {
     return setResponse(response, silent, debug);
   } catch (e) {
     if (debug) console.timeEnd('⌚️ time to get request');
-    PrettyLog.error(`Error to get ${URL}`, e);
+    // PrettyLog.error(`Error to get ${URL}`, e);
   }
 }
 
@@ -119,7 +119,7 @@ export async function post(
     return setResponse(response, silent, debug);
   } catch (e) {
     if (debug) console.timeEnd('⌚️ time to post request');
-    PrettyLog.error(`Error to post ${URL}`, e);
+    // PrettyLog.error(`Error to post ${URL}`, e);
   }
 }
 
@@ -137,7 +137,7 @@ export async function put(
     return setResponse(response, silent, debug);
   } catch (e) {
     if (debug) console.timeEnd('⌚️ time to put request');
-    PrettyLog.error(`Error to put ${URL}`, e);
+    // PrettyLog.error(`Error to put ${URL}`, e);
   }
 }
 
@@ -150,7 +150,7 @@ export async function deleteData(URL: string, silent = false, debug = false) {
     return setResponse(response, silent, debug);
   } catch (e) {
     if (debug) console.timeEnd('⌚️ time to delete request');
-    PrettyLog.error(`Error to delete ${URL}`, e);
+    // PrettyLog.error(`Error to delete ${URL}`, e);
   }
 }
 

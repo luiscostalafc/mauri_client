@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-param-reassign */
+import { CSSProperties } from '@material-ui/styles/index';
 import { useField } from '@unform/core';
 import React, { useEffect, useRef } from 'react';
 import ReactSelect, {
   OptionTypeBase,
   Props as SelectProps,
   StylesConfig,
-  // eslint-disable-next-line prettier/prettier
-  Theme
+  Theme,
+
 } from 'react-select';
 
 interface Props extends SelectProps<OptionTypeBase> {
@@ -18,8 +17,8 @@ const SelectInput: React.FC<Props> = ({ name, ...rest }) => {
   const selectRef = useRef(null);
   const { fieldName, defaultValue, registerField } = useField(name);
 
-  const colourStyles: StylesConfig = {
-    control: styles => ({
+  const colourStyles: StylesConfig<OptionTypeBase, boolean> = {
+    control: (styles: CSSProperties ) => ({
       ...styles,
       borderRadius: 10,
       borderColor: '#a0aec0',
@@ -29,8 +28,8 @@ const SelectInput: React.FC<Props> = ({ name, ...rest }) => {
       marginTop: 7,
       paddingRight: 5,
     }),
-    option: styels => ({
-      ...styels,
+    option: (styles: CSSProperties) => ({
+      ...styles,
       color: '#F4EDE8',
     }),
   };
