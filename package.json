@@ -48,7 +48,7 @@
     "next-redux-saga": "^4.1.2",
     "nprogress": "^0.2.0",
     "polished": "^4.0.5",
-    "react": "16.13.1",
+    "react": "17",
     "react-cookie": "^4.0.3",
     "react-data-table-component": "^6.11.4",
     "react-dom": "^16.13.1",
@@ -78,6 +78,8 @@
     "swr": "^0.3.6",
     "use-async-effect": "^2.2.2",
     "uuidv4": "^6.2.3",
+    "webpack": "5",
+    "webpack-cli": "4",
     "xls-parser": "^3.1.0",
     "yup": "^0.29.3"
   },
