@@ -26,9 +26,6 @@ export default function Login() {
           </Box>
           <Box w="100%" padding={50}>
             <Text fontSize="25px">Já tenho cadastro</Text>
-            <Text fontSize="20px">
-              Informe seu e-mail ou CPF/CNPJ para se autenticar
-            </Text>
 
             <Button color="white" size="lg" background="tomato" padding={20}>
               ACESSAR
