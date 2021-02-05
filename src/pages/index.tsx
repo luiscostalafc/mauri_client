@@ -1,138 +1,64 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react/jsx-curly-newline */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Flex, Grid, Image } from '@chakra-ui/core';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import CartHeader from '../components/CartHeader';
-import AutoExpandMenu from '../components/ExpandMenu/AutoExpandMenu';
-import Footer from '../components/Footer';
-// import Group from '../../src/components/Group'
-import Header from '../components/Header';
-import LeftMenu from '../components/LeftMenu';
-import ProductContent from '../components/Product/ProductContent';
-import RightMenu from '../components/RightMenu';
-import Slider from '../components/Slider';
+import { Avatar, Box, Button, Text } from '@chakra-ui/core';
+// import { Center, Container, Text } from '@chakra-ui/react';
+import Link from 'next/link';
+import React from 'react';
 
-export default function Index() {
-  const router = useRouter();
-  // const [transform, setTransform] = useState('scaleX(0)')
-  const [group, setGroup] = useState(1);
-
-  function handleProduct(filter: any) {
-    const queryParams = new URLSearchParams(filter).toString();
-    router.push({ pathname: '/', query: queryParams });
-  }
-
-  function handleClick(e: number) {
-    setGroup(e);
-    // if (transform === 'scaleX(0)') {
-    //   setTransform('scaleX(1)')
-    // } else {
-    //   setTransform('scaleX(0)')
-    // }
-  }
-
+export default function Login() {
   return (
-    <Grid
-      as="main"
-      height="100vh"
-      width="100vh"
-      templateColumns="100% 50% 100% 50%"
-      templateRows="200px 80px auto 0px 80px"
-      templateAreas="
-    '. logo header logoR'
-    '. menuL filter  menuR'
-    '. slider products products'
-    '. . . .'
-    '. . footer .'
-    "
-      justifyContent="center"
-      justifyItems="center"
-    >
-      <Flex
-        gridArea="header"
-        flexDir="row"
-        alignItems="flex-start"
-        width={{ sm: '68%', md: '100%' }}
-      >
-        <Header />
-      </Flex>
+    <>
+      <Box as="button" borderRadius="xs" w="100%" height="100%" padding={50}>
+        <Text fontSize="50px" color="tomato">
+          Login
+        </Text>
+      </Box>
 
-      <Flex
-        gridArea="products"
-        flexDir="row"
-        // paddingTop={10} // seccond line of filter
-        maxWidth="100vh"
-        wrap="wrap"
-      >
-        <ProductContent />
-      </Flex>
-      {/* <Flex
-        maxHeight="100vh"
-        gridArea="group"
-        flexDir="row"
-        alignItems="flex-start"
-        justifyContent="flex-start"
-      >
-        <Group />
-      </Flex> */}
-      <Flex
-        marginTop={-8}
-        gridArea="menuL"
-        flexDir="row"
-        alignItems="flex-start"
-        justifyContent="flex-start"
-      >
-        <LeftMenu />
-      </Flex>
-      <Flex gridArea="logo" alignItems="flex-start" justify="center">
-        <Image size="70%" src="/liconnection.svg" alt="Liconnection" />
-      </Flex>
-      <Flex gridArea="logoR" alignItems="flex-start" justify="center">
-        <CartHeader />
-      </Flex>
-      <Flex
-        marginTop={-8}
-        gridArea="menuR"
-        flexDir="row"
-        alignItems="flex-start"
-        justifyContent="flex-start"
-      >
-        <RightMenu />
-      </Flex>
+      <Link href="/users/sign-in">
+        <Box
+          as="button"
+          borderRadius="lg"
+          w="50%"
+          height="100%"
+          borderWidth="1px"
+        >
+          <Box w="100%" height="30px" bg="tomato">
+            <Avatar size="lg" bg="tomato" />
+          </Box>
+          <Box w="100%" padding={50}>
+            <Text fontSize="25px">Já tenho cadastro</Text>
+            <Text fontSize="20px">
+              Informe seu e-mail ou CPF/CNPJ para se autenticar
+            </Text>
 
-      <Flex
-        paddingTop={2}
-        paddingLeft={2}
-        marginTop={-12}
-        gridArea="slider"
-        flexDir="column"
-        alignItems="flex-start"
-      >
-        <Slider
-          onClick={(e: { target: { value: number } }) =>
-            handleClick(e.target.value)
-          }
-        />
-      </Flex>
+            <Button color="white" size="lg" background="tomato" padding={20}>
+              ACESSAR
+            </Button>
+          </Box>
+        </Box>
+      </Link>
 
-      <Flex
-        paddingTop={2}
-        id="items"
-        gridArea="filter"
-        flexDirection="row"
-        position="relative"
-      >
-        <AutoExpandMenu
-          group={group}
-          /* transform={transform} */ onSearch={handleProduct}
-        />
-      </Flex>
-
-      <Flex gridArea="footer" flexDir="row" alignItems="flex-start">
-        <Footer />
-      </Flex>
-    </Grid>
+      <Link href="/users/sign-up">
+        <Box
+          as="button"
+          borderRadius="xs"
+          w="50%"
+          height="100%"
+          borderWidth="1px"
+        >
+          <Box w="100%" height="30px" bg="grey">
+            <Avatar size="lg" bg="grey" />
+          </Box>
+          <Box w="100%" padding={50}>
+            <Text fontSize="25px">Sou novo cliente</Text>
+            <Text fontSize="20px">
+              O cadastro em nossa loja é simples e rápido
+            </Text>
+            <Button color="white" size="lg" background="grey" padding={20}>
+              CRIAR CONTA
+            </Button>
+          </Box>
+        </Box>
+      </Link>
+    </>
   );
 }

@@ -62,7 +62,7 @@ const SignIn: React.FC = () => {
         //     description: 'Seu cadastro está em fase de análise, em breve você receberá um e-mail. Obrigado!'
         //   })
         // } else {
-        router.push('/');
+        router.push('/home');
         // }
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
