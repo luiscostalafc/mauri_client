@@ -10,7 +10,7 @@ import { useToast } from '../hooks/toast';
 
 const completeURL = (URL: string) => {
   const cleanURL = URL.charAt(0) === '/' ? URL.slice(1, URL.length) : URL;
-  const baseUrl = process.env.REACT_APP_API_URL;
+  const baseUrl = process.env.REACT_APP_API_URL ?? 'https://165.227.69.226:3333';
   return `${baseUrl}/api/${cleanURL}`;
 };
 
@@ -156,7 +156,7 @@ export async function deleteData(URL: string, silent = false, debug = false) {
 
 /* ------ original ------*/
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_API_URL ?? 'https://165.227.69.226:3333',
 });
 
 export default api;
