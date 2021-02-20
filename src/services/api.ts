@@ -10,8 +10,8 @@ import { useToast } from '../hooks/toast';
 
 const completeURL = (URL: string) => {
   const cleanURL = URL.charAt(0) === '/' ? URL.slice(1, URL.length) : URL;
-  //const baseUrl = process.env.REACT_APP_API_URL ?? 'http://192.168.0.125:3333';
-  return process.env.REACT_APP_API_URL ?? `https://api.liconection.com.br/${cleanURL}`;
+  const baseUrl = process.env.POSTGRES_URI ?? 'https://api.liconection.com.br';
+  return process.env.POSTGRES_URI ?? process.env.NEXT_PUBLIC_POSTGRES_URI ?? `${baseUrl}/${cleanURL}`;
 };
 
 declare type Headers = {
@@ -156,7 +156,7 @@ export async function deleteData(URL: string, silent = false, debug = false) {
 
 /* ------ original ------*/
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL ?? 'https://api.liconection.com.br',
+  baseURL: process.env.POSTGRES_URI ?? process.env.NEXT_PUBLIC_POSTGRES_URI,
 });
 
 export default api;
