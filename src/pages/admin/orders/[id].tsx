@@ -17,7 +17,8 @@ import {
   validationErrorToast
 } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
-import { get, put } from '../../../services/api';
+//import { get, put } from '../../../services/api';
+import api from '../../../services/api';
 import { validateForm } from '../../../services/validateForm';
 
 interface OrderProps {
@@ -41,7 +42,7 @@ const schema = Yup.object().shape({
   delivery_id: Yup.number().required('Status obrigatório'),
 });
 
-const moduleName = 'orders';
+const moduleName = '/api/orders';
 export default function Edit() {
   const router = useRouter();
   const { id } = router.query;
@@ -54,8 +55,8 @@ export default function Edit() {
   const [deliveries, setDeliveries] = useState([]);
 
   const getUsers = useCallback(async () => {
-    const response = await get('users');
-    const input = response.map((r: OrderProps) => {
+    const response = await api.get('/api/users');
+    const input = response.data.map((r: OrderProps) => {
       return {
         value: r.id,
         label: r.name,
@@ -65,8 +66,8 @@ export default function Edit() {
   }, []);
 
   const getProviders = useCallback(async () => {
-    const response = await get('users');
-    const input = response.map((r: OrderProps) => {
+    const response = await api.get('/api/users');
+    const input = response.data.map((r: OrderProps) => {
       return {
         value: r.id,
         label: r.name,
@@ -76,8 +77,8 @@ export default function Edit() {
   }, []);
 
   const getStatus = useCallback(async () => {
-    const response = await get('order-statuses');
-    const input = response.map((r: OrderProps) => {
+    const response = await api.get('/api/order-statuses');
+    const input = response.data.map((r: OrderProps) => {
       return {
         value: r.id,
         label: r.order_status,
@@ -87,8 +88,8 @@ export default function Edit() {
   }, []);
 
   const getDeliveries = useCallback(async () => {
-    const response = await get('deliveries');
-    const input = response.map((r: OrderProps) => {
+    const response = await api.get('/api/deliveries');
+    const input = response.data.map((r: OrderProps) => {
       return {
         value: r.id,
         label: r.delivery,
@@ -103,7 +104,7 @@ export default function Edit() {
     getStatus();
     getDeliveries();
     if (id) {
-      get(`${moduleName}/${id}`).then(response =>
+      api.get(`${moduleName}/${id}`).then(response =>
         formRef.current?.setData({ ...response }),
       );
     }
@@ -120,7 +121,7 @@ export default function Edit() {
         return;
       }
 
-      const response = await put(`${moduleName}/${id}`, data);
+      const response = await api.put(`${moduleName}/${id}`, data);
       if (response) {
         addToast(updateToast.success);
         router.push(`/admin/${moduleName}`);

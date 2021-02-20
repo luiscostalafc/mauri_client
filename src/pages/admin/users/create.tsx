@@ -17,7 +17,8 @@ import Template from '../../../components/Template';
 // eslint-disable-next-line prettier/prettier
 import { creationToast, validationErrorToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
-import { post } from '../../../services/api';
+//import { post } from '../../../services/api';
+import api from '../../../services/api';
 import { validateForm } from '../../../services/validateForm';
 
 interface FormData {
@@ -75,7 +76,7 @@ export default function Create() {
       data.inactive = Boolean(data.inactive);
       data.is_provider = Boolean(data.is_provider);
 
-      const response = await post('users', data, false, false, true);
+      const response = await api.post('/api/users', data);
       if (response) {
         addToast(creationToast.success);
         router.push('/admin/users');

@@ -13,7 +13,8 @@ import Button from '../../../components/Button';
 import Template from '../../../components/Template';
 import { deletionToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
-import { deleteData, get } from '../../../services/api';
+import { deleteData } from '../../../services/api';
+import api from '../../../services/api';
 
 const customStyles = {
   rows: {
@@ -35,12 +36,12 @@ const customStyles = {
   },
 };
 
-const moduleName = 'orders';
+const moduleName = '/api/orders';
 export async function getStaticProps() {
-  const response = await get(moduleName);
+  const response = await api.get(moduleName);
   return {
     props: {
-      data: response,
+      data: response.data,
     },
   };
 }
@@ -82,9 +83,9 @@ export default function Index({ data }: any) {
   async function remove(id: number | string) {
     if (confirm('Você tem certeza?')) {
       await deleteData(`${moduleName}/${id}`);
-      const response = await get(moduleName);
+      const response = await api.get(moduleName);
       addToast(deletionToast.success);
-      setData(response);
+      setData(response.data);
     }
   }
 

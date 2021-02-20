@@ -13,14 +13,16 @@ import AdminMenu from '../../../components/AdminMenu';
 import Button from '../../../components/Button';
 import Template from '../../../components/Template';
 import { useToast } from '../../../hooks/toast';
-import { deleteData, get } from '../../../services/api';
+import { deleteData } from '../../../services/api';
+import api from '../../../services/api';
 
-const moduleName = 'products';
+
+const moduleName = '/api/products';
 export async function getStaticProps() {
-  const response = await get(moduleName);
+  const response = await api.get(moduleName);
   return {
     props: {
-      data: response,
+      data: response.data,
     },
   };
 }
@@ -86,13 +88,13 @@ export default function Index({ data }: any) {
   async function remove(id: number | string) {
     if (confirm('Are you sure?')) {
       await deleteData(`${moduleName}/${id}`);
-      const response = await get(moduleName);
+      const response = await api.get(moduleName);
       addToast({
         type: 'success',
         title: 'Apagado!',
         description: 'Dados removidos com sucesso',
       });
-      setData(response);
+      setData(response.data);
     }
   }
 

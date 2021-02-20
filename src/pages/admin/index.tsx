@@ -5,14 +5,15 @@ import React from 'react';
 import DashboardAdminButtons from '../../components/DashboardAdminButtons';
 import DashboardAdminTable from '../../components/DashboardAdminTable';
 import Template from '../../components/Template';
-import { get } from '../../services/api';
+//import { get } from '../../services/api';
+import api from '../../services/api'
 
-const moduleName = 'users';
+//const moduleName = 'users';
 export async function getStaticProps() {
-  const response = await get(moduleName);
+  const response = await api.get('/api/users');
   return {
     props: {
-      data: response,
+      data: response.data,
     },
   };
 }

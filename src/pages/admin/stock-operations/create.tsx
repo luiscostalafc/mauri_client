@@ -16,7 +16,8 @@ import {
   validationErrorToast
 } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
-import { post } from '../../../services/api';
+//import { post } from '../../../services/api';
+import api from '../../../services/api';
 import { validateForm } from '../../../services/validateForm';
 
 interface FormData {
@@ -50,7 +51,7 @@ export default function Create() {
         return;
       }
 
-      const response = await post('stock-operations', data);
+      const response = await api.post('/api/stock-operations', data);
       if (response) {
         addToast(creationToast.success);
         router.push('/admin/stock-operations/');

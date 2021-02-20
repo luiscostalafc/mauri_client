@@ -17,7 +17,8 @@ import Template from '../../../components/Template';
 // eslint-disable-next-line prettier/prettier
 import { updateToast, validationErrorToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
-import { get, put } from '../../../services/api';
+//import { get, put } from '../../../services/api';
+import api from '../../../services/api'
 import { validateForm } from '../../../services/validateForm';
 
 interface FormData {
@@ -43,7 +44,7 @@ const schema = Yup.object().shape({
   cpf_cnpj: Yup.string().required('CPF/CNPJ é obrigatório'),
 });
 
-const moduleName = 'users';
+const moduleName = '/api/users';
 export default function Edit() {
   const [cpfNumber, setCpfNumber] = useState(true);
   const [check, setChecked] = useState(false);
@@ -54,8 +55,8 @@ export default function Edit() {
 
   useEffect(() => {
     if (id) {
-      get(`${moduleName}/${id}`).then(response =>
-        formRef.current?.setData({ ...response }),
+      api.get(`${moduleName}/${id}`).then(response =>
+        formRef.current?.setData({ ...response.data }),
       );
     }
   }, [id]);
@@ -84,7 +85,7 @@ export default function Edit() {
         return;
       }
 
-      const response = await put(`${moduleName}/${id}`, data);
+      const response = await api.put(`${moduleName}/${id}`, data);
       if (response) {
         addToast(updateToast.success);
         router.push(`/admin/${moduleName}`);

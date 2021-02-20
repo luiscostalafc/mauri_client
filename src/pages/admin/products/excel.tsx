@@ -13,7 +13,9 @@ import Input from '../../../components/Input';
 import Template from '../../../components/Template';
 import { creationToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
-import { post } from '../../../services/api';
+//import { post } from '../../../services/api';
+import api from '../../../services/api';
+
 import {
   checkExtension,
   checkFormat,
@@ -39,7 +41,7 @@ export default function Excel() {
       return;
     }
 
-    const response = await post('products/excel', excel);
+    const response = await api.post('/api/products/excel', excel);
     if (response) {
       addToast(creationToast.success);
       router.push('/admin/products');

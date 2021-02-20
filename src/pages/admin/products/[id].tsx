@@ -18,7 +18,8 @@ import {
   validationErrorToast
 } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
-import { get, put } from '../../../services/api';
+//import { get, put } from '../../../services/api';
+import api from '../../../services/api';
 import { validateForm } from '../../../services/validateForm';
 
 interface FormData {
@@ -55,7 +56,7 @@ const schema = Yup.object().shape({
   subgroup_id: Yup.string().required('Sub Grupo obrigatório'),
 });
 
-const moduleName = 'products';
+const moduleName = '/api/products';
 export default function Create() {
   const router = useRouter();
   const { id } = router.query;
@@ -64,8 +65,8 @@ export default function Create() {
 
   useEffect(() => {
     if (id) {
-      get(`${moduleName}/${id}`).then(response =>
-        formRef.current?.setData({ ...response }),
+      api.get(`${moduleName}/${id}`).then(response =>
+        formRef.current?.setData({ ...response.data }),
       );
     }
   }, [id]);
@@ -83,7 +84,7 @@ export default function Create() {
         return;
       }
 
-      const response = await put(`${moduleName}/${id}`, data);
+      const response = await api.put(`${moduleName}/${id}`, data);
       if (response) {
         addToast(updateToast.success);
         router.push(`/admin/${moduleName}`);
