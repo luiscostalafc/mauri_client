@@ -17,8 +17,8 @@ import Template from '../../../components/Template';
 // eslint-disable-next-line prettier/prettier
 import { updateToast, validationErrorToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
-//import { get, put } from '../../../services/api';
-import api from '../../../services/api'
+// import { get, put } from '../../../services/API';
+import { api } from '../../../services/API';
 import { validateForm } from '../../../services/validateForm';
 
 interface FormData {
@@ -55,9 +55,11 @@ export default function Edit() {
 
   useEffect(() => {
     if (id) {
-      api.get(`${moduleName}/${id}`).then(response =>
-        formRef.current?.setData({ ...response.data }),
-      );
+      api
+        .get(`${moduleName}/${id}`)
+        .then(({ data }) =>
+          formRef.current?.setData(data as Record<string, unknown>),
+        );
     }
   }, [id]);
 

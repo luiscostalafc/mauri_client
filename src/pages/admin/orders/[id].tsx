@@ -4,7 +4,13 @@ import { Heading } from '@chakra-ui/core';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import * as Yup from 'yup';
 import AdminMenu from '../../../components/AdminMenu';
 import Bread from '../../../components/Breadcrumb';
@@ -17,8 +23,8 @@ import {
   validationErrorToast
 } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
-//import { get, put } from '../../../services/api';
-import api from '../../../services/api';
+// import { get, put } from '../../../services/API';
+import { api } from '../../../services/API';
 import { validateForm } from '../../../services/validateForm';
 
 interface OrderProps {
@@ -56,46 +62,50 @@ export default function Edit() {
 
   const getUsers = useCallback(async () => {
     const response = await api.get('/api/users');
-    const input = response.data.map((r: OrderProps) => {
+    const data = response.data as OrderProps[];
+    const input = data.map((r: OrderProps) => {
       return {
         value: r.id,
         label: r.name,
       };
     });
-    setUsers(input);
+    setUsers(input as SetStateAction<never[]>);
   }, []);
 
   const getProviders = useCallback(async () => {
     const response = await api.get('/api/users');
-    const input = response.data.map((r: OrderProps) => {
+    const data = response.data as OrderProps[];
+    const input = data.map((r: OrderProps) => {
       return {
         value: r.id,
         label: r.name,
       };
     });
-    setProviders(input);
+    setProviders(input as SetStateAction<never[]>);
   }, []);
 
   const getStatus = useCallback(async () => {
     const response = await api.get('/api/order-statuses');
-    const input = response.data.map((r: OrderProps) => {
+    const data = response.data as OrderProps[];
+    const input = data.map((r: OrderProps) => {
       return {
         value: r.id,
         label: r.order_status,
       };
     });
-    setOrderStatus(input);
+    setOrderStatus(input as SetStateAction<never[]>);
   }, []);
 
   const getDeliveries = useCallback(async () => {
     const response = await api.get('/api/deliveries');
-    const input = response.data.map((r: OrderProps) => {
+    const data = response.data as OrderProps[];
+    const input = data.map((r: OrderProps) => {
       return {
         value: r.id,
         label: r.delivery,
       };
     });
-    setDeliveries(input);
+    setDeliveries(input as SetStateAction<never[]>);
   }, []);
 
   useEffect(() => {
@@ -104,12 +114,13 @@ export default function Edit() {
     getStatus();
     getDeliveries();
     if (id) {
-      api.get(`${moduleName}/${id}`).then(response =>
-        formRef.current?.setData({ ...response }),
-      );
+      api
+        .get(`${moduleName}/${id}`)
+        .then(({ data }) =>
+          formRef.current?.setData(data as Record<string, unknown>),
+        );
     }
-  }, [getDeliveries, getProviders, getStatus, getUsers, id]);
-
+  }, [id]);
   const { addToast } = useToast();
 
   const handleSubmit = useCallback(

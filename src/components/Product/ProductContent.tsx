@@ -4,10 +4,10 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Flex, Spinner } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import useSWR from 'swr';
-import { get } from '../../services/api';
+import api from '../../services/api';
 import styles from '../../styles/pages/styles.module.css';
 import ProductLoading from './loading';
 import ProductItem from './ProductItem';
@@ -41,16 +41,16 @@ const ProductContent: React.FC<ProductItemProps> = () => {
   const queryParams = router.query;
 
   const [currentPage, setCurrentPage] = useState(0);
-  const { data, error, mutate, isValidating } = useSWR('products', get);
+  const { data, error, mutate, isValidating } = useSWR('products', api.get);
   const [dataProducts, setDataProducts] = useState<ProductItemProps[]>([]);
 
   useEffect(() => {
     async function dataProductsApi(queryParams: any) {
       const query = new URLSearchParams(queryParams).toString();
-      const response = queryParams
-        ? await get(`products?${query}`)
-        : await get('products');
-      setDataProducts(response);
+      const { data } = queryParams
+        ? await api.get(`products?${query}`)
+        : await api.get('products');
+      setDataProducts(data as SetStateAction<ProductItemProps[]>);
     }
 
     dataProductsApi(queryParams);

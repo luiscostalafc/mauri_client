@@ -5,8 +5,7 @@ import ReactSelect, {
   OptionTypeBase,
   Props as SelectProps,
   StylesConfig,
-  Theme,
-
+  Theme
 } from 'react-select';
 
 interface Props extends SelectProps<OptionTypeBase> {
@@ -18,7 +17,7 @@ const SelectInput: React.FC<Props> = ({ name, ...rest }) => {
   const { fieldName, defaultValue, registerField } = useField(name);
 
   const colourStyles: StylesConfig<OptionTypeBase, boolean> = {
-    control: (styles: CSSProperties ) => ({
+    control: (styles: CSSProperties) => ({
       ...styles,
       borderRadius: 10,
       borderColor: '#a0aec0',

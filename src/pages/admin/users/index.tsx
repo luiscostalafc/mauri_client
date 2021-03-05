@@ -12,22 +12,26 @@ import { FiDelete, FiEdit } from 'react-icons/fi';
 import AdminMenu from '../../../components/AdminMenu';
 import Button from '../../../components/Button';
 import Template from '../../../components/Template';
+import { deletionToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
-import { deleteData } from '../../../services/api';
-import api from '../../../services/api';
+import { api } from '../../../services/API';
 
 const moduleName = '/api/users';
 export async function getStaticProps() {
-  const response = await api.get(moduleName);
-  console.log(response)
+  const { data } = await api.get(moduleName, { debug: true });
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
-      data: response.data,
+      data,
     },
   };
 }
-
 
 export default function Index({ data }: any) {
   const [dataVal, setData] = useState(data);
@@ -69,14 +73,14 @@ export default function Index({ data }: any) {
 
   async function remove(id: number | string) {
     if (confirm('Are you sure?')) {
-      await deleteData(`${moduleName}/${id}`);
-      const response = await api.get(moduleName);
-      addToast({
-        type: 'success',
-        title: 'Apagado!',
-        description: 'Dados removidos com sucesso',
-      });
-      setData(response.data);
+      const { ok } = await api.delete(`${moduleName}/${id}`);
+      if (ok) {
+        const { data: state } = await api.get(moduleName);
+        addToast(deletionToast.success);
+        setData(state);
+      } else {
+        addToast(deletionToast.error);
+      }
     }
   }
 

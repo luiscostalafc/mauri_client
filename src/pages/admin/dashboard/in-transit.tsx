@@ -5,15 +5,22 @@ import React from 'react';
 import DashboardAdminButtons from '../../../components/DashboardAdminButtons';
 import DashboardAdminTable from '../../../components/DashboardAdminTable';
 import Template from '../../../components/Template';
-//import { get } from '../../../services/api';
-import api from '../../../services/api';
+// import { get } from '../../../services/API';
+import { api } from '../../../services/API';
 
 const moduleName = '/api/users';
 export async function getStaticProps() {
-  const response = await api.get(moduleName);
+  const { data } = await api.get(moduleName, { debug: true });
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
-      data: response.data,
+      data,
     },
   };
 }

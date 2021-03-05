@@ -1,16 +1,15 @@
-import { createStore, applyMiddleware } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import createSagaMiddleware from 'redux-saga'
-
-import rootReducer from './modules/rootReducer'
-import rootSaga from './modules/rootSaga'
-import persistReducer from './persistReducer'
-
-import { ICartState } from './modules/cart/types'
-import { persistStore } from 'redux-persist'
+/* eslint-disable @typescript-eslint/interface-name-prefix */
+import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { persistStore } from 'redux-persist';
+import createSagaMiddleware from 'redux-saga';
+import { ICartState } from './modules/cart/types';
+import rootReducer from './modules/rootReducer';
+import rootSaga from './modules/rootSaga';
+import persistReducer from './persistReducer';
 
 export interface IState {
-  cart: ICartState
+  cart: ICartState;
 }
 
 // const sagaMonitor =
@@ -18,20 +17,17 @@ export interface IState {
 // ? console.tron.createSagaMonitor()
 // : null;
 
-const sagaMiddleware = createSagaMiddleware({ })
+const sagaMiddleware = createSagaMiddleware({});
 
-const midddlewares = [sagaMiddleware]
-
+const midddlewares = [sagaMiddleware];
 
 const store = createStore(
   persistReducer(rootReducer),
-  composeWithDevTools(
-    applyMiddleware(...midddlewares)
-  )
-  )
+  composeWithDevTools(applyMiddleware(...midddlewares)),
+);
 
-const persistor = persistStore(store)
+const persistor = persistStore(store);
 
-  sagaMiddleware.run(rootSaga)
+sagaMiddleware.run(rootSaga);
 
-export { store, persistor}
+export { store, persistor };

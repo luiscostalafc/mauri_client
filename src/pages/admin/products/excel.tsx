@@ -13,9 +13,8 @@ import Input from '../../../components/Input';
 import Template from '../../../components/Template';
 import { creationToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
-//import { post } from '../../../services/api';
-import api from '../../../services/api';
-
+// import { post } from '../../../services/API';
+import { api } from '../../../services/API';
 import {
   checkExtension,
   checkFormat,
