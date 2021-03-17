@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Axios from 'axios';
 
 const ApiCep = {
-  SearchCep(cep:any) {
+  SearchCep(cep: any) {
     return Axios.get(`https://viacep.com.br/ws/${cep}/json`);
-  }
-}
+  },
+};
 
 export default ApiCep;
-
-

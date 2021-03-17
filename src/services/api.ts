@@ -3,15 +3,18 @@
 /* eslint-disable no-console */
 /* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-//import PrettyLog from '@emersonbraun/pretty-log';
+// import PrettyLog from '@emersonbraun/pretty-log';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useToast } from '../hooks/toast';
 
 const completeURL = (URL: string) => {
   const cleanURL = URL.charAt(0) === '/' ? URL.slice(1, URL.length) : URL;
-  const baseUrl = process.env.POSTGRES_URI ?? 'https://api.liconection.com.br';
-  return process.env.POSTGRES_URI ?? process.env.NEXT_PUBLIC_POSTGRES_URI ?? `${baseUrl}/${cleanURL}`;
+  const baseUrl =
+    process.env.POSTGRES_URI ??
+    process.env.NEXT_PUBLIC_POSTGRES_URI ??
+    'https://api.liconection.com.br';
+  return `${baseUrl}/${cleanURL}`;
 };
 
 declare type Headers = {
