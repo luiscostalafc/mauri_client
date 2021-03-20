@@ -8,7 +8,8 @@ import * as Yup from 'yup';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { useToast } from '../../hooks/toast';
-import api from '../../services/api';
+import { api } from '../../services/API';
+import { validateForm, validationErrors } from '../../services/validateForm';
 import {
   AnimationContainer,
   Background,
@@ -18,11 +19,16 @@ import {
   // eslint-disable-next-line prettier/prettier
   ImageCart
 } from '../../styles/pages/sign-in';
-import getValidationErrors from '../../utils/getValidationErrors';
 
 interface ForgotFormData {
   email: string;
 }
+
+const schema = Yup.object().shape({
+  email: Yup.string()
+    .required('E-mail é obrigatório')
+    .email('Digite um e-mail válido'),
+});
 
 const ForgotPassword: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -32,47 +38,41 @@ const ForgotPassword: React.FC = () => {
 
   const handleSubmit = useCallback(
     async (data: ForgotFormData) => {
-      try {
-        setLoading(true);
+      const { hasErrors, toForm, toToast } = await validateForm(schema, data);
+      if (hasErrors) {
+        formRef.current?.setErrors(toForm);
+        toToast.map(({ path, message }) =>
+          addToast(validationErrors({ path, message })),
+        );
+        return;
+      }
 
-        formRef.current?.setErrors({});
+      setLoading(true);
 
-        const schema = Yup.object().shape({
-          email: Yup.string()
-            .required('E-mail é obrigatório')
-            .email('Digite um e-mail válido'),
-        });
-        await schema.validate(data, {
-          abortEarly: false,
-        });
+      const { ok, messageErrors } = await api.post('forgot', {
+        email: data.email,
+      });
 
-        await api.post('forgot', {
-          email: data.email,
-        });
-
+      if (ok) {
+        setLoading(false);
         addToast({
           type: 'success',
           title: 'E-mail de recuperação enviado',
           description:
             'Enviamos um e-mail para confirmar a recuperação de senha, cheque sua caixa de entrada',
         });
-      } catch (err) {
-        if (err instanceof Yup.ValidationError) {
-          const errors = getValidationErrors(err);
-
-          formRef.current?.setErrors(errors);
-
-          return;
-        }
-
+      } else {
+        setLoading(false);
         addToast({
           type: 'info',
           title: 'Erro na recuperação de senha',
           description:
             'Ocorreu um erro ao tentar realizar a recuperação de senha, tente novamente',
         });
-      } finally {
-        setLoading(false);
+        messageErrors?.length &&
+          messageErrors.map(({ path, message }) =>
+            addToast(validationErrors({ path, message })),
+          );
       }
     },
     [addToast],

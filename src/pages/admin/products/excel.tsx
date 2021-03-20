@@ -11,10 +11,11 @@ import Bread from '../../../components/Breadcrumb';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import Template from '../../../components/Template';
-import { creationToast } from '../../../config/toastMessages';
+import { updateToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
 // import { post } from '../../../services/API';
 import { api } from '../../../services/API';
+import { validationErrors } from '../../../services/validateForm';
 import {
   checkExtension,
   checkFormat,
@@ -24,6 +25,7 @@ import {
   sheetToJson
 } from '../../../utils/uploadExcel';
 
+const moduleName = 'products/excel';
 export default function Excel() {
   const formRef = useRef<FormHandles>(null);
   const [excel, setExcel] = useState();
@@ -40,10 +42,15 @@ export default function Excel() {
       return;
     }
 
-    const response = await api.post('/api/products/excel', excel);
-    if (response) {
-      addToast(creationToast.success);
-      router.push('/admin/products');
+    const { ok, messageErrors } = await api.put(`${moduleName}/excel`, excel);
+    if (ok) {
+      addToast(updateToast.success);
+      router.push(`/admin/${moduleName}`);
+    } else {
+      messageErrors?.length &&
+        messageErrors.map(({ path, message }) =>
+          addToast(validationErrors({ path, message })),
+        );
     }
   }, [excel, router, addToast]);
 

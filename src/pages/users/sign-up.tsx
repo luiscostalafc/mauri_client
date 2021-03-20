@@ -12,7 +12,8 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import InputMask from '../../components/InputMask';
 import { useToast } from '../../hooks/toast';
-import { post } from '../../services/api';
+import { api } from '../../services/API';
+import { validateForm, validationErrors } from '../../services/validateForm';
 import {
   AnimationContainer,
   Background,
@@ -21,7 +22,7 @@ import {
   // eslint-disable-next-line prettier/prettier
   ImageCart
 } from '../../styles/pages/sign-up';
-import getValidationErrors from '../../utils/getValidationErrors';
+import { User } from '../../types';
 
 interface SignUpFormData {
   name: string;
@@ -50,60 +51,58 @@ const SignUp: React.FC = () => {
     }
   }, [cpfNumber]);
 
+  const schema = Yup.object().shape({
+    name: Yup.string().required('Nome completo'),
+    username: Yup.string().required('Nome de usuário obrigatório'),
+    activity: Yup.string().optional(),
+    rg: Yup.string().required('Preencha seu RG').max(14),
+    cpf_cnpj: Yup.string().required('Preencha o CNPJ ou RG'),
+    email: Yup.string()
+      .required('E-mail obrigatório')
+      .email('Digite um e-mail válido'),
+    password: Yup.string().min(6, 'No mínimo 6 dígitos'),
+  });
+
   const handleSubmit = useCallback(
     async (data: SignUpFormData) => {
-      try {
-        formRef.current?.setErrors({});
+      const { hasErrors, toForm, toToast } = await validateForm(schema, data);
+      if (hasErrors) {
+        formRef.current?.setErrors(toForm);
+        toToast.map(({ path, message }) =>
+          addToast(validationErrors({ path, message })),
+        );
+      }
 
-        const schema = Yup.object().shape({
-          name: Yup.string().required('Nome completo'),
-          username: Yup.string().required('Nome de usuário obrigatório'),
-          activity: Yup.string().optional(),
-          rg: Yup.string().required('Preencha seu RG').max(14),
-          cpf_cnpj: Yup.string().required('Preencha o CNPJ ou RG'),
-          email: Yup.string()
-            .required('E-mail obrigatório')
-            .email('Digite um e-mail válido'),
-          password: Yup.string().min(6, 'No mínimo 6 dígitos'),
-        });
-        await schema.validate(data, {
-          abortEarly: false,
-        });
+      const { data: response, ok, messageErrors } = await api.post(
+        'api/users',
+        data,
+        { debug: true },
+      );
 
-        const response = await post('users', data);
-
+      if (ok) {
+        const { id } = response as User;
         const expires = new Date();
-        expires.setTime(expires.getTime() + response.expires_in * 1000);
-        Cookies.set('@Liconnection:user', JSON.stringify(response.id), {
+        expires.setTime(expires.getTime() + 10 * 1000);
+        Cookies.set('@Liconnection:user', JSON.stringify(id), {
           path: '/',
           expires,
         });
 
-        router.push('phone-sign-up');
+        router.push(`phone-sign-up?id=${String(id)}`);
 
         addToast({
           type: 'success',
           title: 'Dados de usuário preenchidos com sucesso!',
           description: 'Você agora preencherá os dados telefônicos',
         });
-      } catch (err) {
-        if (err instanceof Yup.ValidationError) {
-          const errors = getValidationErrors(err);
-
-          formRef.current?.setErrors(errors);
-
-          return;
-        }
-
-        addToast({
-          type: 'info',
-          title: 'Erro no cadastro',
-          description:
-            'Ocorreu um erro ao fazer seu cadastro. Verifique seus dados e tente novamente.',
-        });
+      } else {
+        messageErrors?.length &&
+          messageErrors.map(({ path, message }) =>
+            addToast(validationErrors({ path, message })),
+          );
       }
     },
-    [addToast, router],
+    [addToast, router, schema],
   );
 
   return (

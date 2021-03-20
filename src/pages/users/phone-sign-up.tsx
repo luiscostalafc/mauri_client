@@ -16,7 +16,8 @@ import Input from '../../components/Input';
 import InputMask from '../../components/InputMask';
 import SelectInput from '../../components/SelectInput';
 import { useToast } from '../../hooks/toast';
-import { post } from '../../services/api';
+import { api } from '../../services/API';
+import { validateForm, validationErrors } from '../../services/validateForm';
 import {
   AnimationContainer,
   Background,
@@ -27,7 +28,6 @@ import {
   // eslint-disable-next-line prettier/prettier
   SelectContainer
 } from '../../styles/pages/phone-sign-up';
-import getValidationErrors from '../../utils/getValidationErrors';
 
 interface PhoneFormData {
   user_id: string;
@@ -63,53 +63,53 @@ const PhoneSignUp: React.FC = () => {
     withWhatsapp ? setWithWhatsapp(false) : setWithWhatsapp(true);
   }
 
+  const userId = Cookies.get('@Liconnection:user');
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const id = urlParams.get('id') ?? userId;
+
+  const schema = Yup.object().shape({
+    type: Yup.string().required('Tipo do telefone deve ser selecionado'),
+    phone: Yup.string().required('Preencha o telefone com o DDD'),
+    whatsapp: Yup.boolean().default(true),
+    obs: Yup.string().optional(),
+    user_id: Yup.string().default(id),
+  });
+
   const handleSubmit = useCallback(
     async (data: PhoneFormData) => {
-      try {
-        const userId = Cookies.get('@Liconnection:user');
+      const { hasErrors, toForm, toToast } = await validateForm(schema, data);
+      if (hasErrors) {
+        formRef.current?.setErrors(toForm);
+        toToast.map(({ path, message }) =>
+          addToast(validationErrors({ path, message })),
+        );
+      }
 
-        formRef.current?.setErrors({});
-
-        const schema = Yup.object().shape({
-          type: Yup.string().required('Tipo do telefone deve ser selecionado'),
-          phone: Yup.string().required('Preencha o telefone com o DDD'),
-          whatsapp: Yup.boolean().default(true),
-          obs: Yup.string().optional(),
-          user_id: Yup.string().default(userId),
-        });
-        await schema.validate(data, {
-          abortEarly: false,
-        });
-
-        const dataUser = { ...data, user_id: userId, whatsapp: withWhatsapp };
-
-        await post('phones', dataUser);
-
-        router.push('address-sign-up');
+      const dataUser = { ...data, user_id: id, whatsapp: withWhatsapp };
+      const { ok, messageErrors } = await api.post('api/phones', dataUser);
+      if (ok) {
+        router.push(`address-sign-up?id=${String(id)}`);
 
         addToast({
           type: 'success',
           title: 'Cadastro dos dados telefônicos realizado com sucesso!',
           description: 'Agora falta pouco... Preencha seu dados de endereço',
         });
-      } catch (err) {
-        if (err instanceof Yup.ValidationError) {
-          const errors = getValidationErrors(err);
-
-          formRef.current?.setErrors(errors);
-
-          return;
-        }
-
+      } else {
         addToast({
           type: 'info',
           title: 'Erro no cadastro',
           description:
             'Ocorreu um erro ao fazer seu cadastro. Verifique seus dados e tente novamente.',
         });
+        messageErrors?.length &&
+          messageErrors.map(({ path, message }) =>
+            addToast(validationErrors({ path, message })),
+          );
       }
     },
-    [addToast, router, withWhatsapp],
+    [addToast, router, schema, id, withWhatsapp],
   );
 
   return (

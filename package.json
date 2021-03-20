@@ -37,7 +37,7 @@
     "@unform/web": "^2.1.4",
     "algoliasearch": "^4.4.0",
     "axios": "^0.20.0",
-    "cep-promise": "^4.0.0",
+    "cep-promise": "^4.1.0",
     "emotion-theming": "^10.0.27",
     "flatlist-react": "^1.4.3",
     "formik": "^2.2.6",

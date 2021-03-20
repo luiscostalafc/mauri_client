@@ -10,15 +10,11 @@ import Bread from '../../../components/Breadcrumb';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import Template from '../../../components/Template';
-import {
-  creationToast,
-  // eslint-disable-next-line prettier/prettier
-  validationErrorToast
-} from '../../../config/toastMessages';
+import { creationToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
 // import { post } from '../../../services/API';
 import { api } from '../../../services/API';
-import { validateForm } from '../../../services/validateForm';
+import { validateForm, validationErrors } from '../../../services/validateForm';
 
 interface FormData {
   quantity: number;
@@ -35,6 +31,7 @@ const schema = Yup.object().shape({
   product_id: Yup.number().required('Produto é obrigatório'),
 });
 
+const moduleName = 'stock-operations';
 export default function Create() {
   const formRef = useRef<FormHandles>(null);
 
@@ -44,17 +41,23 @@ export default function Create() {
 
   const handleSubmit = useCallback(
     async (data: FormData) => {
-      const validationErrors = await validateForm(schema, data);
-      if (validationErrors) {
-        formRef.current?.setErrors(validationErrors);
-        addToast(validationErrorToast);
-        return;
+      const { hasErrors, toForm, toToast } = await validateForm(schema, data);
+      if (hasErrors) {
+        formRef.current?.setErrors(toForm);
+        toToast.map(({ path, message }) =>
+          addToast(validationErrors({ path, message })),
+        );
       }
 
-      const { ok } = await api.post('/api/stock-operations', data);
+      const { ok, messageErrors } = await api.post(`${moduleName}`, data);
       if (ok) {
         addToast(creationToast.success);
-        router.push('/admin/stock-operations/');
+        router.push(`/admin/${moduleName}`);
+      } else {
+        messageErrors?.length &&
+          messageErrors.map(({ path, message }) =>
+            addToast(validationErrors({ path, message })),
+          );
       }
     },
     [router, addToast],

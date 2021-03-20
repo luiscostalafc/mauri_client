@@ -45,13 +45,9 @@ const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post('login', { email, password });
-
-    const { token, user } = response.data;
-
+  const signIn = useCallback(async ({ token, user, expires_in }) => {
     const expires = new Date();
-    expires.setTime(expires.getTime() + response.data.expires_in * 1000);
+    expires.setTime(expires.getTime() + expires_in * 1000);
     Cookies.set('@Liconnection:token', token, { path: '/', expires });
     Cookies.set('@Liconnection:user', JSON.stringify(user), {
       path: '/',

@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import useSWR from 'swr';
-import api from '../../services/api';
+import { api } from '../../services/API';
 import styles from '../../styles/pages/styles.module.css';
 import ProductLoading from './loading';
 import ProductItem from './ProductItem';
@@ -41,15 +41,14 @@ const ProductContent: React.FC<ProductItemProps> = () => {
   const queryParams = router.query;
 
   const [currentPage, setCurrentPage] = useState(0);
-  const { data, error, mutate, isValidating } = useSWR('products', api.get);
+  const { data, error, mutate, isValidating } = useSWR('api/products', api.get);
   const [dataProducts, setDataProducts] = useState<ProductItemProps[]>([]);
 
   useEffect(() => {
     async function dataProductsApi(queryParams: any) {
       const query = new URLSearchParams(queryParams).toString();
-      const { data } = queryParams
-        ? await api.get(`products?${query}`)
-        : await api.get('products');
+      const URL = query ? `api/products?${query}` : 'api/products';
+      const { data } = await api.get(URL, { debug: true });
       setDataProducts(data as SetStateAction<ProductItemProps[]>);
     }
 

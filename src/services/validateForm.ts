@@ -2,31 +2,57 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable consistent-return */
 import { Schema, ValidationError } from 'yup';
+import { ToastMessage } from '../hooks/toast';
 
-interface Errors {
-  [key: string]: string;
+type Errors = {
+  [key in string | number]: string;
+};
+
+type Error = {
+  path: string;
+  message: string;
+};
+
+interface ValidationResponse {
+  toToast: Errors[];
+  toForm: Record<string, string>;
+  hasErrors: boolean;
 }
 
-function getValidationErrors(err: ValidationError): Errors {
-  const validationErrors: Errors = {};
+function getValidationErrors(err: ValidationError): ValidationResponse {
+  const toToast: Errors[] = [];
+  const toForm: Record<string, string> = {};
 
-  err.inner.forEach(error => {
-    validationErrors[error.path] = error.message;
+  err.inner.forEach(({ path, message }: Error) => {
+    toToast.push({ path, message });
+    toForm[(path as unknown) as string] = message;
   });
 
-  return validationErrors;
+  return { toToast, toForm, hasErrors: true };
 }
 
-export async function validateForm(schema: Schema<any>, data: any) {
+export async function validateForm(
+  schema: Schema<any>,
+  data: any,
+): Promise<ValidationResponse> {
   try {
     await schema.validate(data, {
       abortEarly: false,
     });
-    return false;
+    return { toToast: [], toForm: {}, hasErrors: false };
   } catch (error) {
     if (error instanceof ValidationError) {
-      const errors = getValidationErrors(error);
-      return errors;
+      return getValidationErrors(error);
     }
   }
+  return { toToast: [], toForm: {}, hasErrors: false };
 }
+
+export const validationErrors = ({
+  path,
+  message,
+}: Error): Omit<ToastMessage, 'id'> => ({
+  type: 'error',
+  title: path,
+  description: message,
+});

@@ -30,7 +30,7 @@
     "src/utils/px2vw.js",
     "src/utils/viaCep.js",
     "src/utils"
-  ],
+, "src/services/apiCep.js"  ],
   "exclude": [
     "node_modules"
   ]

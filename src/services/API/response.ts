@@ -5,6 +5,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { AxiosResponse } from 'axios';
 
+type Error = {
+  path: string;
+  message: string;
+};
+
 export interface Response {
   method: 'get' | 'post' | 'put' | 'delete';
   path: string;
@@ -14,7 +19,8 @@ export interface Response {
   message: string;
   'data (count)': number;
   time: number;
-  data?: unknown;
+  data?: any;
+  messageErrors: Error[];
 }
 
 declare interface Options {
@@ -56,6 +62,7 @@ function getMainDataOfResponse(
   if (debug) console.table(mainData);
 
   mainData.data = response.data;
+  mainData.messageErrors = response.data.messageErrors;
   return mainData;
 }
 

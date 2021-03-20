@@ -8,9 +8,9 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
+import ActionButtons from '../../../components/ActionButtons';
 import Button from '../../../components/Button';
 import Template from '../../../components/Template';
-import { deletionToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
 import { api } from '../../../services/API';
 // import AdminMenu from '../../../components/AdminMenu'
@@ -70,35 +70,20 @@ export default function Index({ data }: any) {
     {
       name: 'Actions',
       cell: (row: { id: number }) => (
-        <>
-          <Button
-            typeColor="edit"
-            onClick={() => router.push(`/admin/${moduleName}/${row.id}`)}
-          >
-            Editar
-          </Button>
-          <Button
-            style={{ marginLeft: 5 }}
-            typeColor="delete"
-            onClick={() => remove(row.id)}
-          >
-            Apagar
-          </Button>
-        </>
+      <ActionButtons
+        moduleName={moduleName}
+        row={row}
+        onDelete={reloadData}
+      />
       ),
     },
   ];
 
-  async function remove(id: number | string) {
-    if (confirm('Você tem certeza?')) {
-      const { ok } = await api.delete(`${moduleName}/${id}`);
-      if (ok) {
-        const { data: state } = await api.get(moduleName);
-        addToast(deletionToast.success);
-        setData(state);
-      } else {
-        addToast(deletionToast.error);
-      }
+  async function reloadData(isDeleted: boolean) {
+    if (isDeleted) {
+      const { data: state } = await api.get(moduleName);
+      setData(state);
+    } 
     }
   }
 

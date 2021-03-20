@@ -7,13 +7,12 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useToast } from '../hooks/toast';
+import { getBaseURL } from './API/request';
 
 const completeURL = (URL: string) => {
   const cleanURL = URL.charAt(0) === '/' ? URL.slice(1, URL.length) : URL;
-  const baseUrl =
-    process.env.POSTGRES_URI ??
-    process.env.NEXT_PUBLIC_POSTGRES_URI ??
-    'https://api.liconection.com.br';
+  const baseUrl = getBaseURL();
+  console.log({ baseUrl });
   return `${baseUrl}/${cleanURL}`;
 };
 

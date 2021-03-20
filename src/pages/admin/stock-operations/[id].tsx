@@ -10,15 +10,11 @@ import Bread from '../../../components/Breadcrumb';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import Template from '../../../components/Template';
-import {
-  updateToast,
-  // eslint-disable-next-line prettier/prettier
-  validationErrorToast
-} from '../../../config/toastMessages';
+import { updateToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
 // import { get, put } from '../../../services/API';
 import { api } from '../../../services/API';
-import { validateForm } from '../../../services/validateForm';
+import { validateForm, validationErrors } from '../../../services/validateForm';
 
 interface FormData {
   quantity: number;
@@ -56,17 +52,23 @@ export default function Edit() {
 
   const handleSubmit = useCallback(
     async (data: FormData) => {
-      const validationErrors = await validateForm(schema, data);
-      if (validationErrors) {
-        formRef.current?.setErrors(validationErrors);
-        addToast(validationErrorToast);
-        return;
+      const { hasErrors, toForm, toToast } = await validateForm(schema, data);
+      if (hasErrors) {
+        formRef.current?.setErrors(toForm);
+        toToast.map(({ path, message }) =>
+          addToast(validationErrors({ path, message })),
+        );
       }
 
-      const response = await api.put(`${moduleName}/${id}`, data);
-      if (response) {
+      const { ok, messageErrors } = await api.put(`${moduleName}/${id}`, data);
+      if (ok) {
         addToast(updateToast.success);
         router.push(`/admin/${moduleName}`);
+      } else {
+        messageErrors?.length &&
+          messageErrors.map(({ path, message }) =>
+            addToast(validationErrors({ path, message })),
+          );
       }
     },
     [router, addToast, id],
