@@ -5,7 +5,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Button, Flex } from '@chakra-ui/core';
-import { Select } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
@@ -14,6 +13,9 @@ type Options = {
   value: string | number | readonly string[] | undefined;
   label: string;
 };
+
+type QueryObject = { [key: string]: string };
+
 const positions: Options[] = [
   { value: 'super', label: 'superior' },
   { value: 'bottom', label: 'inferior' },
@@ -60,8 +62,9 @@ const ProductFilter = ({ group, onSearch, ...props }: any) => {
       const { name, value: queryValue } = event.target;
       const urlParams = new URLSearchParams(window.location.search);
       urlParams.append(name, queryValue);
-      const query = {};
-      for (const [key, value] of urlParams) {
+      const query: QueryObject = {};
+      const params = (urlParams as unknown) as Array<string[]>;
+      for (const [key, value] of params) {
         query[key] = value;
       }
       router.push({ pathname: router.pathname, query });
@@ -103,9 +106,9 @@ const ProductFilter = ({ group, onSearch, ...props }: any) => {
         transition="0.5s"
         {...props}
       >
-        {hasInGroup([1, 2]) && (
+        {/* {hasInGroup([1, 2]) && (
           <Select
-            color="gray.500"
+            color="primary"
             marginBottom={1}
             variant="filled"
             placeholder="Posição"
@@ -122,7 +125,7 @@ const ProductFilter = ({ group, onSearch, ...props }: any) => {
         )}
         {hasInGroup([1, 2]) && (
           <Select
-            color="gray.500"
+            color="primary"
             marginBottom={1}
             variant="filled"
             placeholder="Sistema"
@@ -139,7 +142,7 @@ const ProductFilter = ({ group, onSearch, ...props }: any) => {
         )}
         {hasInGroup([1, 2]) && (
           <Select
-            color="gray.500"
+            color="primary"
             marginBottom={1}
             variant="filled"
             placeholder="Material"
@@ -156,7 +159,7 @@ const ProductFilter = ({ group, onSearch, ...props }: any) => {
         )}
         {hasInGroup([1, 2]) && (
           <Select
-            color="gray.500"
+            color="primary"
             marginBottom={1}
             variant="filled"
             placeholder="Cor"
@@ -173,7 +176,7 @@ const ProductFilter = ({ group, onSearch, ...props }: any) => {
         )}
         {hasInGroup([1, 2]) && (
           <Select
-            color="gray.500"
+            color="primary"
             marginBottom={1}
             variant="filled"
             placeholder="Medida"
@@ -190,7 +193,7 @@ const ProductFilter = ({ group, onSearch, ...props }: any) => {
         )}
         {hasInGroup([1, 2]) && (
           <Select
-            color="gray.500"
+            color="primary"
             variant="filled"
             placeholder="Qualidade"
             name="quality"
@@ -203,7 +206,7 @@ const ProductFilter = ({ group, onSearch, ...props }: any) => {
                 </option>
               ))}
           </Select>
-        )}
+        )} */}
       </Box>
     </Flex>
   );

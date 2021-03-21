@@ -17,6 +17,13 @@ import Name from './Filters/Name';
 import YearFab from './Filters/YearFab';
 import YearModel from './Filters/YearModel';
 
+declare interface Params {
+  name: string;
+  value: string;
+}
+
+type QueryObject = { [key: string]: string };
+
 const AutoExpandMenu = ({ group, onSearch, ...props }: any) => {
   const router = useRouter();
   const [selectedGroup, setGroup] = useState(1);
@@ -31,7 +38,7 @@ const AutoExpandMenu = ({ group, onSearch, ...props }: any) => {
   }
 
   const urlParams = new URLSearchParams(window.location.search);
-  const updateQuery = ({ name, value }) => {
+  const updateQuery = ({ name, value }: Params) => {
     if (value) {
       urlParams.append(name, value);
     } else {
@@ -40,8 +47,9 @@ const AutoExpandMenu = ({ group, onSearch, ...props }: any) => {
   };
 
   const mountQuery = () => {
-    const query = {};
-    for (const [key, value] of urlParams) {
+    const query: QueryObject = {};
+    const params = (urlParams as unknown) as Array<string[]>;
+    for (const [key, value] of params) {
       query[key] = value;
     }
     return query;
