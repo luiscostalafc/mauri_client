@@ -21,11 +21,12 @@ export default function Index() {
 
   function handleProduct(filter: any) {
     const queryParams = new URLSearchParams(filter).toString();
-    router.push({ pathname: '/', query: queryParams });
+    router.push({ pathname: router.pathname, query: queryParams });
   }
 
   function handleClick(e: number) {
     setGroup(e);
+    router.push({ pathname: '/home', query: { group_id: e } });
     // if (transform === 'scaleX(0)') {
     //   setTransform('scaleX(1)')
     // } else {

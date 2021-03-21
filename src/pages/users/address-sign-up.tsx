@@ -153,21 +153,21 @@ const AddressSignUp: React.FC = () => {
               icon={FiMapPin}
               placeholder="Rua"
               value={values.street}
-              loading={loading}
+              // loading={loading}
             />
 
             <Input
               name="number"
               icon={FiMapPin}
               placeholder="Número"
-              loading={loading}
+              // loading={loading}
             />
 
             <Input
               name="complement"
               icon={FiMapPin}
               placeholder="Complemento"
-              loading={loading}
+              // loading={loading}
             />
 
             <Input
@@ -175,7 +175,7 @@ const AddressSignUp: React.FC = () => {
               icon={FiMapPin}
               placeholder="Bairro"
               value={values.neighborhood}
-              loading={loading}
+              // loading={loading}
             />
 
             <Input
@@ -183,7 +183,7 @@ const AddressSignUp: React.FC = () => {
               icon={FaCity}
               placeholder="Cidade"
               value={values.city}
-              loading={loading}
+              // loading={loading}
             />
 
             <Input
@@ -191,7 +191,7 @@ const AddressSignUp: React.FC = () => {
               icon={FaCity}
               placeholder="Estado"
               value={values.state}
-              loading={loading}
+              // loading={loading}
             />
 
             <Button type="submit">Concluir</Button>
