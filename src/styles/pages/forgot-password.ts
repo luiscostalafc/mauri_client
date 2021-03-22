@@ -1,12 +1,11 @@
-import styled, { keyframes } from 'styled-components';
 import { shade } from 'polished';
-
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
   height: 100%;
   display: flex;
   align-items: stretch;
-  background-color: #E2E8F0
+  background-color: #e2e8f0;
 `;
 
 export const Content = styled.div`
@@ -27,7 +26,7 @@ const appearFromLeft = keyframes`
     opacity: 1;
     transform: translateX(0);
   }
-`
+`;
 
 export const AnimationContainer = styled.div`
   display: flex;
@@ -78,7 +77,7 @@ export const Image = styled.img`
   background-repeat: no-repeat;
   padding-top: 20px;
   padding-right: 60px;
-`
+`;
 
 export const Background = styled.div`
   max-width: 1080px;
@@ -86,7 +85,7 @@ export const Background = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const ImageCart = styled.img`
   animation: ${appearFromLeft} 1.5s;
@@ -97,4 +96,4 @@ export const ImageCart = styled.img`
   background-size: 100%;
   background-repeat: no-repeat;
   padding: 20px;
-`
+`;

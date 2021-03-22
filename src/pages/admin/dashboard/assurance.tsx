@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DashboardAdminButtons from '../../../components/DashboardAdminButtons';
 import DashboardAdminTable from '../../../components/DashboardAdminTable';
 import Template from '../../../components/Template';
@@ -9,23 +10,34 @@ import Template from '../../../components/Template';
 import { api } from '../../../services/API';
 
 const moduleName = '/api/users';
-export async function getStaticProps() {
-  const { data } = await api.get(moduleName, { debug: true });
+// export async function getStaticProps() {
+//   const { data } = await api.get(moduleName, { debug: true });
+//   console.log(`🚀  get ${moduleName} data!`);
 
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
+//   if (!data) {
+//     return {
+//       notFound: true,
+//     };
+//   }
 
-  return {
-    props: {
-      data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       data,
+//     },
+//   };
+// }
 
-export default function Index({ data }: any) {
+// export default function Index({ data }: any) {
+export default function Index() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    async function getData() {
+      const { data: response } = await api.get(moduleName, { debug: true });
+      setData(response);
+    }
+    getData();
+  }, []);
+
   const columns = [
     { name: 'Pedido (data/hs)', selector: 'name', sortable: true },
     { name: 'Faturado (data/hs)', selector: 'username', sortable: true },

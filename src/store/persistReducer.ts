@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 

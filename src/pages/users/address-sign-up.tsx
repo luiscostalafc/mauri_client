@@ -16,7 +16,7 @@ import Input from '../../components/Input';
 import InputMask from '../../components/InputMask';
 import { useToast } from '../../hooks/toast';
 import { api } from '../../services/API';
-import { getCEPData } from '../../services/apiCep';
+import { getCEPData } from '../../services/apiCep.js';
 import { validateForm, validationErrors } from '../../services/validateForm';
 import {
   AnimationContainer,
@@ -40,7 +40,6 @@ interface AddressFormData {
 
 const AddressSignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     cep: '',
     city: '',
@@ -69,7 +68,6 @@ const AddressSignUp: React.FC = () => {
   });
 
   const callCep = async (e: { target: { value: any } }) => {
-    setLoading(true);
     const { value } = e.target;
     const cepData = await getCEPData(value);
     if (cepData) {
@@ -84,7 +82,6 @@ const AddressSignUp: React.FC = () => {
         street,
       }));
     }
-    setLoading(false);
   };
 
   const handleSubmit = useCallback(

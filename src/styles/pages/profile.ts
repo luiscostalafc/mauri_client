@@ -1,8 +1,7 @@
+import { lighten, shade } from 'polished';
 import styled from 'styled-components';
-import { shade, lighten } from 'polished';
 
 export const Container = styled.div`
-
   > header {
     height: 144px;
     background: #718096;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -43,7 +44,7 @@ const getReturnType = (status: number): [string, boolean] =>
   status >= 200 && status < 300 ? ['success', true] : ['error', false];
 
 function getMainDataOfResponse(
-  response: AxiosResponse<unknown[]>,
+  response: AxiosResponse<any>,
   { time, debug }: Options = defaultOptions,
 ): Response {
   const timeEnd: number = Date.now() - Number(time);

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
@@ -6,7 +7,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable react/jsx-wrap-multilines */
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import AdminMenu from '../../../components/AdminMenu';
 import Button from '../../../components/Button';
@@ -16,24 +17,34 @@ import { useToast } from '../../../hooks/toast';
 import { api } from '../../../services/API';
 
 const moduleName = '/api/operations';
-export async function getStaticProps() {
-  const { data } = await api.get(moduleName, { debug: true });
+// export async function getStaticProps() {
+//   const { data } = await api.get(moduleName, { debug: true });
+//   console.log(`🚀  get ${moduleName} data!`);
 
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
+//   if (!data) {
+//     return {
+//       notFound: true,
+//     };
+//   }
 
-  return {
-    props: {
-      data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       data,
+//     },
+//   };
+// }
 
-export default function Index({ data }: any) {
-  const [dataVal, setData] = useState(data);
+// export default function Index({ data }: any) {
+export default function Index() {
+  const [dataVal, setData] = useState([]);
+  useEffect(() => {
+    async function getData() {
+      const { data: response } = await api.get(moduleName, { debug: true });
+      setData(response);
+    }
+    getData();
+  }, []);
+
   const router = useRouter();
   const { addToast } = useToast();
 

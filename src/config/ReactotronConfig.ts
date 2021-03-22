@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Reactotron from 'reactotron-react-js';
 import { reactotronRedux } from 'reactotron-redux';
 import sagaPlugin from 'reactotron-redux-saga';
-
 
 declare global {
   interface Console {

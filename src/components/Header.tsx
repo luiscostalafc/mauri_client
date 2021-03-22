@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Box, Button, Flex, Text } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { CSSProperties } from 'react';

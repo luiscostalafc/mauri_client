@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
@@ -6,7 +8,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import ActionButtons from '../../../components/ActionButtons';
 import Button from '../../../components/Button';
@@ -37,24 +39,34 @@ const customStyles = {
 };
 
 const moduleName = '/api/deliveries';
-export async function getStaticProps() {
-  const { data } = await api.get(moduleName, { debug: true });
+// export async function getStaticProps() {
+//   const { data } = await api.get(moduleName, { debug: true });
+//   console.log(`🚀  get ${moduleName} data!`);
 
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
+//   if (!data) {
+//     return {
+//       notFound: true,
+//     };
+//   }
 
-  return {
-    props: {
-      data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       data,
+//     },
+//   };
+// }
 
-export default function Index({ data }: any) {
-  const [dataVal, setData] = useState(data);
+// export default function Index({ data }: any) {
+export default function Index() {
+  const [dataVal, setData] = useState([]);
+  useEffect(() => {
+    async function getData() {
+      const { data: response } = await api.get(moduleName, { debug: true });
+      setData(response);
+    }
+    getData();
+  }, []);
+
   // const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const { addToast } = useToast();
@@ -70,11 +82,11 @@ export default function Index({ data }: any) {
     {
       name: 'Actions',
       cell: (row: { id: number }) => (
-      <ActionButtons
-        moduleName={moduleName}
-        row={row}
-        onDelete={reloadData}
-      />
+        <ActionButtons
+          moduleName={moduleName}
+          row={row}
+          onDelete={reloadData}
+        />
       ),
     },
   ];
@@ -83,7 +95,6 @@ export default function Index({ data }: any) {
     if (isDeleted) {
       const { data: state } = await api.get(moduleName);
       setData(state);
-    } 
     }
   }
 

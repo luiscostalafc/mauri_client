@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { CSSProperties } from '@material-ui/styles/index';
 import { useField } from '@unform/core';
 import React, { useEffect, useRef } from 'react';
@@ -52,7 +53,7 @@ const SelectInput: React.FC<Props> = ({ name, ...rest }) => {
     registerField({
       name: fieldName,
       ref: selectRef.current,
-      getValue: (ref: any) => {
+      getValue: ref => {
         if (rest.isMulti) {
           if (!ref.state.value) {
             return [];
@@ -64,10 +65,10 @@ const SelectInput: React.FC<Props> = ({ name, ...rest }) => {
         }
         return ref.state.value.value;
       },
-      setValue: (ref: any, value: any) => {
+      setValue: (ref, value) => {
         ref.state.value = value;
       },
-      clearValue: (ref: any) => {
+      clearValue: ref => {
         ref.state.value = null;
       },
     });

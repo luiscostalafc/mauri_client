@@ -1,13 +1,12 @@
-import styled, { keyframes } from 'styled-components'
-
-import { shade } from 'polished'
+import { shade } from 'polished';
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
   height: 100%;
   display: flex;
   align-items: stretch;
-  background-color: #E2E8F0
-`
+  background-color: #e2e8f0;
+`;
 
 export const Content = styled.div`
   display: flex;
@@ -16,7 +15,7 @@ export const Content = styled.div`
   place-content: center;
   width: 100%;
   max-width: 700%;
-`
+`;
 
 const appearFromLeft = keyframes`
   from {
@@ -27,7 +26,7 @@ const appearFromLeft = keyframes`
     opacity: 1;
     transform: translateX(0);
   }
-`
+`;
 
 export const AnimationContainer = styled.div`
   display: flex;
@@ -46,7 +45,7 @@ export const AnimationContainer = styled.div`
     }
 
     a {
-      color: #F6AD55;
+      color: #f6ad55;
       display: block;
       margin-top: 24px;
       text-decoration: none;
@@ -95,7 +94,7 @@ export const AnimationContainer = styled.div`
       background: ${shade(0.2, '#ED8936')};
     }
   }
-`
+`;
 
 export const Background = styled.div`
   margin-top: 80px;
@@ -104,7 +103,7 @@ export const Background = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const Image = styled.img`
   max-width: 1080px; /* Máximo da largura da imagem */
@@ -115,7 +114,7 @@ export const Image = styled.img`
   background-repeat: no-repeat;
   padding-top: 20px;
   padding-right: 60px;
-`
+`;
 
 export const ImageCart = styled.img`
   animation: ${appearFromLeft} 1.5s;
@@ -126,4 +125,4 @@ export const ImageCart = styled.img`
   background-size: 100%;
   background-repeat: no-repeat;
   padding: 20px;
-`
+`;

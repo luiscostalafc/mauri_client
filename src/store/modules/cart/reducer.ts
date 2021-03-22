@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 import produce from 'immer';
@@ -9,19 +11,19 @@ const INITIAL_STATE: ICartState = {
   failedStockCheck: [],
 };
 
-const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
-  return produce(state, draft => {
+const cart: Reducer = (state = INITIAL_STATE, action) => {
+  return produce((stateProducer, draftProducer) => {
     switch (action.type) {
       case ActionTypes.addProductToCartSuccess: {
         const { product } = action.payload;
 
-        const productInCartIndex = draft.items.findIndex(
-          item => item.product.id === product.id,
+        const productInCartIndex = draftProducer.items.findIndex(
+          (item: { product: { id: any } }) => item.product.id === product.id,
         );
         if (productInCartIndex >= 0) {
-          draft.items[productInCartIndex].quantity++;
+          draftProducer.items[productInCartIndex].quantity++;
         } else {
-          draft.items.push({
+          draftProducer.items.push({
             product,
             quantity: 1,
           });
@@ -30,7 +32,7 @@ const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
         break;
       }
       // case ActionTypes.addProductToCartFailure: {
-      //   draft.failedStockCheck.push(action.payload.productId)
+      //   draftProducer.failedStockCheck.push(action.payload.productId)
 
       //   break
       // }
@@ -38,12 +40,12 @@ const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
       case ActionTypes.removeProductToCartRequest: {
         const { productId } = action.payload;
 
-        const productInCartIndex = draft.items.findIndex(
-          item => item.product.id === productId,
+        const productInCartIndex = draftProducer.items.findIndex(
+          (item: { product: { id: any } }) => item.product.id === productId,
         );
 
         if (productInCartIndex >= 0) {
-          draft.items.splice(productInCartIndex, 1);
+          draftProducer.items.splice(productInCartIndex, 1);
         }
 
         break;
@@ -53,7 +55,7 @@ const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
         const { quantity, productId } = action.payload;
 
         if (quantity <= 0) {
-          return state;
+          return stateProducer;
         }
 
         return produce<ICartState>(state, draft => {
@@ -68,7 +70,7 @@ const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
         });
       }
       default: {
-        return draft;
+        return draftProducer;
       }
     }
   });
