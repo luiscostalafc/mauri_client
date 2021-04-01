@@ -11773,6 +11773,13 @@ react-focus-lock@^2.1.0, react-focus-lock@^2.2.1:
     use-callback-ref "^1.2.1"
     use-sidecar "^1.0.1"
 
+react-grid-system@^7.1.2:
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/react-grid-system/-/react-grid-system-7.1.2.tgz#5fa8e17a61f2f3ec0380402918c129c968e1e947"
+  integrity sha512-5XKVkevZWDITlpivmK8iQcmdfj7cuIzPlcejOmhRK9FGdNsFsRHXO2H7zaKfssJ2CymQXOTvU0ZN8TX9BPBr+g==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-helmet-async@^1.0.2:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/react-helmet-async/-/react-helmet-async-1.0.9.tgz#5b9ed2059de6b4aab47f769532f9fbcbce16c5ca"

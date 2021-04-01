@@ -8,7 +8,7 @@ import { Cart, Container } from './styles';
 
 const CartHeader: React.FC = () => {
   const cartAmount = useSelector<IState, ICartItem[]>(state =>
-    Array(state.cart.items.length),
+    Array(state?.cart?.items?.length) ?? [],
   );
 
   return (
