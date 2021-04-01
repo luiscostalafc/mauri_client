@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { AppProps } from 'next/app';
 // import '../config/ReactotronConfig';
 import Router from 'next/router';

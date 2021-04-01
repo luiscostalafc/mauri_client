@@ -6,6 +6,7 @@ import { Form } from '@unform/web';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useCallback, useRef } from 'react';
+import { Container } from 'react-bootstrap';
 import { FiLock, FiLogIn, FiMail } from 'react-icons/fi';
 import * as Yup from 'yup';
 import Button from '../../components/Button';
@@ -17,7 +18,6 @@ import { validateForm, validationErrors } from '../../services/validateForm';
 import {
   AnimationContainer,
   Background,
-  Container,
   Content,
   Image,
   // eslint-disable-next-line prettier/prettier
@@ -94,9 +94,10 @@ const SignIn: React.FC = () => {
   );
 
   return (
-    <Container>
+    <Container fluid>
       <Content>
         <AnimationContainer>
+
           <ImageCart src="/liconnection.svg" alt="Logo do site" />
 
           <Form ref={formRef} onSubmit={handleSubmit}>

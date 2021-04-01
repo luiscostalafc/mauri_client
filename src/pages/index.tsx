@@ -1,22 +1,19 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Box, Text } from '@chakra-ui/core';
+import { Text } from '@chakra-ui/core';
 import React from 'react';
-import { Col, Container, Row } from 'react-grid-system';
+import { Col, Container, Row } from 'react-bootstrap';
 import BoxLogin from '../components/BoxLogin/Index';
 
 export default function Login() {
   return (
-    <>
-      <Container >
-        <Row>
-          <Col xs={12}>
-            <Box as="button" borderRadius="xs" w="100%" height="100%" padding={50}>
-              <Text fontSize="50px" color="tomato">
-                Login
-              </Text>
-            </Box>
+      <Container fluid>
+        <Row >
+          <Col xs={12} md={{ span: 4, offset: 4}} lg={{ span: 4, offset: 4 }}>
+            <Text fontSize="50px" color="tomato" style={{padding: '50px'}}>
+              Login
+            </Text>
           </Col>
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} lg={6}>
             <BoxLogin
               route="/users/sign-in"
               color="tomato"
@@ -25,7 +22,7 @@ export default function Login() {
               buttonLabel="ACESSAR"
             />          
           </Col>
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} lg={6}>
             <BoxLogin
               route="/users/sign-up"
               color="grey"
@@ -36,6 +33,5 @@ export default function Login() {
           </Col>
         </Row>
       </Container>
-    </>
   );
 }

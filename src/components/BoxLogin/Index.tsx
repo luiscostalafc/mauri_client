@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Avatar, Button, Text } from '@chakra-ui/core';
+import { Avatar, Text } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { ReactElement } from 'react';
-import { Col, Container, Row } from 'react-grid-system';
+import { Button, Card } from 'react-bootstrap';
 
 interface BoxLoginInterface {
   route: string;
@@ -21,36 +21,22 @@ export default function BoxLogin({
 }: BoxLoginInterface): ReactElement<any, any> | null {
   return (
     <Link href={route}>
-      <Container style={{'border':`10px solid ${color}`, borderRadius: '10px', height: '100%', padding: '0px 50px 50px 50px'}}>
-        <Row >
-        <Col xs={4} offset={{ md: 4 }}>
-          <Avatar size="lg" bg={color} />
-        </Col>
-        <Col xs={12} style={{ paddingTop: '50px'}}>
-          <Text fontSize="25px">{title}</Text>      
-        </Col>
-        <Col xs={12} style={{ paddingBottom: '20px'}}>
-          <Text fontSize="20px">{subtitile}</Text>
-        </Col>
-        <Col xs={12} style={{padding: '10px'}}>
-          <Button color="white" size="lg" background={color} padding={10}>
+      <Card>
+        <Card.Header style={{background: color}} className="text-center">
+          <Avatar size="lg" bg={color} style={{border: '1px solid'}}/>
+        </Card.Header>
+        <Card.Body>
+          <Card.Title>
+            <Text fontSize="25px">{title}</Text>      
+          </Card.Title>
+          <Card.Text>  
+            <Text fontSize="20px">{subtitile}</Text>
+          </Card.Text>
+          <Button block style={{background: color}}>
             {buttonLabel}
-          </Button>
-        </Col>
-        </Row>
-      </Container>
-      {/* <Box
-        as="button"
-        borderRadius="lg"
-        w="50%"
-        height="100%"
-        borderWidth="1px"
-      >
-        <Box w="100%" height="30px" bg={color}>
-        </Box>
-        <Box w="100%" padding={50}>
-        </Box>
-      </Box> */}
+          </Button>      
+        </Card.Body>
+      </Card>
     </Link>
   );
 }
