@@ -1,12 +1,12 @@
-import React, { useMemo } from 'react'
-import { Box, Flex, Text, useColorMode } from '@chakra-ui/core'
+import { Box, Flex, Text, useColorMode } from '@chakra-ui/core';
+import React, { useMemo } from 'react';
 
 const Footer: React.FC = () => {
-  const { colorMode } = useColorMode()
+  const { colorMode } = useColorMode();
 
   const bg = useMemo(() => (colorMode === 'dark' ? 'gray.700' : 'white'), [
-    colorMode
-  ])
+    colorMode,
+  ]);
 
   return (
     <Box
@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
         </Text>
       </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

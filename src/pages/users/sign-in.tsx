@@ -1,90 +1,97 @@
-import React, { useRef, useCallback } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { Form } from '@unform/web'
-import * as Yup from 'yup'
-
-
-import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
-import { FormHandles } from '@unform/core'
-
-import { useAuth } from '../../hooks/auth'
-import { useToast } from '../../hooks/toast'
-import getValidationErrors from '../../utils/getValidationErrors'
-
-import Button from '../../components/Button'
-import Input from '../../components/Input'
-
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useCallback, useRef } from 'react';
+import { FiLock, FiLogIn, FiMail } from 'react-icons/fi';
+import * as Yup from 'yup';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
+import { api } from '../../services/API';
+import { validateForm, validationErrors } from '../../services/validateForm';
 import {
+  AnimationContainer,
+  Background,
   Container,
   Content,
-  Background,
   Image,
-  ImageCart,
-  AnimationContainer
-} from '../../styles/pages/sign-in'
+  // eslint-disable-next-line prettier/prettier
+  ImageCart
+} from '../../styles/pages/sign-in';
+import { User } from '../../types';
 
 interface SignInFormData {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
+interface LoginResponse {
+  token: string;
+  user: User;
+  expires_in: number;
+}
 
 const SignIn: React.FC = () => {
-  const formRef = useRef<FormHandles>(null)
+  const formRef = useRef<FormHandles>(null);
 
-  const { signIn, user } = useAuth()
-  const { addToast } = useToast()
+  const { signIn } = useAuth();
+  const { addToast } = useToast();
 
-  const router = useRouter()
+  const router = useRouter();
 
+  const schema = Yup.object().shape({
+    email: Yup.string()
+      .required('E-mail obrigatório')
+      .email('Digite um e-mail válido'),
+    password: Yup.string().required('Senha obrigatória'),
+  });
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
-      try {
-        formRef.current?.setErrors({})
+      const { hasErrors, toForm, toToast } = await validateForm(schema, data);
+      if (hasErrors) {
+        formRef.current?.setErrors(toForm);
+        toToast.map(({ path, message }) =>
+          addToast(validationErrors({ path, message })),
+        );
+        return;
+      }
 
-        const schema = Yup.object().shape({
-          email: Yup.string().required('E-mail obrigatório').email('Digite um e-mail válido'),
-          password: Yup.string().required('Senha obrigatória'),
-        })
-        await schema.validate(data, {
-          abortEarly: false,
-        })
+      const { email, password } = data;
+      const { data: response, ok, messageErrors } = await api.post('login', {
+        email,
+        password,
+      });
 
-        await signIn({
-          email: data.email,
-          password: data.password
-        })
+      if (ok) {
+        const { token, user, expires_in } = response as LoginResponse;
+        // @ts-ignore
+        await signIn({ token, user, expires_in });
 
-        // if (user.inactive === true) {
-        //   addToast({
-        //     type: 'info',
-        //     title: 'Cadastro em análise',
-        //     description: 'Seu cadastro está em fase de análise, em breve você receberá um e-mail. Obrigado!'
-        //   })
-        // } else {
-          router.push('/')
-        // }
-
-      } catch (err) {
-        if (err instanceof Yup.ValidationError) {
-          const errors = getValidationErrors(err)
-
-          formRef.current?.setErrors(errors)
-
-          return
+        if (user.inactive === true) {
+          addToast({
+            type: 'info',
+            title: 'Cadastro em análise',
+            description:
+              'Seu cadastro está em fase de análise, em breve você receberá um e-mail. Obrigado!',
+          });
+        } else {
+          router.push('/home');
         }
-
-        addToast({
-          type: 'info',
-          title: 'Erro na autenticação',
-          description: 'Ocorreu um erro ao fazer login, verifique seus dados'
-        })
+      } else {
+        messageErrors?.length &&
+          messageErrors.map(({ path, message }) =>
+            addToast(validationErrors({ path, message })),
+          );
       }
     },
-    [signIn, router, addToast]
-  )
+    [schema, addToast, signIn, router],
+  );
 
   return (
     <Container>
@@ -108,18 +115,14 @@ const SignIn: React.FC = () => {
             <Link href="forgot-password">
               <a>Esqueci minha senha</a>
             </Link>
-
           </Form>
 
-              <Link href="sign-up">
-              <a>
-                <FiLogIn />
+          <Link href="sign-up">
+            <a>
+              <FiLogIn />
               Criar conta
             </a>
-            </Link>
-
-
-
+          </Link>
         </AnimationContainer>
       </Content>
 
@@ -127,9 +130,7 @@ const SignIn: React.FC = () => {
         <Image src="../home.png" />
       </Background>
     </Container>
-  )
-}
+  );
+};
 
-export default SignIn
-
-
+export default SignIn;

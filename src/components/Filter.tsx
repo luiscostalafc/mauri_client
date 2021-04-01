@@ -1,5 +1,5 @@
-import React from 'react'
-import { Select } from '@chakra-ui/core'
+import { Select } from '@chakra-ui/core';
+import React from 'react';
 
 const Filter: React.FC = () => {
   return (
@@ -61,7 +61,7 @@ const Filter: React.FC = () => {
         <option value="original">Original</option>
       </Select>
     </>
-  )
-}
+  );
+};
 
-export default Filter
+export default Filter;

@@ -1,11 +1,13 @@
-import React, { useRef, useEffect } from 'react';
+/* eslint-disable no-param-reassign */
+import { CSSProperties } from '@material-ui/styles/index';
+import { useField } from '@unform/core';
+import React, { useEffect, useRef } from 'react';
 import ReactSelect, {
   OptionTypeBase,
   Props as SelectProps,
   StylesConfig,
-  Theme,
+  Theme
 } from 'react-select';
-import { useField } from '@unform/core';
 
 interface Props extends SelectProps<OptionTypeBase> {
   name: string;
@@ -15,20 +17,19 @@ const SelectInput: React.FC<Props> = ({ name, ...rest }) => {
   const selectRef = useRef(null);
   const { fieldName, defaultValue, registerField } = useField(name);
 
-  const colourStyles: StylesConfig = {
-    control: styles => ({
+  const colourStyles: StylesConfig<OptionTypeBase, boolean> = {
+    control: (styles: CSSProperties) => ({
       ...styles,
       borderRadius: 10,
       borderColor: '#a0aec0',
       fontSize: 18,
       height: 62,
       width: 200,
-      marginTop:7,
-      paddingRight:5,
-
+      marginTop: 7,
+      paddingRight: 5,
     }),
-    option: styels => ({
-      ...styels,
+    option: (styles: CSSProperties) => ({
+      ...styles,
       color: '#F4EDE8',
     }),
   };
@@ -52,7 +53,7 @@ const SelectInput: React.FC<Props> = ({ name, ...rest }) => {
     registerField({
       name: fieldName,
       ref: selectRef.current,
-      getValue: (ref: any) => {
+      getValue: ref => {
         if (rest.isMulti) {
           if (!ref.state.value) {
             return [];
@@ -64,10 +65,10 @@ const SelectInput: React.FC<Props> = ({ name, ...rest }) => {
         }
         return ref.state.value.value;
       },
-      setValue: (ref: any, value: any) => {
+      setValue: (ref, value) => {
         ref.state.value = value;
       },
-      clearValue: (ref: any) => {
+      clearValue: ref => {
         ref.state.value = null;
       },
     });

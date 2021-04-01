@@ -1,13 +1,12 @@
-import styled, { keyframes } from 'styled-components'
-
-import { shade } from 'polished'
+import { shade } from 'polished';
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
   height: 100vh;
   display: flex;
   align-items: stretch;
-  background-color: #E2E8F0
-`
+  background-color: #e2e8f0;
+`;
 
 export const Content = styled.div`
   display: flex;
@@ -16,7 +15,7 @@ export const Content = styled.div`
   justify-content: center;
   width: 100%;
   max-width: 700%;
-`
+`;
 
 const appearFromLeft = keyframes`
   from {
@@ -27,7 +26,7 @@ const appearFromLeft = keyframes`
     opacity: 1;
     transform: translateX(0);
   }
-`
+`;
 
 export const AnimationContainer = styled.div`
   display: flex;
@@ -45,7 +44,6 @@ export const AnimationContainer = styled.div`
       margin-top: 30px;
       margin-bottom: 10px;
     }
-
   }
 
   > a {
@@ -85,10 +83,9 @@ export const AnimationContainer = styled.div`
       background: ${shade(0.2, '#ED8936')};
     }
   }
-`
+`;
 
-export const ButtonOptions = styled.button `
-
+export const ButtonOptions = styled.button`
   background: #ff9000;
   height: 56px;
   border-radius: 10px;
@@ -102,8 +99,7 @@ export const ButtonOptions = styled.button `
   &:hover {
     background: ${shade(0.2, '#ff9000')};
   }
-
-`
+`;
 
 export const DivContainer = styled.div`
   height: 70px;
@@ -112,17 +108,14 @@ export const DivContainer = styled.div`
   display: flex;
   align-items: stretch;
 
-
   input {
-  width: 100%;
+    width: 100%;
   }
-
-
-`
+`;
 
 export const SelectContainer = styled.div`
- padding: 1px;
-`
+  padding: 1px;
+`;
 
 export const Background = styled.div`
   max-width: 1080px;
@@ -130,7 +123,7 @@ export const Background = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const ImageCart = styled.img`
   animation: ${appearFromLeft} 1.5s;
@@ -141,12 +134,4 @@ export const ImageCart = styled.img`
   background-size: 100%;
   background-repeat: no-repeat;
   padding: 20px;
-`
-
-
-
-
-
-
-
-
+`;

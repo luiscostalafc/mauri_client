@@ -1,18 +1,23 @@
-import React, { ButtonHTMLAttributes } from 'react'
-
-import {Spinner} from '@chakra-ui/core'
-
-import { Container } from './styles'
-import { IconBaseProps } from 'react-icons'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Spinner } from '@chakra-ui/core';
+import React, { ButtonHTMLAttributes } from 'react';
+import { IconBaseProps } from 'react-icons';
+import { Container } from './styles';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  loading?: boolean
-  icon?: React.ComponentType<IconBaseProps>
-  typeColor?: boolean | any
+  loading?: boolean;
+  icon?: React.ComponentType<IconBaseProps>;
+  typeColor?: boolean | any;
+};
 
-}
-
-const Button: React.FC<ButtonProps> = ({ children, typeColor, icon, loading, ...rest }) => {
+const Button: React.FC<ButtonProps> = ({
+  children,
+  typeColor,
+  icon,
+  loading,
+  ...rest
+}) => {
   return (
     <Container
       disabled={loading}
@@ -21,16 +26,19 @@ const Button: React.FC<ButtonProps> = ({ children, typeColor, icon, loading, ...
       typeColor={typeColor}
       {...rest}
     >
-      {loading ?
-      <Spinner
-      thickness="4px"
-      speed="0.65s"
-      emptyColor="gray.200"
-      color="blue.500"
-      size="xl"
-      /> : children}
+      {loading ? (
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      ) : (
+        children
+      )}
     </Container>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

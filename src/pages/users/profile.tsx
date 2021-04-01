@@ -1,24 +1,27 @@
-import React, { useCallback, useRef, ChangeEvent, useState } from 'react';
-import { FiMail, FiUser, FiLock, FiCamera, FiArrowLeft, FiTrello } from 'react-icons/fi';
+import { Checkbox } from '@chakra-ui/core';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { ChangeEvent, useCallback, useRef, useState } from 'react';
+import {
+  FiArrowLeft,
+  FiCamera,
+  FiLock,
+  FiMail,
+  FiTrello,
+  // eslint-disable-next-line prettier/prettier
+  FiUser
+} from 'react-icons/fi';
 import * as Yup from 'yup';
-import { useRouter} from 'next/router';
-import Link from 'next/link'
-
-import api from '../../services/api';
-import getValidationErrors from '../../utils/getValidationErrors';
-
-import { Checkbox } from "@chakra-ui/core";
-
-import Input from '../../components/Input';
-import InputMask from '../../components/InputMask'
 import Button from '../../components/Button';
-
-import { useToast } from '../../hooks/toast';
-
-import { Container, Content, AvatarInput } from '../../styles/pages/profile';
+import Input from '../../components/Input';
+import InputMask from '../../components/InputMask';
 import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
+import { api } from '../../services/API';
+import { validateForm, validationErrors } from '../../services/validateForm';
+import { AvatarInput, Container, Content } from '../../styles/pages/profile';
 
 interface ProfileFormData {
   name: string;
@@ -34,90 +37,93 @@ interface ProfileFormData {
 
 const Profile: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const [cpfNumber, setCpfNumber] = useState(true)
-  const [check, setChecked] = useState(false)
+  const [cpfNumber, setCpfNumber] = useState(true);
+  const [check, setChecked] = useState(false);
   const { addToast } = useToast();
   const router = useRouter();
 
   const { user, updateUser } = useAuth();
 
-
   const handleOptionDocument = useCallback(() => {
     if (cpfNumber === true) {
-      setCpfNumber(false)
-      setChecked(true)
+      setCpfNumber(false);
+      setChecked(true);
     } else {
-      setCpfNumber(true)
-      setChecked(false)
+      setCpfNumber(true);
+      setChecked(false);
     }
+  }, [cpfNumber]);
 
-
-  }, [cpfNumber, check])
+  const schema = Yup.object().shape({
+    name: Yup.string().required('Nome é obrigatório'),
+    username: Yup.string().required('Usuário é obrigatório'),
+    activity: Yup.string().required('Atividade Profissional é obrigatório'),
+    rg: Yup.string().required('RG é obrigatório'),
+    cpf_cnpj: Yup.string().required('CPF ou CNPJ é obrigatório'),
+    email: Yup.string()
+      .required('E-mail é obrigatório')
+      .email('Digite um e-mail válido'),
+    old_password: Yup.string(),
+    password: Yup.string().when('old_password', {
+      is: val => !!val.length,
+      then: Yup.string()
+        .min(6, 'No mínimo 6 dígitos')
+        .required('Campo obrigatório'),
+      otherwise: Yup.string(),
+    }),
+    password_confirmation: Yup.string()
+      .when('old_password', {
+        is: val => !!val.length,
+        then: Yup.string().required('Campo obrigatório'),
+        otherwise: Yup.string(),
+      })
+      .oneOf([Yup.ref('password'), undefined], 'Confirmação incorreta'),
+  });
 
   const handleSubmit = useCallback(
     async (data: ProfileFormData) => {
-      try {
-        formRef.current?.setErrors({});
+      const { hasErrors, toForm, toToast } = await validateForm(schema, data);
+      if (hasErrors) {
+        formRef.current?.setErrors(toForm);
+        toToast.map(({ path, message }) =>
+          addToast(validationErrors({ path, message })),
+        );
+      }
 
-        const schema = Yup.object().shape({
-          name: Yup.string().required('Nome é obrigatório'),
-          username: Yup.string().required('Usuário é obrigatório'),
-          activity: Yup.string().required('Atividade Profissional é obrigatório'),
-          rg: Yup.string().required('RG é obrigatório'),
-          cpf_cnpj: Yup.string().required('CPF ou CNPJ é obrigatório'),
-          email: Yup.string()
-            .required('E-mail é obrigatório')
-            .email('Digite um e-mail válido'),
-          old_password: Yup.string(),
-          password: Yup.string().when('old_password', {
-            is: val => !!val.length,
-            then: Yup.string()
-              .min(6, 'No mínimo 6 dígitos')
-              .required('Campo obrigatório'),
-            otherwise: Yup.string(),
-          }),
-          password_confirmation: Yup.string()
-            .when('old_password', {
-              is: val => !!val.length,
-              then: Yup.string().required('Campo obrigatório'),
-              otherwise: Yup.string(),
-            })
-            .oneOf([Yup.ref('password'), undefined], 'Confirmação incorreta'),
-        });
+      const {
+        name,
+        username,
+        activity,
+        rg,
+        cpf_cnpj,
+        email,
+        old_password,
+        password,
+        password_confirmation,
+      } = data;
 
-        await schema.validate(data, { abortEarly: false });
+      const formData = {
+        name,
+        email,
+        username,
+        activity,
+        rg,
+        cpf_cnpj,
+        ...(old_password
+          ? {
+              old_password,
+              password,
+              password_confirmation,
+            }
+          : {}),
+      };
 
-        const {
-          name,
-          username,
-          activity,
-          rg,
-          cpf_cnpj,
-          email,
-          old_password,
-          password,
-          password_confirmation,
-        } = data;
-
-        const formData = {
-          name,
-          email,
-          username,
-          activity,
-          rg,
-          cpf_cnpj,
-          ...(old_password
-            ? {
-                old_password,
-                password,
-                password_confirmation,
-              }
-            : {}),
-        };
-
-        const response = await api.put(`/users/${user.id}`, formData);
-
-        updateUser(response.data);
+      const { data: response, ok, messageErrors } = await api.put(
+        `/users/${user.id}`,
+        formData,
+      );
+      if (ok) {
+        updateUser(response);
 
         router.push('/');
 
@@ -127,23 +133,20 @@ const Profile: React.FC = () => {
           description:
             'Suas informações do perfil foram atualizadas com sucesso!',
         });
-      } catch (err) {
-        if (err instanceof Yup.ValidationError) {
-          const errors = getValidationErrors(err);
-
-          formRef.current?.setErrors(errors);
-          return;
-        }
-
+      } else {
         addToast({
           type: 'error',
           title: 'Erro na atualização',
           description:
             'Ocorreu um error ao atualizar o perfil, tente novamente.',
         });
+        messageErrors?.length &&
+          messageErrors.map(({ path, message }) =>
+            addToast(validationErrors({ path, message })),
+          );
       }
     },
-    [addToast, router, updateUser],
+    [addToast, router, schema, updateUser, user.id],
   );
 
   const handleAvatarChange = useCallback(
@@ -183,9 +186,7 @@ const Profile: React.FC = () => {
         >
           <AvatarInput>
             <img
-              src={
-                'https://api.adorable.io/avatars/186/abott@adorable.io.png'
-              }
+              src="https://api.adorable.io/avatars/186/abott@adorable.io.png"
               alt="comentário da imagem"
             />
             <label htmlFor="avatar">
@@ -203,17 +204,36 @@ const Profile: React.FC = () => {
 
           <Input name="name" icon={FiUser} placeholder="Nome" />
           <Input name="username" icon={FiUser} placeholder="Usuário" />
-          <Input name="activity" icon={FiUser} placeholder="Ocupação Profissional" />
+          <Input
+            name="activity"
+            icon={FiUser}
+            placeholder="Ocupação Profissional"
+          />
           <Input name="rg" icon={FiTrello} placeholder="RG" />
-          <Checkbox variantColor="green" borderColor="#ed8936" size="sm" onChange={handleOptionDocument} defaultIsChecked={check}>Mudar para CNPJ</Checkbox>
-            {
-              cpfNumber ? (
-                <InputMask mask="999.999.999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CPF" />
-              ) : (
-                  <InputMask mask="99.999.999/9999-99" name="cpf_cnpj" icon={FiTrello} placeholder="CNPJ" />
-                )
-
-            }
+          <Checkbox
+            variantColor="green"
+            borderColor="#ed8936"
+            size="sm"
+            onChange={handleOptionDocument}
+            defaultIsChecked={check}
+          >
+            Mudar para CNPJ
+          </Checkbox>
+          {cpfNumber ? (
+            <InputMask
+              mask="999.999.999-99"
+              name="cpf_cnpj"
+              icon={FiTrello}
+              placeholder="CPF"
+            />
+          ) : (
+            <InputMask
+              mask="99.999.999/9999-99"
+              name="cpf_cnpj"
+              icon={FiTrello}
+              placeholder="CNPJ"
+            />
+          )}
 
           <Input name="email" icon={FiMail} placeholder="E-mail" />
 

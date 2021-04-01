@@ -1,135 +1,30 @@
-import { Flex, Grid, Image } from '@chakra-ui/core'
-import { useRouter } from 'next/router'
-import React, { useState } from 'react'
-import AutoExpandMenu from '../../src/components/ExpandMenu/AutoExpandMenu'
-import Footer from '../../src/components/Footer'
-//import Group from '../../src/components/Group'
-import Header from '../../src/components/Header'
-import LeftMenu from '../../src/components/LeftMenu'
-import ProductContent from '../../src/components/Product/ProductContent'
-import RightMenu from '../../src/components/RightMenu'
-import Slider from '../../src/components/Slider'
-import CartHeader from '../../src/components/CartHeader'
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import { Box, Text } from '@chakra-ui/core';
+import React from 'react';
+import BoxLogin from '../components/BoxLogin/Index';
 
-
-export default function Index() {
-  const router = useRouter()
-  // const [transform, setTransform] = useState('scaleX(0)')
-  const [group, setGroup] = useState(1)
-
-  function handleProduct (filter: any) {
-    const queryParams = new URLSearchParams(filter).toString()
-    router.push({ pathname: '/', query: queryParams },)
-  }
-
-  function handleClick(e: number) {
-    setGroup(e)
-    // if (transform === 'scaleX(0)') {
-    //   setTransform('scaleX(1)')
-    // } else {
-    //   setTransform('scaleX(0)')
-    // }
-  }
-
+export default function Login() {
   return (
-    <Grid
-      as="main"
-      height="100vh"
-      width="100vh"
-      templateColumns="100% 50% 100% 50%"
-      templateRows="200px 80px auto 0px 80px"
-      templateAreas="
-    '. logo header logoR'
-    '. menuL filter  menuR'
-    '. slider products products'
-    '. . . .'
-    '. . footer .'
-    "
-      justifyContent="center"
-      justifyItems="center"
-    >
-
-      <Flex
-        gridArea="header"
-        flexDir="row"
-        alignItems="flex-start"
-        width={{ sm: '68%', md: '100%' }}
-      >
-
-          <Header />
-      </Flex>
-
-      <Flex
-        gridArea="products"
-        flexDir="row"
-        paddingTop={10} // seccond line of filter
-        maxWidth="100vh"
-        wrap="wrap"
-      >
-         <ProductContent/>
-      </Flex>
-       {/* <Flex
-        maxHeight="100vh"
-        gridArea="group"
-        flexDir="row"
-        alignItems="flex-start"
-        justifyContent="flex-start"
-      >
-        <Group />
-      </Flex> */}
-      <Flex
-        marginTop={-8}
-        gridArea="menuL"
-        flexDir="row"
-        alignItems="flex-start"
-        justifyContent="flex-start"
-      >
-        <LeftMenu />
-      </Flex>
-      <Flex gridArea="logo" alignItems="flex-start" justify="center">
-        <Image
-          size="70%"
-          src="/liconnection.svg"
-          alt="Liconnection"
-        />
-      </Flex>
-      <Flex gridArea="logoR" alignItems="flex-start" justify="center">
-        <CartHeader />
-      </Flex>
-      <Flex
-        marginTop={-8}
-        gridArea="menuR"
-        flexDir="row"
-        alignItems="flex-start"
-        justifyContent="flex-start"
-      >
-        <RightMenu />
-      </Flex>
-
-      <Flex
-        paddingTop={2}
-        paddingLeft={2}
-        marginTop={-12}
-        gridArea="slider"
-        flexDir="column"
-        alignItems="flex-start"
-      >
-        <Slider onClick={(e: { target: { value: number } }) => handleClick(e.target.value)} />
-      </Flex>
-
-      <Flex
-        paddingTop={2}
-        id="items"
-        gridArea="filter"
-        flexDirection="row"
-        position="relative"
-      >
-        <AutoExpandMenu group={group}/*transform={transform}*/ onSearch={handleProduct} />
-      </Flex>
-
-      <Flex gridArea="footer" flexDir="row" alignItems="flex-start">
-        <Footer />
-      </Flex>
-    </Grid>
-  )
+    <>
+      <Box as="button" borderRadius="xs" w="100%" height="100%" padding={50}>
+        <Text fontSize="50px" color="tomato">
+          Login
+        </Text>
+      </Box>
+      <BoxLogin
+        route="/users/sign-in"
+        color="tomato"
+        title="Já tenho cadastro"
+        subtitile="Informe seu e-mail e senha para se autenticar"
+        buttonLabel="ACESSAR"
+      />
+      <BoxLogin
+        route="/users/sign-up"
+        color="grey"
+        title="Sou novo cliente"
+        subtitile="O cadastro em nossa loja é simples e rápido"
+        buttonLabel="CRIAR CONTA"
+      />
+    </>
+  );
 }

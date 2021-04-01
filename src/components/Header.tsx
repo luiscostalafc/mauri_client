@@ -1,20 +1,17 @@
-import React, {CSSProperties} from 'react'
-import Link from 'next/link'
-
-import { Box, Flex, Text, Button } from '@chakra-ui/core'
-
-
-
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import { Box, Button, Flex, Text } from '@chakra-ui/core';
+import Link from 'next/link';
+import React, { CSSProperties } from 'react';
 
 const MenuItems: React.FC<CSSProperties> = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
     {children}
   </Text>
-)
+);
 
 const Header = () => {
-  const [show, setShow] = React.useState(false)
-  const handleToggle = () => setShow(!show)
+  const [show, setShow] = React.useState(false);
+  const handleToggle = () => setShow(!show);
 
   return (
     <>
@@ -62,15 +59,14 @@ const Header = () => {
           mt={{ base: 4, md: 0 }}
         >
           <Link href="users/profile">
-          <Button  bg="transparent" border="1px" marginLeft={20}>
-            Perfil
-          </Button>
+            <Button bg="transparent" border="1px" marginLeft={20}>
+              Perfil
+            </Button>
           </Link>
-
         </Box>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

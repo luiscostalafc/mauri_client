@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react'
-import { Text, useColorMode } from '@chakra-ui/core'
-import styled from '@emotion/styled'
-
-import { cell } from '../../modules/styles'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Text, useColorMode } from '@chakra-ui/core';
+import styled from '@emotion/styled';
+import React, { useMemo } from 'react';
+import { cell } from '../../modules/styles';
 
 const Wrapper = styled('td')`
   ${cell};
@@ -10,21 +10,21 @@ const Wrapper = styled('td')`
   padding-top: ${({ theme }: any) => theme.space[3]}};
   padding-bottom: ${({ theme }: any) => theme.space[3]}};
   border-top-width: 1px;
-`
+`;
 
 const TBodyTD: React.FC = ({ children }) => {
-  const { colorMode } = useColorMode()
+  const { colorMode } = useColorMode();
 
   const color = useMemo(
     () => (colorMode === 'dark' ? 'gray.300' : 'gray.600'),
-    [colorMode]
-  )
+    [colorMode],
+  );
 
   return (
     <Wrapper>
       <Text color={color}>{children}</Text>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default TBodyTD
+export default TBodyTD;

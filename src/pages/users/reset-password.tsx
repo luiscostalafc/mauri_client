@@ -1,88 +1,91 @@
+/* eslint-disable no-restricted-globals */
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRouter } from 'next/router';
-import querySearch from 'querystring';
 import React, { useCallback, useRef } from 'react';
 import { FiLock } from 'react-icons/fi';
+// @ts-ignore
+import querySearch from 'stringquery';
 import * as Yup from 'yup';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { useToast } from '../../hooks/toast';
-import api from '../../services/api';
+import { api } from '../../services/API';
+import { validateForm, validationErrors } from '../../services/validateForm';
 import {
-  AnimationContainer, Background, Container,
+  AnimationContainer,
+  Background,
+  Container,
   Content,
   Image,
+  // eslint-disable-next-line prettier/prettier
   ImageCart
 } from '../../styles/pages/sign-in';
-import getValidationErrors from '../../utils/getValidationErrors';
-
 
 interface ResetPasswordFormData {
-  password: string
+  password: string;
   password_confirmation: string;
 }
 
+const schema = Yup.object().shape({
+  password: Yup.string().required('Senha é obrigatória'),
+  password_confirmation: Yup.string().oneOf(
+    [Yup.ref('password'), undefined],
+    'Confirmação incorreta',
+  ),
+});
 
 const ResetPassword: React.FC = () => {
-  const formRef = useRef<FormHandles>(null)
+  const formRef = useRef<FormHandles>(null);
 
   const { addToast } = useToast();
 
   const router = useRouter();
 
-
   const handleSubmit = useCallback(
     async (data: ResetPasswordFormData) => {
-      try {
-        formRef.current?.setErrors({});
+      const { hasErrors, toForm, toToast } = await validateForm(schema, data);
+      if (hasErrors) {
+        formRef.current?.setErrors(toForm);
+        toToast.map(({ path, message }) =>
+          addToast(validationErrors({ path, message })),
+        );
+      }
 
-        const schema = Yup.object().shape({
-          password: Yup.string().required('Senha é obrigatória'),
-          password_confirmation: Yup.string().oneOf(
-            [Yup.ref('password'), undefined],
-            'Confirmação incorreta',
-          ),
-        });
-        await schema.validate(data, {
-          abortEarly: false,
-        });
+      const { password, password_confirmation } = data;
+      const query = querySearch(location.search);
+      const token = new URLSearchParams(query).get('token');
 
-         const {  password, password_confirmation} = data;
+      if (!token) {
+        addToast(
+          validationErrors({
+            path: 'Token',
+            message: 'Token não encontrado',
+          }),
+        );
+      }
 
-         const query = querySearch(location.search);
+      const { ok, messageErrors } = await api.post('/password/reset', {
+        password,
+        password_confirmation,
+        token,
+      });
 
-         const token = new URLSearchParams(query).get('token');
-
-        if (!token) {
-          throw new Error();
-        }
-
-        await api.post('/password/reset', {
-          password,
-          password_confirmation,
-          token,
-        });
-
+      if (ok) {
         router.push('/users/login');
-
-      } catch (err) {
-       if (err instanceof Yup.ValidationError) {
-         const errors = getValidationErrors(err);
-
-         formRef.current?.setErrors(errors);
-
-         return;
-       }
-
-       addToast({
-         type: 'error',
-         title: 'Erro ao resetar  senha',
-         description: 'Ocorreu um erro ao resetar usa senha, tente novamente',
-       });
+      } else {
+        addToast({
+          type: 'error',
+          title: 'Erro ao resetar  senha',
+          description: 'Ocorreu um erro ao resetar usa senha, tente novamente',
+        });
+        messageErrors?.length &&
+          messageErrors.map(({ path, message }) =>
+            addToast(validationErrors({ path, message })),
+          );
       }
     },
-    [addToast, router, location.search],
+    [addToast, router],
   );
 
   return (
@@ -116,9 +119,7 @@ const ResetPassword: React.FC = () => {
         <Image src="../home.png" />
       </Background>
     </Container>
-  )
-}
+  );
+};
 
-export default ResetPassword
-
-
+export default ResetPassword;

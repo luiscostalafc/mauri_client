@@ -1,73 +1,75 @@
-import { Box, Button, ButtonGroup } from '@chakra-ui/core'
-import React from 'react'
-import { AiFillCar } from 'react-icons/ai'
-import { FaMotorcycle } from 'react-icons/fa'
-import { GiScissors } from 'react-icons/gi'
-import { GoTools } from 'react-icons/go'
-import { GrBike, GrBook } from 'react-icons/gr'
-
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Box, Button, ButtonGroup } from '@chakra-ui/core';
+import React from 'react';
+import { AiFillCar } from 'react-icons/ai';
+import { FaMotorcycle } from 'react-icons/fa';
+import { GiScissors } from 'react-icons/gi';
+import { GoTools } from 'react-icons/go';
+import { GrBike, GrBook } from 'react-icons/gr';
 
 type Options = {
-  width?: string
-  height?: number
-  marginTop: number
-  size?: string
-  bg: string
-  hover?: string
-  leftIcon: any
-  variant?: string
-  color?: string
-  justifyContent?: string
-  label: string
-  groupId: number
-}
+  width?: string;
+  height?: number;
+  marginTop: number;
+  size?: string;
+  bg: string;
+  hover?: string;
+  leftIcon: any;
+  variant?: string;
+  color?: string;
+  justifyContent?: string;
+  label: string;
+  groupId: number;
+};
 
-const options:Options[] = [
+const options: Options[] = [
   {
     marginTop: 0,
-    bg: "#ED8936",
+    bg: '#ED8936',
     leftIcon: AiFillCar,
-    label: "Auto Peças",
-    groupId: 1
+    label: 'Auto Peças',
+    groupId: 1,
   },
   {
     marginTop: 1,
-    bg: "#48BB78",
+    bg: '#48BB78',
     leftIcon: FaMotorcycle,
-    label: "Moto Peças",
-    groupId: 2
+    label: 'Moto Peças',
+    groupId: 2,
   },
   {
     marginTop: 1,
-    bg: "#E53E3E",
+    bg: '#E53E3E',
     leftIcon: GrBike,
-    label: "Bicicletas",
-    groupId: 3
+    label: 'Bicicletas',
+    groupId: 3,
   },
   {
     marginTop: 1,
-    bg: "#F6E05E",
+    bg: '#F6E05E',
     leftIcon: GoTools,
-    label: "Ferramentas",
-    groupId: 4
+    label: 'Ferramentas',
+    groupId: 4,
   },
   {
     marginTop: 1,
-    bg: "#4299E1",
+    bg: '#4299E1',
     leftIcon: GrBook,
-    label: "Livraria",
-    groupId: 5
+    label: 'Livraria',
+    groupId: 5,
   },
   {
     marginTop: 1,
-    bg: "#B7791F",
+    bg: '#B7791F',
     leftIcon: GiScissors,
-    label: "Papelaria",
-    groupId: 6
+    label: 'Papelaria',
+    groupId: 6,
   },
-]
+];
 
-const Slider = (props:any) => {
+const Slider = (props: any) => {
   return (
     <>
       <Box flex="1" textAlign="left">
@@ -75,17 +77,17 @@ const Slider = (props:any) => {
           {options.map((option, index) => (
             <Button
               key={index}
-              _hover={{ bg: option.hover || "#E2E8F0" }}
-              width={option.width || "100%"}
+              _hover={{ bg: option.hover || '#E2E8F0' }}
+              width={option.width || '100%'}
               height={option.height || 12}
-              size={option.size || "lg"}
+              size={option.size || 'lg'}
               marginTop={option.marginTop}
               bg={option.bg}
               leftIcon={option.leftIcon}
-              variant={option.variant || "solid"}
-              color={option.color || "#2D3748" }
+              variant={option.variant || 'solid'}
+              color={option.color || '#2D3748'}
               value={option.groupId}
-              justifyContent={option.justifyContent || "left"}
+              justifyContent={option.justifyContent || 'left'}
               {...props}
             >
               {option.label}
@@ -94,7 +96,7 @@ const Slider = (props:any) => {
         </ButtonGroup>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default Slider
+export default Slider;
