@@ -6,7 +6,7 @@ import { Form } from '@unform/web';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useCallback, useRef } from 'react';
-import { Container } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { FiLock, FiLogIn, FiMail } from 'react-icons/fi';
 import * as Yup from 'yup';
 import Button from '../../components/Button';
@@ -17,7 +17,9 @@ import { api } from '../../services/API';
 import { validateForm, validationErrors } from '../../services/validateForm';
 import {
   AnimationContainer,
+
   Background,
+
   Content,
   Image,
   // eslint-disable-next-line prettier/prettier
@@ -94,42 +96,51 @@ const SignIn: React.FC = () => {
   );
 
   return (
-    <Container fluid>
-      <Content>
-        <AnimationContainer>
-
+    <Container>
+      <Row >
+        <Col xs={12} md={3} lg={3}>
           <ImageCart src="/liconnection.svg" alt="Logo do site" />
+        </Col>
+      </Row>
+      <Row >
+        <Col xs={12} md={3} lg={3}>
+          <AnimationContainer>
+            <Content>
+              <Form ref={formRef} onSubmit={handleSubmit}>
+                <h1>Faça seu login</h1>
+                <Input name="email" icon={FiMail} placeholder="E-mail" />
 
-          <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Faça seu login</h1>
-            <Input name="email" icon={FiMail} placeholder="E-mail" />
+                <Input
+                  name="password"
+                  icon={FiLock}
+                  type="password"
+                  placeholder="Senha"
+                />
 
-            <Input
-              name="password"
-              icon={FiLock}
-              type="password"
-              placeholder="Senha"
-            />
+                <Button type="submit">Entrar</Button>
 
-            <Button type="submit">Entrar</Button>
+                <Link href="forgot-password">
+                  <a>Esqueci minha senha</a>
+                </Link>
+              </Form>
 
-            <Link href="forgot-password">
-              <a>Esqueci minha senha</a>
-            </Link>
-          </Form>
+              <Link href="sign-up">
+                <a>
+                  <FiLogIn />
+                  Criar conta
+                </a>
+              </Link>
+            </Content>
+          </AnimationContainer>
+        </Col>
+        <Col xs={12} md={{ span: 6, offset: 3}} lg={{ span: 6, offset: 3}}>
+        <Background>
+          <Image src="../home.png" />
+        </Background>
+        </Col>
+      </Row>
 
-          <Link href="sign-up">
-            <a>
-              <FiLogIn />
-              Criar conta
-            </a>
-          </Link>
-        </AnimationContainer>
-      </Content>
-
-      <Background>
-        <Image src="../home.png" />
-      </Background>
+      
     </Container>
   );
 };

@@ -50,7 +50,7 @@ export default class MyDocument extends Document {
           />
 
         </Head>
-        <body>
+        <body >
           <Main />
           <NextScript />
         </body>

@@ -3,6 +3,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import Link from 'next/link';
 import React, { useCallback, useRef, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import { FiLogIn, FiMail } from 'react-icons/fi';
 import * as Yup from 'yup';
 import Button from '../../components/Button';
@@ -13,7 +14,6 @@ import { validateForm, validationErrors } from '../../services/validateForm';
 import {
   AnimationContainer,
   Background,
-  Container,
   Content,
   Image,
   // eslint-disable-next-line prettier/prettier
@@ -80,31 +80,36 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <Container>
-      <Content>
-        <AnimationContainer>
-          <ImageCart src="/liconnection.svg" alt="Logo do site" />
+      <Row >
+        <Col xs={12} md={3} lg={3}>
+          <Content>
+            <AnimationContainer>
+              <ImageCart src="/liconnection.svg" alt="Logo do site" />
 
-          <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Faça seu login</h1>
-            <Input name="email" icon={FiMail} placeholder="E-mail" />
+              <Form ref={formRef} onSubmit={handleSubmit}>
+                <h1>Faça seu login</h1>
+                <Input name="email" icon={FiMail} placeholder="E-mail" />
 
-            <Button loading={loading} type="submit">
-              Recuperar
-            </Button>
-          </Form>
+                <Button loading={loading} type="submit">
+                  Recuperar
+                </Button>
+              </Form>
 
-          <Link href="sign-in">
-            <a>
-              <FiLogIn />
-              Voltar ao login
-            </a>
-          </Link>
-        </AnimationContainer>
-      </Content>
-
-      <Background>
-        <Image src="../home.png" />
-      </Background>
+              <Link href="sign-in">
+                <a>
+                  <FiLogIn />
+                  Voltar ao login
+                </a>
+              </Link>
+            </AnimationContainer>
+          </Content>
+        </Col>
+        <Col xs={12} md={{ span: 6, offset: 3}} lg={{ span: 6, offset: 3}}>
+          <Background>
+            <Image src="../home.png" />
+          </Background>
+        </Col>
+      </Row>
     </Container>
   );
 };

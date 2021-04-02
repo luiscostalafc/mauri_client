@@ -3,6 +3,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useRouter } from 'next/router';
 import React, { useCallback, useRef } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import { FiLock } from 'react-icons/fi';
 // @ts-ignore
 import querySearch from 'stringquery';
@@ -15,7 +16,6 @@ import { validateForm, validationErrors } from '../../services/validateForm';
 import {
   AnimationContainer,
   Background,
-  Container,
   Content,
   Image,
   // eslint-disable-next-line prettier/prettier
@@ -90,34 +90,39 @@ const ResetPassword: React.FC = () => {
 
   return (
     <Container>
-      <Content>
-        <AnimationContainer>
-          <ImageCart src="/liconnection.svg" alt="Logo do site" />
+      <Row >
+        <Col xs={12} md={3} lg={3}>
+        <Content>
+          <AnimationContainer>
+            <ImageCart src="/liconnection.svg" alt="Logo do site" />
 
-          <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Resetar senha</h1>
-            <Input
-              name="password"
-              icon={FiLock}
-              type="password"
-              placeholder="Nova senha"
-            />
+            <Form ref={formRef} onSubmit={handleSubmit}>
+              <h1>Resetar senha</h1>
+              <Input
+                name="password"
+                icon={FiLock}
+                type="password"
+                placeholder="Nova senha"
+              />
 
-            <Input
-              name="password_confirmation"
-              icon={FiLock}
-              type="password"
-              placeholder="Confirmação da senha"
-            />
+              <Input
+                name="password_confirmation"
+                icon={FiLock}
+                type="password"
+                placeholder="Confirmação da senha"
+              />
 
-            <Button type="submit">Alterar senha</Button>
-          </Form>
-        </AnimationContainer>
-      </Content>
-
-      <Background>
-        <Image src="../home.png" />
-      </Background>
+              <Button type="submit">Alterar senha</Button>
+            </Form>
+          </AnimationContainer>
+        </Content>
+      </Col>
+      <Col xs={12} md={{ span: 6, offset: 3}} lg={{ span: 6, offset: 3}}>
+        <Background>
+          <Image src="../home.png" />
+        </Background>
+        </Col>
+      </Row>
     </Container>
   );
 };
