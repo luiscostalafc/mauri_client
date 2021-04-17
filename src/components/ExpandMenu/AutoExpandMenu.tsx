@@ -73,44 +73,44 @@ const AutoExpandMenu = ({ group, onSearch, ...props }: any) => {
     <Container fluid>
         <Row >
           {hasInGroup([1, 2]) && (
-          <Col xs={12} md={1} lg={1}>
+          <Col xs={2} md={2} lg={2}>
             <Automakers onChange={(e: any) => handleChange(e)} />
           </Col>
           )}
-          <Col xs={12} md={2} lg={2}>
+          <Col xs={2} md={2} lg={2}>
             <Models onChange={(e: any) => handleChange(e)} />
           </Col>
-          <Col xs={12} md={1} lg={1}>
+          <Col xs={2} md={2} lg={2}>
             <YearFab onChange={(e: any) => handleChange(e)} />
           </Col>
 
           {hasInGroup([1, 2]) && (
-            <Col xs={12} md={1} lg={1}>
+            <Col xs={2} md={2} lg={2}>
               <YearModel onChange={(e: any) => handleChange(e)} />
             </Col>
           )}
 
           {hasInGroup([1, 2]) && (
-            <Col xs={12} md={1} lg={1}>
+            <Col xs={2} md={2} lg={2}>
               <Motors onChange={(e: any) => handleChange(e)} />
             </Col>
           )}
 
           {hasInGroup([1, 2]) && (
-            <Col xs={12} md={1} lg={1}>
+            <Col xs={2} md={2} lg={2}>
               <Fuel onChange={(e: any) => handleChange(e)} />
             </Col>
           )}
           {hasInGroup([1, 2, 3, 4]) && (
-            <Col xs={12} md={1} lg={1}>
+            <Col xs={2} md={2} lg={2}>
               <Chassi onChange={(e: any) => handleChange(e)} />
             </Col>
           )}
-          <Col xs={12} md={2} lg={2}>
+          <Col xs={2} md={2} lg={2}>
             <Name onChange={(e: any) => handleChange(e)} />
           </Col>
 
-          <Col xs={12} md={1} lg={1}>
+          <Col xs={2} md={2} lg={2}>
             <Button
               children
               onClick={() => onSearch(filter)}
@@ -119,7 +119,7 @@ const AutoExpandMenu = ({ group, onSearch, ...props }: any) => {
             />
           </Col>
       </Row>
-      </Container>
+    </Container>
   );
 };
 

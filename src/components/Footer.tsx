@@ -12,7 +12,6 @@ const Footer: React.FC = () => {
     <Box
       as="footer"
       zIndex={4}
-      ml={[0, null, '18rem']}
       right="0"
       borderTopWidth="1px"
       height="4rem"

@@ -30,8 +30,6 @@ const Header = () => {
     <>
       <Flex
         as="nav"
-        width={{ sm: 'full', md: '100%', lg: '1400px' }}
-        maxH="120px"
         align="center"
         justify="flex-end"
         wrap="wrap"

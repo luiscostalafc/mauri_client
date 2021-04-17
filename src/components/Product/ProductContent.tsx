@@ -105,7 +105,7 @@ const ProductContent: React.FC<ProductItemProps> = () => {
       )}
 
       {!isValidating && (
-        <Flex flexDir="row" marginLeft={-20} maxWidth="100vh" wrap="wrap">
+        <Flex flexDir="row" maxWidth="100vh" wrap="wrap">
           {currentPageData}
 
           <ReactPaginate

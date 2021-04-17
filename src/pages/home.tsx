@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-curly-newline */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Flex, Grid, Image } from '@chakra-ui/core';
+import { Image } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import CartHeader from '../components/CartHeader';
 import AutoExpandMenu from '../components/ExpandMenu/AutoExpandMenu';
 import Footer from '../components/Footer';
@@ -40,105 +41,62 @@ export default function Index() {
   }
 
   return (
-    <Grid
-      as="main"
-      height="100vh"
-      width="100vh"
-      templateColumns="100% 50% 100% 50%"
-      templateRows="200px 80px auto 0px 80px"
-      templateAreas="
-    '. logo header logoR'
-    '. menuL filter  menuR'
-    '. slider products products'
-    '. . . .'
-    '. . footer .'
-    "
-      justifyContent="center"
-      justifyItems="center"
-    >
-      <Flex
-        gridArea="header"
-        flexDir="row"
-        alignItems="flex-start"
-        width={{ sm: '68%', md: '100%' }}
-      >
-        <Header />
-      </Flex>
-
-      <Flex
-        gridArea="products"
-        flexDir="row"
-        // paddingTop={10} // seccond line of filter
-        maxWidth="100vh"
-        wrap="wrap"
-      >
-        <ProductContent />
-      </Flex>
-      {/* <Flex
-        maxHeight="100vh"
-        gridArea="group"
-        flexDir="row"
-        alignItems="flex-start"
-        justifyContent="flex-start"
-      >
-        <Group />
-      </Flex> */}
-      <Flex
-        marginTop={-8}
-        gridArea="menuL"
-        flexDir="row"
-        alignItems="flex-start"
-        justifyContent="flex-start"
-      >
-        <LeftMenu />
-      </Flex>
-      <Flex gridArea="logo" alignItems="flex-start" justify="center">
-        <Image size="70%" src="/liconnection.svg" alt="Liconnection" />
-      </Flex>
-      <Flex gridArea="logoR" alignItems="flex-start" justify="center">
-        <CartHeader />
-      </Flex>
-      <Flex
-        marginTop={-8}
-        gridArea="menuR"
-        flexDir="row"
-        alignItems="flex-start"
-        justifyContent="flex-start"
-      >
-        <RightMenu />
-      </Flex>
-
-      <Flex
-        paddingTop={2}
-        paddingLeft={2}
-        marginTop={-12}
-        gridArea="slider"
-        flexDir="column"
-        alignItems="flex-start"
-      >
-        <Slider
-          onClick={(e: { target: { value: number } }) =>
-            handleClick(e.target.value)
-          }
-        />
-      </Flex>
-
-      <Flex
-        paddingTop={2}
-        id="items"
-        gridArea="filter"
-        flexDirection="row"
-        position="relative"
-      >
-        <AutoExpandMenu
-          group={group}
-          /* transform={transform} */ onSearch={handleProduct}
-        />
-      </Flex>
-
-      <Flex gridArea="footer" flexDir="row" alignItems="flex-start">
-        <Footer />
-      </Flex>
-    </Grid>
+    <Container fluid>
+      <Row >
+        {/* Logo */}
+        <Col xs={0} md={3} lg={3}>
+          <Image size="70%" src="/liconnection.svg" alt="Liconnection" />
+        </Col>
+        {/* header */}
+        <Col xs={12} md={6} lg={6}>
+          <Header />
+        </Col>
+        {/* logoR */}
+        <Col xs={0} md={3} lg={3}>
+          <CartHeader />
+        </Col>
+      </Row>
+      <Row >
+        {/*  menuL */}
+        <Col xs={0} md={3} lg={3}>
+          <LeftMenu />
+        </Col>
+        {/* filter */}
+        <Col xs={12} md={6} lg={6}>
+          <AutoExpandMenu
+            group={group}
+            /* transform={transform} */ onSearch={handleProduct}
+          />
+        </Col>
+        {/* menuR */}
+        <Col xs={0} md={3} lg={3}>
+          <RightMenu />
+        </Col>
+      </Row>
+      <Row >
+        {/*  slider */}
+        <Col xs={0} md={3} lg={3}>
+          <Slider
+            onClick={(e: { target: { value: number } }) =>
+              handleClick(e.target.value)
+            }
+          />
+        </Col>
+        {/* products */}
+        <Col xs={12} md={6} lg={6}>
+          <ProductContent />
+        </Col>
+        {/* grupo? */}
+        <Col xs={0} md={3} lg={3}>
+          
+        </Col>
+      </Row>
+      <Row >
+        {/* footer */}
+        <Col xs={12} md={{ span: 4, offset: 4}} lg={{ span: 4, offset: 4}}>
+          <Footer />
+        </Col>
+      </Row>
+    </Container>
   );
 }
