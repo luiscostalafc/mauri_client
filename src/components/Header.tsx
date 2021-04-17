@@ -9,6 +9,19 @@ const MenuItems: React.FC<CSSProperties> = ({ children }) => (
   </Text>
 );
 
+interface MenuItemsInterface {
+  label: string
+}
+
+const menuItens: MenuItemsInterface[] = [
+  { label: 'Garantia' },
+  { label: 'Devolução' },
+  { label: 'Sobre' },
+  { label: 'Orçamento' },
+  { label: 'Compras' },
+  { label: 'Vendas' },
+  { label: 'Rastrear' },
+]
 const Header = () => {
   const [show, setShow] = React.useState(false);
   const handleToggle = () => setShow(!show);
@@ -45,13 +58,7 @@ const Header = () => {
           flexGrow={1}
           flex-wrap="wrap"
         >
-          <MenuItems>Garantia</MenuItems>
-          <MenuItems>Devolução</MenuItems>
-          <MenuItems>Sobre a Marca</MenuItems>
-          <MenuItems>Orçamento</MenuItems>
-          <MenuItems>Compras</MenuItems>
-          <MenuItems>Vendas</MenuItems>
-          <MenuItems>Rastrear</MenuItems>
+          {menuItens.map(({label}) => (<MenuItems>{label}</MenuItems>))}
         </Box>
 
         <Box

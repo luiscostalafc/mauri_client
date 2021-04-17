@@ -4,9 +4,24 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Input } from '@material-ui/core';
+import { FormControl, InputLabel, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+}));
+
+const LABEL = 'Nome'
 export default function Name(props: any) {
-  return <Input name="name" onChange={props.onChange} />;
+  const classes = useStyles();
+  return (
+    <FormControl className={classes.formControl}>
+      <InputLabel>{LABEL}</InputLabel>
+        <TextField name="name" onChange={props.onChange}/>
+    </FormControl> 
+  )
 }

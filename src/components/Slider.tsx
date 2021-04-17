@@ -5,7 +5,7 @@ import { Box, Button, ButtonGroup } from '@chakra-ui/core';
 import React from 'react';
 import { AiFillCar } from 'react-icons/ai';
 import { FaMotorcycle } from 'react-icons/fa';
-import { GiScissors } from 'react-icons/gi';
+import { GiScissors, GiWireframeGlobe } from 'react-icons/gi';
 import { GoTools } from 'react-icons/go';
 import { GrBike, GrBook } from 'react-icons/gr';
 
@@ -27,6 +27,13 @@ type Options = {
 const options: Options[] = [
   {
     marginTop: 0,
+    bg: '#f8f9fa',
+    leftIcon: GiWireframeGlobe,
+    label: 'Todos',
+    groupId: 0,
+  },
+  {
+    marginTop: 1,
     bg: '#ED8936',
     leftIcon: AiFillCar,
     label: 'Auto Peças',

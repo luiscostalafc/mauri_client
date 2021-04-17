@@ -4,9 +4,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Box, Button, Flex } from '@chakra-ui/core';
+import { Button } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import Automakers from './Filters/Automakers';
 import Chassi from './Filters/Chassi';
@@ -69,48 +70,56 @@ const AutoExpandMenu = ({ group, onSearch, ...props }: any) => {
   };
 
   return (
-    <Flex
-      backgroundColor="transparent"
-      paddingLeft={5}
-      flexDirection="column"
-      position="relative"
-    >
-      <Box
-        display="fixed"
-        marginLeft={220}
-        flexDirection="row"
-        transformOrigin="left"
-        transition="0.5s"
-        {...props}
-      >
-        {hasInGroup([1, 2]) && (
-          <Automakers onChange={(e: any) => handleChange(e)} />
-        )}
-        <Models onChange={(e: any) => handleChange(e)} />
-        <YearFab onChange={(e: any) => handleChange(e)} />
+    <Container fluid>
+        <Row >
+          {hasInGroup([1, 2]) && (
+          <Col xs={12} md={1} lg={1}>
+            <Automakers onChange={(e: any) => handleChange(e)} />
+          </Col>
+          )}
+          <Col xs={12} md={2} lg={2}>
+            <Models onChange={(e: any) => handleChange(e)} />
+          </Col>
+          <Col xs={12} md={1} lg={1}>
+            <YearFab onChange={(e: any) => handleChange(e)} />
+          </Col>
 
-        {hasInGroup([1, 2]) && (
-          <YearModel onChange={(e: any) => handleChange(e)} />
-        )}
+          {hasInGroup([1, 2]) && (
+            <Col xs={12} md={1} lg={1}>
+              <YearModel onChange={(e: any) => handleChange(e)} />
+            </Col>
+          )}
 
-        {hasInGroup([1, 2]) && (
-          <Motors onChange={(e: any) => handleChange(e)} />
-        )}
+          {hasInGroup([1, 2]) && (
+            <Col xs={12} md={1} lg={1}>
+              <Motors onChange={(e: any) => handleChange(e)} />
+            </Col>
+          )}
 
-        {hasInGroup([1, 2]) && <Fuel onChange={(e: any) => handleChange(e)} />}
-        {hasInGroup([1, 2, 3, 4]) && (
-          <Chassi onChange={(e: any) => handleChange(e)} />
-        )}
-        <Name onChange={(e: any) => handleChange(e)} />
+          {hasInGroup([1, 2]) && (
+            <Col xs={12} md={1} lg={1}>
+              <Fuel onChange={(e: any) => handleChange(e)} />
+            </Col>
+          )}
+          {hasInGroup([1, 2, 3, 4]) && (
+            <Col xs={12} md={1} lg={1}>
+              <Chassi onChange={(e: any) => handleChange(e)} />
+            </Col>
+          )}
+          <Col xs={12} md={2} lg={2}>
+            <Name onChange={(e: any) => handleChange(e)} />
+          </Col>
 
-        <Button
-          children
-          onClick={() => onSearch(filter)}
-          size="md"
-          leftIcon={FaSearch}
-        />
-      </Box>
-    </Flex>
+          <Col xs={12} md={1} lg={1}>
+            <Button
+              children
+              onClick={() => onSearch(filter)}
+              size="md"
+              leftIcon={FaSearch}
+            />
+          </Col>
+      </Row>
+      </Container>
   );
 };
 

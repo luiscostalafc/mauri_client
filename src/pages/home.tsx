@@ -17,7 +17,7 @@ import Slider from '../components/Slider';
 export default function Index() {
   const router = useRouter();
   // const [transform, setTransform] = useState('scaleX(0)')
-  const [group, setGroup] = useState(1);
+  const [group, setGroup] = useState(0);
 
   function handleProduct(filter: any) {
     const queryParams = new URLSearchParams(filter).toString();
@@ -25,8 +25,13 @@ export default function Index() {
   }
 
   function handleClick(e: number) {
-    setGroup(e);
-    router.push({ pathname: '/home', query: { group_id: e } });
+    if (Number(e) === 0) {
+      router.push('/home');
+      return
+    } else {
+      setGroup(e);
+      router.push({ pathname: '/home', query: { group_id: e } });
+    }
     // if (transform === 'scaleX(0)') {
     //   setTransform('scaleX(1)')
     // } else {

@@ -98,7 +98,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
           <AccordionItem>
             <AccordionHeader _expanded={{ bg: 'tomato', color: 'white' }}>
               <Box flex="1" textAlign="left">
-                Descrição
+                Qualidade
               </Box>
               <AccordionIcon />
             </AccordionHeader>

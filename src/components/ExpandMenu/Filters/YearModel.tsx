@@ -2,55 +2,65 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Select } from '@material-ui/core';
-import React from 'react';
-import { MdArrowDropDown } from 'react-icons/md';
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
+import { api } from '../../../services/API';
 
 type Options = {
   value: string | number | readonly string[] | undefined;
   label: string;
 };
 
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
+const NAME = 'year_model'
+const LABEL = 'Modelo ano'
 export default function YearModel(props: any) {
-  const yearModel: Options[] = [
-    {
-      label: 'selecione',
-      value: 0,
-    },
-    {
-      label: 'test',
-      value: 1,
-    },
-    {
-      label: 'test2',
-      value: 2,
-    },
-  ];
+  const classes = useStyles();
+  const [state, setState] = useState([] as Options[])
+
+  useEffect(() => {
+    async function fetch() {
+      const { data } = await api.post('api/products/distinct', {
+        name: NAME
+      })
+      if (data?.data) setState(data.data as Options[])
+    }
+    fetch()
+  },[])
+
+  const defaultOptions = () => {
+    <MenuItem value={''}>
+      Sem Opções
+    </MenuItem>
+  }
+
   return (
-    <Select
-      _hover={{ bg: '#EDF2F7' }}
-      name="year_start"
-      placeholder="Ano-Mod"
-      icon={MdArrowDropDown}
-      iconSize={8}
-      backgroundImage="gray.600"
-      display="flex"
-      height="40px"
-      width="122px"
-      color="primary"
-      alignItems="center"
-      justifyContent="center"
-      variant="standard"
-      defaultValue={0}
-      onChange={props.onChange}
-      {...props}
-    >
-      {yearModel.length &&
-        yearModel.map(({ value, label }, index) => (
-          <option key={index} value={value}>
-            {label}
-          </option>
-        ))}
-    </Select>
+    <FormControl className={classes.formControl}>
+      <InputLabel>{LABEL}</InputLabel>
+        <Select
+          name={NAME}
+          defaultValue={0}
+          onChange={props.onChange}
+          {...props}
+        >
+          {state.length ?
+            state.map(({ value, label }, index) => (
+              <MenuItem key={index} value={value}>
+                {label}
+              </MenuItem>
+            )) : 
+            defaultOptions()}
+        </Select>
+    </FormControl>
   );
 }

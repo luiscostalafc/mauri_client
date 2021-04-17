@@ -2,36 +2,32 @@ import { Button, ButtonGroup, Flex } from '@chakra-ui/core';
 import React from 'react';
 import { FaCartArrowDown } from 'react-icons/fa';
 
+interface Option {
+  variantColor: string
+  marginLeft?: number
+  label: string
+}
+const options: Option[] = [
+  { variantColor: 'green', label: 'Garantia'},
+  { variantColor: 'yellow', marginLeft: -3, label: 'Devolução'},
+  { variantColor: 'blue', marginLeft: -3, label: 'Marca'},
+]
+
 const LeftMenu: React.FC = () => {
   return (
     <Flex>
       <ButtonGroup spacing={4}>
-        <Button
-          size="sm"
-          leftIcon={FaCartArrowDown}
-          variantColor="green"
-          variant="solid"
-        >
-          Garantia
-        </Button>
-        <Button
-          size="sm"
-          leftIcon={FaCartArrowDown}
-          variantColor="yellow"
-          variant="solid"
-          marginLeft={-3}
-        >
-          Devolução
-        </Button>
-        <Button
-          size="sm"
-          leftIcon={FaCartArrowDown}
-          variantColor="blue"
-          variant="solid"
-          marginLeft={-3}
-        >
-          Marca
-        </Button>
+        {options.map(({variantColor, marginLeft, label}) => (
+          <Button
+            size="sm"
+            leftIcon={FaCartArrowDown}
+            variantColor={variantColor}
+            marginLeft={marginLeft ?? 0}
+            variant="solid"
+          >
+            {label}
+          </Button>
+        ))}
       </ButtonGroup>
     </Flex>
   );
