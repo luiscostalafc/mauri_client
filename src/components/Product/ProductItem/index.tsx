@@ -19,7 +19,8 @@ import { useDispatch } from 'react-redux';
 import { addProductToCartRequest } from '../../../store/modules/cart/actions';
 import { IProduct } from '../../../types';
 import { formatPrice } from '../../../utils/formatPrice';
-import Filter from '../../Filter';
+import MeasureProducts from '../../MeasureProducts';
+import ModalProduct from '../../ModalProduct';
 
 interface ProductItemProps {
   id?: number;
@@ -30,6 +31,7 @@ interface ProductItemProps {
   obs?: string;
   image?: string;
   product?: IProduct;
+  size?: string | any;
 }
 
 const ProductItem: React.FC<ProductItemProps> = ({
@@ -41,6 +43,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
   obs,
   image,
   product,
+  size,
 }) => {
   const dispatch = useDispatch();
 
@@ -59,7 +62,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
       borderWidth="1px"
       rounded="lg"
       overflow="hidden"
-      maxWidth="30%"
+      maxWidth="30vh"
     >
       <Box p="6">
         <Flex align="center" justify="center" marginBottom={5}>
@@ -93,6 +96,30 @@ const ProductItem: React.FC<ProductItemProps> = ({
             {name}
           </Link>
         </Box>
+        <Box d="flex" alignItems="baseline" maxWidth="100vh">
+          {obs}
+          </Box>
+
+          <Box marginTop={5}>
+           <ModalProduct
+            name={name}
+            detailsProducts={obs}
+           />
+          </Box>
+
+        <Box marginTop={2}>
+          <AccordionItem>
+            <AccordionHeader _expanded={{ bg: 'tomato', color: 'white' }}>
+              <Box maxWidth="200px">
+                Medida
+              </Box>
+              <AccordionIcon />
+            </AccordionHeader>
+            <AccordionPanel marginLeft="-18px">
+             <MeasureProducts valuesMeasure={size} />
+            </AccordionPanel>
+          </AccordionItem>
+        </Box>
 
         <Box marginTop={2}>
           <AccordionItem>
@@ -102,25 +129,12 @@ const ProductItem: React.FC<ProductItemProps> = ({
               </Box>
               <AccordionIcon />
             </AccordionHeader>
-            <AccordionPanel>{obs}</AccordionPanel>
-          </AccordionItem>
-        </Box>
-
-        <Box marginTop={2}>
-          <AccordionItem>
-            <AccordionHeader _expanded={{ bg: 'tomato', color: 'white' }}>
-              <Box flex="1" textAlign="left">
-                Filtro Avançado
-              </Box>
-              <AccordionIcon />
-            </AccordionHeader>
             <AccordionPanel>
-              <Filter />
+            <Box style={{ fontWeight:"bold", color:"orange"}}>SIMILAR:{" "}{formatPrice(price ?? 1)}</Box>
+            <Box style={{ fontWeight:"bold", color:"blue"}}>ORIGINAL:{" "}{formatPrice(price ?? 2)}</Box>
             </AccordionPanel>
           </AccordionItem>
         </Box>
-
-        <Box marginTop={3}>{formatPrice(price ?? 2)}</Box>
         <Box marginTop={5} alignItems="center" justifyContent="center">
           <Button
             type="button"

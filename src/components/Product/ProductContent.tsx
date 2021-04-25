@@ -12,6 +12,8 @@ import styles from '../../styles/pages/styles.module.css';
 import ProductLoading from './loading';
 import ProductItem from './ProductItem';
 
+import { sizeProductsExample } from '../../utils/sizeProductsExample'
+
 interface ImageProduct {
   asset: object | string;
   mine: object | string;
@@ -34,6 +36,7 @@ interface ProductItemProps {
   obs?: string; // descrição
   price?: number; // valor
   image?: ImageProduct | any;
+  size?: string | any;
 }
 
 const ProductContent: React.FC<ProductItemProps> = () => {
@@ -62,6 +65,8 @@ const ProductContent: React.FC<ProductItemProps> = () => {
   const maxPage = 9;
   const offset = currentPage * maxPage;
 
+  console.log({ sizeProductsExample })
+
   const currentPageData = dataProducts?.length
     ? dataProducts
         .slice(offset, offset + maxPage)
@@ -73,6 +78,7 @@ const ProductContent: React.FC<ProductItemProps> = () => {
             obs={item.obs}
             image={item.image}
             price={item.price}
+            size={sizeProductsExample && sizeProductsExample.map((sizeProduct) => sizeProduct.name)}
           />
         ))
     : 'Não há produtos para exibir';
