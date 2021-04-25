@@ -5,7 +5,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useEffect, useState } from 'react';
-import { api } from '../../../services/API';
+import { api } from '../../../services/API/index';
 
 type Options = {
   value: string | number | readonly string[] | undefined;
@@ -58,7 +58,7 @@ export default function Models(props: any) {
               <MenuItem key={index} value={value}>
                 {label}
               </MenuItem>
-            )) : 
+            )) :
             defaultOptions()}
         </Select>
     </FormControl>
