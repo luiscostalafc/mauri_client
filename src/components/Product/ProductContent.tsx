@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import useSWR from 'swr';
-import { api } from '../../services/API';
+import { api } from '../../services/API/index';
 import styles from '../../styles/pages/styles.module.css';
 import ProductLoading from './loading';
 import ProductItem from './ProductItem';
