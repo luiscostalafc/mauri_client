@@ -6,7 +6,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import Automakers from './Filters/Automakers';
@@ -28,7 +28,8 @@ type QueryObject = { [key: string]: string };
 const AutoExpandMenu = ({ group, onSearch, ...props }: any) => {
   const router = useRouter();
   const [selectedGroup, setGroup] = useState(1);
-  const [filter, setFilter] = useState({});
+  const [automaker, setAutomaker] = useState('');
+  const urlParams = new URLSearchParams(window.location.search);
 
   useEffect(() => {
     setGroup(group);
@@ -38,47 +39,42 @@ const AutoExpandMenu = ({ group, onSearch, ...props }: any) => {
     return values.indexOf(Number(selectedGroup)) !== -1;
   }
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const updateQuery = ({ name, value }: Params) => {
+  const updateQuery = useCallback(({ name, value }: Params) => {
     if (value) {
       urlParams.append(name, value);
     } else {
       urlParams.delete(name);
     }
-  };
+  }, [urlParams])
 
-  const mountQuery = () => {
+  const mountQuery = useCallback(() => {
     const query: QueryObject = {};
     const params = (urlParams as unknown) as Array<string[]>;
     for (const [key, value] of params) {
       query[key] = value;
     }
     return query;
-  };
+  },[]);
 
-  const handleChange = (event: any) => {
+  const handleChange = useCallback((event: any) => {
     if (event?.target?.name) {
       const { name, value } = event.target;
       updateQuery({ name, value });
       const query = mountQuery();
       router.push({ pathname: router.pathname, query });
-      // const auxValues: any = { ...filter };
-      // const { name } = event.target;
-      // auxValues[name] = event.target.value;
-      // setFilter(auxValues);
     }
-  };
+  },[])
 
   return (
     <Container fluid>
         <Row >
           {hasInGroup([1, 2]) && (
           <Col xs={2} md={2} lg={2}>
-            <Automakers onChange={(e: any) => handleChange(e)} />
+            <Automakers onChange={(e: any) => {handleChange(e);setAutomaker(() => e.target.value)}} />
           </Col>
           )}
           <Col xs={2} md={2} lg={2}>
-            <Models onChange={(e: any) => handleChange(e)} />
+            <Models automaker={automaker} onChange={(e: any) => handleChange(e)} />
           </Col>
           <Col xs={2} md={2} lg={2}>
             <YearFab onChange={(e: any) => handleChange(e)} />
@@ -113,7 +109,7 @@ const AutoExpandMenu = ({ group, onSearch, ...props }: any) => {
           <Col xs={2} md={2} lg={2}>
             <Button
               children
-              onClick={() => onSearch(filter)}
+              onClick={() => onSearch()}
               size="md"
               leftIcon={FaSearch}
             />
