@@ -74,7 +74,7 @@ const AutoExpandMenu = ({ group, onSearch, ...props }: any) => {
           </Col>
           )}
           <Col xs={2} md={2} lg={2}>
-            <Models automaker={automaker} onChange={(e: any) => handleChange(e)} />
+            <Models onChange={(e: any) => handleChange(e)} />
           </Col>
           <Col xs={2} md={2} lg={2}>
             <YearFab onChange={(e: any) => handleChange(e)} />
@@ -99,7 +99,7 @@ const AutoExpandMenu = ({ group, onSearch, ...props }: any) => {
           )}
           {hasInGroup([1, 2, 3, 4]) && (
             <Col xs={2} md={2} lg={2}>
-              <Chassi onChange={(e: any) => handleChange(e)} />
+              <Chassi automaker={automaker} onChange={(e: any) => handleChange(e)} />
             </Col>
           )}
           <Col xs={2} md={2} lg={2}>
