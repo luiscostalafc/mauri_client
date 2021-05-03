@@ -5,7 +5,7 @@
 // @ts-ignore
 
 
- export const sizeProductsExample: [
+ export const sizeProductsExample = [
   {name: 'STD'},
   {name: '0,25mm'},
   {name: '0,50mm'},
