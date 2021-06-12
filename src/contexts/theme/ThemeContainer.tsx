@@ -1,21 +1,21 @@
 import {
-  ColorModeProvider,
   CSSReset,
-  ThemeProvider as ChakraThemeProvider
+  ThemeProvider as ChakraThemeProvider,
 } from '@chakra-ui/core';
+import { ColorModeScript } from '@chakra-ui/react';
+
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
 import React from 'react';
-import theme from '../../styles/theme';
+import { theme, config } from '../../styles/theme';
 
 const ThemeContainer: React.FC = ({ children }) => {
   return (
     <ChakraThemeProvider theme={theme}>
-      <ColorModeProvider value="light">
-        <EmotionThemeProvider theme={theme}>
-          <CSSReset />
-          {children}
-        </EmotionThemeProvider>
-      </ColorModeProvider>
+      <ColorModeScript initialColorMode={config.initialColorMode} />
+      <EmotionThemeProvider theme={theme}>
+        <CSSReset />
+        {children}
+      </EmotionThemeProvider>
     </ChakraThemeProvider>
   );
 };
