@@ -5,7 +5,6 @@ import { FaCartArrowDown } from 'react-icons/fa';
 
 interface Option {
   variantColor: string;
-  marginLeft?: number;
   label: string;
 }
 const options: Option[] = [
@@ -15,19 +14,19 @@ const options: Option[] = [
 ];
 
 const LeftMenu: React.FC = () => {
-  const [isLargerThan770] = useMediaQuery('(min-width:770px)');
+  const [isLargerThan1015] = useMediaQuery('(min-width:1015px)');
   return (
     <>
-      {isLargerThan770 ? (
+      {isLargerThan1015 ? (
         <Flex width="120%">
           <ButtonGroup spacing={4}>
             {options.map(({ variantColor, label }) => (
               <Button
                 padding={{ xl: '5px' }}
-                width={{ xl: '93px', lg: '85px', md: '75px', sm: '', xs: '' }}
+                width={{ xl: '100px', lg: '85px', md: '75px', sm: '', xs: '' }}
                 height={{ xl: '30px', lg: '30px', md: '30px', sm: '', xs: '' }}
                 variantColor={variantColor}
-                marginLeft={{ xl: '0px', lg: '', md: '-10px', sm: '', xs: '' }}
+                marginLeft={{ xl: '0px', lg: '', md: '-12px', sm: '', xs: '' }}
                 variant="solid"
               >
                 <Box
@@ -39,6 +38,9 @@ const LeftMenu: React.FC = () => {
                     md: '15px',
                     sm: '',
                     xs: '',
+                  }}
+                  marginLeft={{
+                    xl: '3px',
                   }}
                   marginRight={{
                     xl: '3px',
