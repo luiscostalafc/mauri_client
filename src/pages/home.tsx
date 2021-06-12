@@ -28,7 +28,7 @@ export default function Index() {
   function handleClick(e: number) {
     if (Number(e) === 0) {
       router.push('/home');
-      return
+      return;
     } else {
       setGroup(e);
       router.push({ pathname: '/home', query: { group_id: e } });
@@ -42,7 +42,7 @@ export default function Index() {
 
   return (
     <Container fluid>
-      <Row >
+      <Row>
         {/* Logo */}
         <Col xs={0} md={3} lg={3}>
           <Image size="70%" src="/liconnection.svg" alt="Liconnection" />
@@ -56,7 +56,7 @@ export default function Index() {
           <CartHeader />
         </Col>
       </Row>
-      <Row >
+      <Row>
         {/*  menuL */}
         <Col xs={0} md={3} lg={3}>
           <LeftMenu />
@@ -73,7 +73,7 @@ export default function Index() {
           <RightMenu />
         </Col>
       </Row>
-      <Row >
+      <Row>
         {/*  slider */}
         <Col xs={0} md={3} lg={3}>
           <Slider
@@ -87,13 +87,11 @@ export default function Index() {
           <ProductContent />
         </Col>
         {/* grupo? */}
-        <Col xs={0} md={3} lg={3}>
-          
-        </Col>
+        <Col xs={0} md={3} lg={3}></Col>
       </Row>
-      <Row >
+      <Row>
         {/* footer */}
-        <Col xs={12} md={{ span: 4, offset: 4}} lg={{ span: 4, offset: 4}}>
+        <Col xs={12} md={{ span: 4, offset: 4 }} lg={{ span: 4, offset: 4 }}>
           <Footer />
         </Col>
       </Row>
