@@ -33,11 +33,6 @@ export default function Index() {
       setGroup(e);
       router.push({ pathname: '/home', query: { group_id: e } });
     }
-    // if (transform === 'scaleX(0)') {
-    //   setTransform('scaleX(1)')
-    // } else {
-    //   setTransform('scaleX(0)')
-    // }
   }
 
   return (

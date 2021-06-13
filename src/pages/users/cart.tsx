@@ -5,14 +5,14 @@ import {
   MdAddCircleOutline,
   MdDelete,
   // eslint-disable-next-line prettier/prettier
-  MdRemoveCircleOutline
+  MdRemoveCircleOutline,
 } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../../store';
 import {
   removeProductToCartRequest,
   // eslint-disable-next-line prettier/prettier
-  updateAmountProductToCartRequest
+  updateAmountProductToCartRequest,
 } from '../../store/modules/cart/actions';
 import { ICartItem } from '../../store/modules/cart/types';
 import { Container, ProductTable, Total } from '../../styles/pages/cart';
@@ -26,8 +26,8 @@ interface CartProductProps {
 const Cart: React.FC<CartProductProps> = ({ product }) => {
   const cart = useSelector<IState, ICartItem[]>(state => state.cart.items);
 
-  const total = cart.reduce((t, items) => {
-    return t + items.product.price * items.product.quantity;
+  const total = cart?.reduce((t, items) => {
+    return t + items?.product?.price * items?.product?.quantity;
   }, 0);
 
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const Cart: React.FC<CartProductProps> = ({ product }) => {
 
   return (
     <Container>
-      {cart.map((item, index) => (
+      {cart?.map((item, index) => (
         <ProductTable key={index}>
           <thead>
             <tr>
