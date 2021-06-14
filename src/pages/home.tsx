@@ -29,10 +29,9 @@ export default function Index() {
     if (Number(e) === 0) {
       router.push('/home');
       return;
-    } else {
-      setGroup(e);
-      router.push({ pathname: '/home', query: { group_id: e } });
-    }
+    } 
+    setGroup(e);
+    router.push({ pathname: '/home', query: { group_id: e } });
   }
 
   return (
