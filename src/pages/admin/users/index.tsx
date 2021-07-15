@@ -15,7 +15,7 @@ import Button from '../../../components/Button';
 import Template from '../../../components/Template';
 import { deletionToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
-import { api } from '../../../services/API';
+import { api } from '../../../services/API/index';
 
 const moduleName = '/api/users';
 // export async function getStaticProps() {

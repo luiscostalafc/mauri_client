@@ -14,7 +14,7 @@ import Template from '../../../components/Template';
 import { updateToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
 // import { post } from '../../../services/API';
-import { api } from '../../../services/API';
+import { api } from '../../../services/API/index';
 import { validationErrors } from '../../../services/validateForm';
 import {
   checkExtension,
@@ -22,7 +22,7 @@ import {
   formatSend,
   formatSheet,
   // eslint-disable-next-line prettier/prettier
-  sheetToJson
+  sheetToJson,
 } from '../../../utils/uploadExcel';
 
 const moduleName = 'products/excel';

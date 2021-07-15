@@ -11,7 +11,7 @@ import {
   FiMail,
   FiTrello,
   // eslint-disable-next-line prettier/prettier
-  FiUser
+  FiUser,
 } from 'react-icons/fi';
 import * as Yup from 'yup';
 import Button from '../../components/Button';
@@ -19,7 +19,7 @@ import Input from '../../components/Input';
 import InputMask from '../../components/InputMask';
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
-import { api } from '../../services/API';
+import { api } from '../../services/API/index';
 import { validateForm, validationErrors } from '../../services/validateForm';
 import { AvatarInput, Container, Content } from '../../styles/pages/profile';
 

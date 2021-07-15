@@ -16,7 +16,7 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import InputMask from '../../components/InputMask';
 import { useToast } from '../../hooks/toast';
-import { api } from '../../services/API';
+import { api } from '../../services/API/index';
 import { getCEPData } from '../../services/apiCep.js';
 import { validateForm, validationErrors } from '../../services/validateForm';
 import {
@@ -24,7 +24,7 @@ import {
   Background,
   Content,
   // eslint-disable-next-line prettier/prettier
-  ImageCart
+  ImageCart,
 } from '../../styles/pages/address-sign-up';
 
 interface AddressFormData {
@@ -123,92 +123,92 @@ const AddressSignUp: React.FC = () => {
 
   return (
     <Container>
-      <Row >
+      <Row>
         <Col xs={12} md={3} lg={3}>
-        <Content>
-          <AnimationContainer>
-            <Form ref={formRef} onSubmit={handleSubmit}>
-              <h1>Endereço</h1>
+          <Content>
+            <AnimationContainer>
+              <Form ref={formRef} onSubmit={handleSubmit}>
+                <h1>Endereço</h1>
 
-              <Progress
-                margin={5}
-                hasStripe
-                isAnimated
-                value={100}
-                size="sm"
-                color="green"
-              />
+                <Progress
+                  margin={5}
+                  hasStripe
+                  isAnimated
+                  value={100}
+                  size="sm"
+                  color="green"
+                />
 
-              <InputMask
-                mask="99999-999"
-                name="cep"
-                icon={FiMapPin}
-                placeholder="CEP"
-                onChange={callCep}
-              />
+                <InputMask
+                  mask="99999-999"
+                  name="cep"
+                  icon={FiMapPin}
+                  placeholder="CEP"
+                  onChange={callCep}
+                />
 
-              <Input
-                name="street"
-                icon={FiMapPin}
-                placeholder="Rua"
-                value={values.street}
-                // loading={loading}
-              />
+                <Input
+                  name="street"
+                  icon={FiMapPin}
+                  placeholder="Rua"
+                  value={values.street}
+                  // loading={loading}
+                />
 
-              <Input
-                name="number"
-                icon={FiMapPin}
-                placeholder="Número"
-                // loading={loading}
-              />
+                <Input
+                  name="number"
+                  icon={FiMapPin}
+                  placeholder="Número"
+                  // loading={loading}
+                />
 
-              <Input
-                name="complement"
-                icon={FiMapPin}
-                placeholder="Complemento"
-                // loading={loading}
-              />
+                <Input
+                  name="complement"
+                  icon={FiMapPin}
+                  placeholder="Complemento"
+                  // loading={loading}
+                />
 
-              <Input
-                name="district"
-                icon={FiMapPin}
-                placeholder="Bairro"
-                value={values.neighborhood}
-                // loading={loading}
-              />
+                <Input
+                  name="district"
+                  icon={FiMapPin}
+                  placeholder="Bairro"
+                  value={values.neighborhood}
+                  // loading={loading}
+                />
 
-              <Input
-                name="city"
-                icon={FaCity}
-                placeholder="Cidade"
-                value={values.city}
-                // loading={loading}
-              />
+                <Input
+                  name="city"
+                  icon={FaCity}
+                  placeholder="Cidade"
+                  value={values.city}
+                  // loading={loading}
+                />
 
-              <Input
-                name="state"
-                icon={FaCity}
-                placeholder="Estado"
-                value={values.state}
-                // loading={loading}
-              />
+                <Input
+                  name="state"
+                  icon={FaCity}
+                  placeholder="Estado"
+                  value={values.state}
+                  // loading={loading}
+                />
 
-              <Button type="submit">Concluir</Button>
-            </Form>
-            <Link href="address-sign-up">
-              <a>
-                <FiArrowLeft />
-                Voltar aos Dados de contato
-              </a>
-            </Link>
-          </AnimationContainer>
-        </Content>
-      </Col>
-      <Col xs={12} md={{ span: 6, offset: 3}} lg={{ span: 6, offset: 3}}>
-        <Background>
-          <ImageCart src="../cart_no_background.png" />
-        </Background>
-      </Col>
+                <Button type="submit">Concluir</Button>
+              </Form>
+              <Link href="address-sign-up">
+                <a>
+                  <FiArrowLeft />
+                  Voltar aos Dados de contato
+                </a>
+              </Link>
+            </AnimationContainer>
+          </Content>
+        </Col>
+        <Col xs={12} md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }}>
+          <Background>
+            <ImageCart src="../cart_no_background.png" />
+          </Background>
+        </Col>
       </Row>
     </Container>
   );

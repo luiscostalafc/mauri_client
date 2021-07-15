@@ -17,7 +17,7 @@ import Input from '../../components/Input';
 import InputMask from '../../components/InputMask';
 import SelectInput from '../../components/SelectInput';
 import { useToast } from '../../hooks/toast';
-import { api } from '../../services/API';
+import { api } from '../../services/API/index';
 import { validateForm, validationErrors } from '../../services/validateForm';
 import {
   AnimationContainer,
@@ -26,7 +26,7 @@ import {
   DivContainer,
 
   // eslint-disable-next-line prettier/prettier
-  SelectContainer
+  SelectContainer,
 } from '../../styles/pages/phone-sign-up';
 import { ImageCart } from '../../styles/pages/sign-up';
 
@@ -115,80 +115,83 @@ const PhoneSignUp: React.FC = () => {
 
   return (
     <Container>
-      <Row >
+      <Row>
         <Col xs={12} md={3} lg={3}>
-        <Content>
-          <AnimationContainer>
-            <Form ref={formRef} onSubmit={handleSubmit}>
-              <h1>Contatos</h1>
+          <Content>
+            <AnimationContainer>
+              <Form ref={formRef} onSubmit={handleSubmit}>
+                <h1>Contatos</h1>
 
-              <Progress
-                margin={5}
-                hasStripe
-                isAnimated
-                value={50}
-                size="sm"
-                color="green"
-              />
-
-              <DivContainer>
-                <InputMask
-                  mask="(99) 9999-9999"
-                  name="phone"
-                  icon={FiPhone}
-                  placeholder="número com o DDD"
+                <Progress
+                  margin={5}
+                  hasStripe
+                  isAnimated
+                  value={50}
+                  size="sm"
+                  color="green"
                 />
-                <SelectContainer>
-                  <SelectInput
-                    name="type"
-                    defaultValue={{ value: 'residencial', label: 'residencial' }}
-                    onChange={toggleOption}
-                    options={optionsSelect}
-                  />
-                </SelectContainer>
-              </DivContainer>
 
-              <DivContainer>
-                <InputMask
-                  mask="(99) 99999-9999"
-                  name="phone"
-                  icon={FiSmartphone}
-                  placeholder="número com o DDD"
-                />
-                <Flex justify="center" align="center" width={200}>
-                  <FaWhatsapp
-                    style={{ marginTop: 10 }}
-                    size="50px"
-                    color="128c7e"
+                <DivContainer>
+                  <InputMask
+                    mask="(99) 9999-9999"
+                    name="phone"
+                    icon={FiPhone}
+                    placeholder="número com o DDD"
                   />
-                  <Switch
-                    color="green"
-                    name="whatsapp"
-                    id="whatsapp"
-                    onChange={handleWhatsapp}
-                    isChecked={withWhatsapp}
+                  <SelectContainer>
+                    <SelectInput
+                      name="type"
+                      defaultValue={{
+                        value: 'residencial',
+                        label: 'residencial',
+                      }}
+                      onChange={toggleOption}
+                      options={optionsSelect}
+                    />
+                  </SelectContainer>
+                </DivContainer>
+
+                <DivContainer>
+                  <InputMask
+                    mask="(99) 99999-9999"
+                    name="phone"
+                    icon={FiSmartphone}
+                    placeholder="número com o DDD"
                   />
-                </Flex>
-              </DivContainer>
+                  <Flex justify="center" align="center" width={200}>
+                    <FaWhatsapp
+                      style={{ marginTop: 10 }}
+                      size="50px"
+                      color="128c7e"
+                    />
+                    <Switch
+                      color="green"
+                      name="whatsapp"
+                      id="whatsapp"
+                      onChange={handleWhatsapp}
+                      isChecked={withWhatsapp}
+                    />
+                  </Flex>
+                </DivContainer>
 
-              <Input name="obs" icon={FiFileText} placeholder="Observações" />
+                <Input name="obs" icon={FiFileText} placeholder="Observações" />
 
-              <Button type="submit">Avançar para endereço {'>>'}</Button>
-            </Form>
-            <Link href="sign-up">
-              <a>
-                <FiArrowLeft />
-                Voltar aos Dados do usuário
-              </a>
-            </Link>
-          </AnimationContainer>
-        </Content>
-      </Col>
-      <Col xs={12} md={{ span: 6, offset: 3}} lg={{ span: 6, offset: 3}}>
-        <Background>
-          <ImageCart src="../home.png" />
-        </Background>
-      </Col>
+                <Button type="submit">Avançar para endereço {'>>'}</Button>
+              </Form>
+              <Link href="sign-up">
+                <a>
+                  <FiArrowLeft />
+                  Voltar aos Dados do usuário
+                </a>
+              </Link>
+            </AnimationContainer>
+          </Content>
+        </Col>
+        <Col xs={12} md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }}>
+          <Background>
+            <ImageCart src="../home.png" />
+          </Background>
+        </Col>
       </Row>
     </Container>
   );

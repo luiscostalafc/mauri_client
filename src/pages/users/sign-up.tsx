@@ -13,14 +13,14 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import InputMask from '../../components/InputMask';
 import { useToast } from '../../hooks/toast';
-import { api } from '../../services/API';
+import { api } from '../../services/API/index';
 import { validateForm, validationErrors } from '../../services/validateForm';
 import {
   AnimationContainer,
   Background,
   Content,
   // eslint-disable-next-line prettier/prettier
-  ImageCart
+  ImageCart,
 } from '../../styles/pages/sign-up';
 import { User } from '../../types';
 
@@ -107,7 +107,7 @@ const SignUp: React.FC = () => {
 
   return (
     <Container>
-      <Row >
+      <Row>
         <Col xs={12} md={3} lg={3}>
           <Content>
             <AnimationContainer>
@@ -175,7 +175,7 @@ const SignUp: React.FC = () => {
             </AnimationContainer>
           </Content>
         </Col>
-        <Col xs={12} md={{ span: 6, offset: 3}} lg={{ span: 6, offset: 3}}>
+        <Col xs={12} md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }}>
           <Background>
             <ImageCart src="../cart_no_background.png" />
           </Background>

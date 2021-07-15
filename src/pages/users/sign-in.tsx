@@ -13,17 +13,15 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
-import { api } from '../../services/API';
+import { api } from '../../services/API/index';
 import { validateForm, validationErrors } from '../../services/validateForm';
 import {
   AnimationContainer,
-
   Background,
-
   Content,
   Image,
   // eslint-disable-next-line prettier/prettier
-  ImageCart
+  ImageCart,
 } from '../../styles/pages/sign-in';
 import { User } from '../../types';
 
@@ -97,12 +95,12 @@ const SignIn: React.FC = () => {
 
   return (
     <Container>
-      <Row >
+      <Row>
         <Col xs={12} md={3} lg={3}>
           <ImageCart src="/liconnection.svg" alt="Logo do site" />
         </Col>
       </Row>
-      <Row >
+      <Row>
         <Col xs={12} md={3} lg={3}>
           <AnimationContainer>
             <Content>
@@ -133,14 +131,12 @@ const SignIn: React.FC = () => {
             </Content>
           </AnimationContainer>
         </Col>
-        <Col xs={12} md={{ span: 6, offset: 3}} lg={{ span: 6, offset: 3}}>
-        <Background>
-          <Image src="../home.png" />
-        </Background>
+        <Col xs={12} md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }}>
+          <Background>
+            <Image src="../home.png" />
+          </Background>
         </Col>
       </Row>
-
-      
     </Container>
   );
 };

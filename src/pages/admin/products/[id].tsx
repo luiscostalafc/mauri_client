@@ -15,7 +15,7 @@ import Template from '../../../components/Template';
 import { updateToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
 // import { get, put } from '../../../services/API';
-import { api } from '../../../services/API';
+import { api } from '../../../services/API/index';
 import { validateForm, validationErrors } from '../../../services/validateForm';
 
 interface FormData {
