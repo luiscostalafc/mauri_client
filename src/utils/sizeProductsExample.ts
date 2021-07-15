@@ -1,9 +1,8 @@
- /* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-restricted-syntax */
 // @ts-ignore
-
 
  export const sizeProductsExample = [
   {name: 'STD'},
@@ -16,4 +15,3 @@
   {name: '1,75mm'},
   {name: '2,00mm'},
 ];
-

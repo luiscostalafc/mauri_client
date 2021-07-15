@@ -1,4 +1,19 @@
 import { DefaultTheme, theme } from '@chakra-ui/core';
+import { createBreakpoints } from '@chakra-ui/theme-tools';
+
+const breakpoints = createBreakpoints({
+  xs: '630px',
+  sm: '960px',
+  md: '1300px',
+  lg: '1400px',
+  xl: '1600px',
+  '2xl': '1900px',
+});
+
+const config = {
+  initialColorMode: Object('light'),
+  useSystemColorMode: false,
+};
 
 const customTheme: DefaultTheme = {
   ...theme,
@@ -37,4 +52,4 @@ const customTheme: DefaultTheme = {
   },
 };
 
-export default customTheme;
+export { customTheme, breakpoints, config, theme };
