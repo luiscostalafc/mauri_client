@@ -31,12 +31,15 @@ export default function Models(props: any) {
   useEffect(() => {
     async function fetch() {
       const { data } = await api.post('api/products/distinct', {
-        name: NAME
+        name: NAME,
+        restrictions: [
+          { name: 'automaker', operator: '=', value: props.automaker}
+        ]
       })
       if (data?.data) setState(data.data as Options[])
     }
     fetch()
-  },[])
+  },[props.automaker])
 
   const defaultOptions = () => {
     <MenuItem value={''}>

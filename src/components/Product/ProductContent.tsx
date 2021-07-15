@@ -9,10 +9,9 @@ import ReactPaginate from 'react-paginate';
 import useSWR from 'swr';
 import { api } from '../../services/API/index';
 import styles from '../../styles/pages/styles.module.css';
+import { sizeProductsExample } from '../../utils/sizeProductsExample';
 import ProductLoading from './loading';
 import ProductItem from './ProductItem';
-
-import { sizeProductsExample } from '../../utils/sizeProductsExample'
 
 interface ImageProduct {
   asset: object | string;
@@ -64,8 +63,6 @@ const ProductContent: React.FC<ProductItemProps> = () => {
 
   const maxPage = 9;
   const offset = currentPage * maxPage;
-
-  console.log({ sizeProductsExample })
 
   const currentPageData = dataProducts?.length
     ? dataProducts
