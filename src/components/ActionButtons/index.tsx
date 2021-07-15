@@ -4,7 +4,7 @@
 /* eslint-disable no-restricted-globals */
 import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
-import { api } from '../../services/API';
+import { api } from '../../services/API/index';
 import Button from '../Button';
 
 declare interface ActionButtonsInterface {

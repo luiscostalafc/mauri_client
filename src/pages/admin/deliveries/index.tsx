@@ -14,7 +14,7 @@ import ActionButtons from '../../../components/ActionButtons';
 import Button from '../../../components/Button';
 import Template from '../../../components/Template';
 import { useToast } from '../../../hooks/toast';
-import { api } from '../../../services/API';
+import { api } from '../../../services/API/index';
 // import AdminMenu from '../../../components/AdminMenu'
 
 const customStyles = {

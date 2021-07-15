@@ -6,7 +6,7 @@ import DashboardAdminButtons from '../../components/DashboardAdminButtons';
 import DashboardAdminTable from '../../components/DashboardAdminTable';
 import Template from '../../components/Template';
 // import { get } from '../../services/API';
-import { api } from '../../services/API';
+import { api } from '../../services/API/index';
 const moduleName = '/api/users';
 // export async function getStaticProps() {
 //   const { data } = await api.get(moduleName, { debug: true });

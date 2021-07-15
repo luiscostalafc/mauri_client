@@ -9,7 +9,7 @@ import React, {
   useCallback,
   useEffect,
   useRef,
-  useState
+  useState,
 } from 'react';
 import * as Yup from 'yup';
 import AdminMenu from '../../../components/AdminMenu';
@@ -20,7 +20,7 @@ import Template from '../../../components/Template';
 import { updateToast } from '../../../config/toastMessages';
 import { useToast } from '../../../hooks/toast';
 // import { get, put } from '../../../services/API';
-import { api } from '../../../services/API';
+import { api } from '../../../services/API/index';
 import { validateForm, validationErrors } from '../../../services/validateForm';
 
 interface OrderProps {

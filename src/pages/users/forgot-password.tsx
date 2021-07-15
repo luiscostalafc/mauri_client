@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { useToast } from '../../hooks/toast';
-import { api } from '../../services/API';
+import { api } from '../../services/API/index';
 import { validateForm, validationErrors } from '../../services/validateForm';
 import {
   AnimationContainer,
@@ -17,7 +17,7 @@ import {
   Content,
   Image,
   // eslint-disable-next-line prettier/prettier
-  ImageCart
+  ImageCart,
 } from '../../styles/pages/sign-in';
 
 interface ForgotFormData {
@@ -80,7 +80,7 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <Container>
-      <Row >
+      <Row>
         <Col xs={12} md={3} lg={3}>
           <Content>
             <AnimationContainer>
@@ -104,7 +104,7 @@ const ForgotPassword: React.FC = () => {
             </AnimationContainer>
           </Content>
         </Col>
-        <Col xs={12} md={{ span: 6, offset: 3}} lg={{ span: 6, offset: 3}}>
+        <Col xs={12} md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }}>
           <Background>
             <Image src="../home.png" />
           </Background>
