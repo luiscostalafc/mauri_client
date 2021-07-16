@@ -42,7 +42,7 @@ export const api = {
       });
       return setResponse(response, { time, debug, silent, msg });
     } catch (e) {
-      redirectIfBadStatus(e.response.status, noRedirect);
+      redirectIfBadStatus(e?.response?.status, noRedirect);
       return setResponse(e.response, { time, debug, silent, msg });
     }
   },
@@ -63,7 +63,7 @@ export const api = {
       );
       return setResponse(response, { time, debug, silent, msg });
     } catch (e) {
-      redirectIfBadStatus(e.response.status, noRedirect);
+      redirectIfBadStatus(e?.response?.status, noRedirect);
       return setResponse(e.response, { time, debug, silent, msg });
     }
   },
@@ -84,7 +84,7 @@ export const api = {
       );
       return setResponse(response, { time, debug, silent, msg });
     } catch (e) {
-      redirectIfBadStatus(e.response.status, noRedirect);
+      redirectIfBadStatus(e?.response?.status, noRedirect);
       return setResponse(e.response, { time, debug, silent, msg });
     }
   },
@@ -102,7 +102,7 @@ export const api = {
       });
       return setResponse(response, { time, debug, silent, msg });
     } catch (e) {
-      redirectIfBadStatus(e.response.status, noRedirect);
+      redirectIfBadStatus(e?.response?.status, noRedirect);
       return setResponse(e.response, { time, debug, silent, msg });
     }
   },
