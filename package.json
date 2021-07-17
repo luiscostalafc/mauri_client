@@ -38,7 +38,7 @@
     "@unform/core": "^2.1.4",
     "@unform/web": "^2.1.4",
     "algoliasearch": "^4.4.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "cep-promise": "^4.1.0",
     "emotion-theming": "^10.0.27",
