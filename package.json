@@ -46,7 +46,7 @@
     "formik": "^2.2.6",
     "framer-motion": "^4.1.2",
     "history": "^5.0.0",
-    "immer": "^8.0.1",
+    "immer": "^9.0.6",
     "js-cookie": "^2.2.1",
     "next": "^9.0.6",
     "next-compose-plugins": "^2.2.0",
